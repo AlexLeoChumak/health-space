@@ -1,0 +1,28 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+
+/* Цветовые переменные */
+$primary-color: #3880ff; /* Основной цвет */
+$secondary-color: #3dc2ff; /* Второстепенный цвет */
+$tertiary-color: #5260ff; /* Третичный цвет */
+$success-color: #2dd36f; /* Цвет успеха */
+$warning-color: #ffc409; /* Цвет предупреждения */
+$danger-color: #eb445a; /* Цвет ошибки */
+$dark-color: #222428; /* Темный цвет */
+$medium-color: #92949c; /* Средний цвет */
+$light-color: #f4f5f8; /* Светлый цвет */
+
+/* Переменные шрифтов */
+$font-family-base: "Montserrat";
+$font-size-base: 16px;
+$font-size-sm: 14px;
+$font-size-lg: 18px;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-style-normal: normal;
+
+/* Глобальные размеры и расположение */
+$container-max-width: 1440px;
+$container-width: 100%;
+$margin-10px: 10px;
+$margin-center: 0 auto;

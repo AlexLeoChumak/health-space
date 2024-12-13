@@ -1,0 +1,10 @@
+<!-- объявление переменной прямо в шаблоне -->
+@let props = configProps();
+
+<ion-button
+  (click)="handleClick()"
+  [disabled]="props.isDisabled"
+  [attr.type]="props.isFormButton ? 'submit' : null"
+  [routerLink]="!props.isFormButton ? props.routerLink : null"
+  >{{ props.label }}</ion-button
+>

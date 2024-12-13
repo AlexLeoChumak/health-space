@@ -1,0 +1,63 @@
+<ion-header>
+  <div class="container">
+    <ion-toolbar>
+      <ion-title> Регистрация пациента</ion-title>
+    </ion-toolbar>
+  </div>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmitForm()">
+            <health-personal-info-form
+              (formReady)="addFormGroup('personalInfo', $event)"
+            ></health-personal-info-form>
+
+            <health-identification-info-form
+              (formReady)="addFormGroup('identificationInfo', $event)"
+            ></health-identification-info-form>
+
+            <health-address-info-form
+              addressTypeProps="Адрес регистрации"
+              (formReady)="addFormGroup('addressRegistrationInfo', $event)"
+            ></health-address-info-form>
+
+            <ion-item>
+              <ion-label (click)="toggleCheckboxCopyRegistrationAddress()"
+                >Адрес регистрации соответствует адресу фактического
+                проживания</ion-label
+              >
+              <ion-checkbox
+                (ionChange)="toggleCheckboxCopyRegistrationAddress()"
+                [checked]="isRegistrationAndResidenceAddressesMatch()"
+                slot="start"
+              ></ion-checkbox>
+            </ion-item>
+
+            <health-address-info-form
+              addressTypeProps="Адрес фактического проживания"
+              (formReady)="addFormGroup('addressResidenceInfo', $event)"
+            ></health-address-info-form>
+
+            <health-contact-info-form
+              (formReady)="addFormGroup('contactInfo', $event)"
+            ></health-contact-info-form>
+
+            <ion-item lines="none">
+              <health-action-button
+                [configProps]="{
+                isFormButton: true,
+                label: 'зарегистрироваться',
+                isDisabled: false,
+                routerLink: null,
+              }"
+              ></health-action-button>
+            </ion-item>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

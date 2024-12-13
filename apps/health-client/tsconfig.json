@@ -6,10 +6,13 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@health-client/*": ["apps/health-client/src/*"]
+    }
   },
   "files": [],
-  "include": [],
   "references": [
     {
       "path": "./tsconfig.editor.json"

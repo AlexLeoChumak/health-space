@@ -1,0 +1,157 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@use '@ionic/angular/css/core' as *;
+
+/* Basic CSS for apps built with Ionic */
+@use '@ionic/angular/css/normalize' as *;
+@use '@ionic/angular/css/structure' as *;
+@use '@ionic/angular/css/typography' as *;
+@use '@ionic/angular/css/display' as *;
+
+/* Optional CSS utils that can be commented out */
+@use '@ionic/angular/css/padding' as *;
+@use '@ionic/angular/css/float-elements' as *;
+@use '@ionic/angular/css/text-alignment' as *;
+@use '@ionic/angular/css/text-transformation' as *;
+@use '@ionic/angular/css/flex-utils' as *;
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+/* @use "@ionic/angular/css/palettes/dark.always" as *; */
+/* @use "@ionic/angular/css/palettes/dark.class" as *; */
+/* @use "@ionic/angular/css/palettes/dark.system" as *; */
+
+/* Внутренний импорт из файла variables.scss */
+@use 'theme/variables' as vars;
+
+@font-face {
+  font-family: #{vars.$font-family-base};
+  src: url('./theme/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+  font-weight: #{vars.$font-weight-normal};
+  font-style: #{vars.$font-style-normal};
+}
+
+@font-face {
+  font-family: #{vars.$font-family-base};
+  src: url('./theme/fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
+  font-weight: #{vars.$font-weight-bold};
+  font-style: #{vars.$font-style-normal};
+}
+
+/* Применение переменных */
+:root {
+  /* Цвета */
+  --ion-color-primary: #{vars.$primary-color};
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+
+  --ion-color-secondary: #{vars.$secondary-color};
+  --ion-color-secondary-rgb: 61, 194, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #36abe0;
+  --ion-color-secondary-tint: #50c8ff;
+
+  --ion-color-tertiary: #{vars.$tertiary-color};
+  --ion-color-tertiary-rgb: 82, 96, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #4853e0;
+  --ion-color-tertiary-tint: #6370ff;
+
+  --ion-color-success: #{vars.$success-color};
+  --ion-color-success-rgb: 45, 211, 111;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #28ba62;
+  --ion-color-success-tint: #42d77d;
+
+  --ion-color-warning: #{vars.$warning-color};
+  --ion-color-warning-rgb: 255, 196, 9;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast-rgb: 255, 255, 255;
+  --ion-color-warning-shade: #e0ac08;
+  --ion-color-warning-tint: #ffca22;
+
+  --ion-color-danger: #{vars.$danger-color};
+  --ion-color-danger-rgb: 235, 68, 90;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #cf3c4f;
+  --ion-color-danger-tint: #ed576b;
+
+  --ion-color-dark: #{vars.$dark-color};
+  --ion-color-dark-rgb: 34, 36, 40;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+
+  --ion-color-medium: #{vars.$medium-color};
+  --ion-color-medium-rgb: 146, 148, 156;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #808289;
+  --ion-color-medium-tint: #9d9fa6;
+
+  --ion-color-light: #{vars.$light-color};
+  --ion-color-light-rgb: 244, 245, 248;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+
+  /* Шрифты */
+  --ion-font-family: #{vars.$font-family-base};
+  --ion-font-size: #{vars.$font-size-base};
+  --ion-font-weight-normal: #{vars.$font-weight-normal};
+  --ion-font-weight-bold: #{vars.$font-weight-bold};
+
+  /* CSS переменные для переопределения нативных CSS значений Ionic */
+  /* Размеры */
+  --ion-margin: 25px;
+  --ion-size-preview-photo: 250px;
+  --ion-border-radius-preview-photo: 10px;
+}
+
+.container {
+  max-width: #{vars.$container-max-width};
+  width: #{vars.$container-width};
+  margin: #{vars.$margin-center};
+}
+
+.section-title {
+  font-size: #{vars.$font-size-lg};
+  font-weight: #{vars.$font-weight-bold};
+}
+
+.margin-top {
+  margin-top: #{vars.$margin-10px};
+}
+
+.required-to-fill::after {
+  content: ' *';
+  color: #{vars.$danger-color};
+}
+
+health-validator-form-control,
+health-error-notification {
+  margin-bottom: 6px;
+}

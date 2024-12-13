@@ -1,0 +1,60 @@
+<ion-item-group [formGroup]="placeWorkInfoFormGroup">
+  <ion-item class="section-title">Место работы</ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Наименование медицинского учреждения</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="nameMedicalInstitution"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator(placeWorkInfoFormGroup, 'nameMedicalInstitution',
+    'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Отделение</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="department"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator(placeWorkInfoFormGroup, 'department', 'required'))
+    {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Текущая специализация</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="currentSpecialization"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator(placeWorkInfoFormGroup, 'currentSpecialization',
+    'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+</ion-item-group>

@@ -1,0 +1,9 @@
+ion-thumbnail {
+  --size: var(--ion-size-preview-photo);
+  --border-radius: var(--ion-border-radius-preview-photo);
+}
+
+.photo-preview-url {
+  display: flex;
+  margin: 0 0 18px 0;
+}

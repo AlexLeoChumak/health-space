@@ -12,7 +12,7 @@ module.exports = [
         'error',
         {
           type: 'attribute',
-          prefix: 'app',
+          prefix: 'health',
           style: 'camelCase',
         },
       ],
@@ -20,8 +20,17 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: 'app',
+          prefix: 'health',
           style: 'kebab-case',
+        },
+      ],
+      // Разрешить использование алиасов @health-client/* внутри приложения
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          enforceBuildableLibDependency: true,
+          allow: ['@health-client/*'], // Разрешает импорты внутри одного проекта с использованием указанного шаблона
+          depConstraints: [],
         },
       ],
     },

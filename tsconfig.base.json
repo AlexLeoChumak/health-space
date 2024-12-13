@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@health-client/*": ["apps/health-client/src/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

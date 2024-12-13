@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar class="container">
+    <ion-title class="ion-text-center"> Зарегистрироваться как ... </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-router-outlet></ion-router-outlet>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-text-center">
+      <ion-col>
+        <health-action-button
+          [configProps]="{
+                  isFormButton: false,
+                  label: 'пациент',
+                  isDisabled: false,
+                  routerLink: '/auth/registration/patient',
+                }"
+        ></health-action-button>
+      </ion-col>
+
+      <ion-col>
+        <health-action-button
+          [configProps]="{
+                  isFormButton: false,
+                  label: 'медработник',
+                  isDisabled: false,
+                  routerLink: '/auth/registration/doctor',
+                }"
+        ></health-action-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

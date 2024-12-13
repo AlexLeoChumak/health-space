@@ -1,27 +1,66 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NavigationEnd, provideRouter, Router } from '@angular/router';
+import { of, Subscription } from 'rxjs';
+
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let router: Router;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcomeComponent, RouterModule.forRoot([])],
+      imports: [AppComponent],
+      providers: [provideRouter([])], // Simulating router
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    router = TestBed.inject(Router);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome health-client'
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  // it('should show header/footer on non-login/registration routes', () => {
+  //   spyOn(router.events, 'pipe').and.returnValue(
+  //     of(new NavigationEnd(0, '/home', '/home'))
+  //   );
+
+  //   component.ngOnInit();
+
+  //   expect(component.showHeaderFooter()).toBeTrue();
+  // });
+
+  it('should hide header/footer on login route', () => {
+    spyOn(router.events, 'pipe').and.returnValue(
+      of(new NavigationEnd(0, '/login', '/login'))
     );
+
+    component.ngOnInit();
+
+    expect(component.showHeaderFooter()).toBeFalsy();
   });
 
-  it(`should have as title 'health-client'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('health-client');
+  it('should hide header/footer on registration route', () => {
+    spyOn(router.events, 'pipe').and.returnValue(
+      of(new NavigationEnd(0, '/registration', '/registration'))
+    );
+
+    component.ngOnInit();
+
+    expect(component.showHeaderFooter()).toBeFalsy();
+  });
+
+  it('should unsubscribe from router events on destroy', () => {
+    const subscription = new Subscription();
+    component['routerSubscription'] = subscription;
+    spyOn(subscription, 'unsubscribe');
+
+    component.ngOnDestroy();
+
+    expect(subscription.unsubscribe).toHaveBeenCalled();
   });
 });

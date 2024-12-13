@@ -14,7 +14,10 @@ module.exports = [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          allow: [
+            // Разрешить алиасы для приложения health-client
+            '@health-client/*',
+          ],
           depConstraints: [
             {
               sourceTag: '*',
