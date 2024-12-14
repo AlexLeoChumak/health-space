@@ -45,6 +45,12 @@
               (formReady)="addFormGroup('contactInfo', $event)"
             ></health-contact-info-form>
 
+            <health-mobile-phone-number-password-info-form
+              (formReady)="
+                addFormGroup('mobilePhoneNumberPasswordInfo', $event)
+              "
+            ></health-mobile-phone-number-password-info-form>
+
             <ion-item lines="none">
               <health-action-button
                 [configProps]="{

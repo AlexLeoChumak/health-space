@@ -21,7 +21,7 @@ import {
 import {
   FormValidationErrorMessagesInterface,
   FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/features/auth/constants/form-validation-error-messages.constant';
+} from 'src/app/shared/constants/form-validation-error-messages.constant';
 import {
   ActionButtonComponent,
   LabelButtonType,

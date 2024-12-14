@@ -33,16 +33,16 @@ interface ActionButtonConfigInterface {
   imports: [RouterModule, IonButton],
 })
 export class ActionButtonComponent {
-  configProps = input<ActionButtonConfigInterface>({
+  public readonly configProps = input<ActionButtonConfigInterface>({
     label: 'войти',
     isFormButton: true,
     isDisabled: true,
     routerLink: null,
   });
 
-  action = output<void>();
+  protected readonly action = output<void>();
 
-  handleClick(): void {
+  protected handleClick(): void {
     if (this.configProps().routerLink === null) {
       this.action.emit();
     }

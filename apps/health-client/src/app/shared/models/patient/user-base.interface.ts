@@ -43,18 +43,3 @@ export interface UserBaseInterface {
     photo: string | File | null;
   };
 }
-
-// Интерфейс для запроса пациента с оберткой user
-export interface PatientRequestInterface {
-  user: UserBaseInterface & {
-    contactInfo: UserBaseInterface['contactInfo'] & {
-      password: string; // Добавляем поле password
-    };
-  };
-}
-
-// Интерфейс для ответа пациента с оберткой user
-export interface PatientResponseInterface {
-  id: string;
-  user: UserBaseInterface; // Ответ с пользователем без модификаций
-}

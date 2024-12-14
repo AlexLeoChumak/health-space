@@ -26,7 +26,7 @@ import {
 import {
   FormValidationErrorMessagesInterface,
   FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/features/auth/constants/form-validation-error-messages.constant';
+} from 'src/app/shared/constants/form-validation-error-messages.constant';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { NumericInputRestrictionDirective } from 'src/app/shared/directives/numeric-input-restriction.directive';
 import { checkInputValidatorUtility } from 'src/app/shared/utils/check-input-validator.utility';

@@ -1,36 +1,37 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
   output,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
-  FormGroup,
   FormControl,
-  Validators,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import {
-  IonItem,
-  IonLabel,
   IonInput,
+  IonItem,
   IonItemGroup,
+  IonLabel,
+  IonNote,
 } from '@ionic/angular/standalone';
 
 import {
   FormValidationErrorMessagesInterface,
   FORM_VALIDATION_ERROR_MESSAGES,
 } from 'src/app/shared/constants/form-validation-error-messages.constant';
+import { checkInputValidatorUtility } from 'src/app/shared/utils/check-input-validator.utility';
 import { PhonePrefixFormatterDirective } from 'src/app/features/auth/directives/phone-prefix-formatter.directive';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
-import { checkInputValidatorUtility } from 'src/app/shared/utils/check-input-validator.utility';
 
 @Component({
-  selector: 'health-contact-info-form',
-  templateUrl: './contact-info-form.component.html',
-  styleUrls: ['./contact-info-form.component.scss'],
+  selector: 'health-mobile-phone-number-password-info-form',
+  templateUrl: './mobile-phone-number-password-info-form.component.html',
+  styleUrls: ['./mobile-phone-number-password-info-form.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
@@ -38,6 +39,7 @@ import { checkInputValidatorUtility } from 'src/app/shared/utils/check-input-val
     FormsModule,
     ReactiveFormsModule,
     IonItemGroup,
+    IonNote,
     IonItem,
     IonLabel,
     IonInput,
@@ -45,9 +47,9 @@ import { checkInputValidatorUtility } from 'src/app/shared/utils/check-input-val
     PhonePrefixFormatterDirective,
   ],
 })
-export class ContactInfoFormComponent implements OnInit {
+export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
   public readonly formReady = output<FormGroup>();
-  public contactInfoFormGroup!: FormGroup;
+  public mobilePhoneNumberPasswordInfoFormGroup!: FormGroup;
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
 
@@ -56,12 +58,21 @@ export class ContactInfoFormComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.contactInfoFormGroup = new FormGroup({
-      homePhoneNumber: new FormControl(null),
-      email: new FormControl(null, [Validators.required, Validators.email]),
+    const mobilePhoneNumberMinLength = 17;
+    const passwordMinLength = 8;
+
+    this.mobilePhoneNumberPasswordInfoFormGroup = new FormGroup({
+      mobilePhoneNumber: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(mobilePhoneNumberMinLength),
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(passwordMinLength),
+      ]),
     });
 
-    this.formReady.emit(this.contactInfoFormGroup);
+    this.formReady.emit(this.mobilePhoneNumberPasswordInfoFormGroup);
   }
 
   protected checkInputValidator(

@@ -9,8 +9,8 @@ import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/features/auth/services/auth.service';
-import { DoctorRequestInterface } from 'src/app/shared/models/doctor.interface';
-import { PatientRequestInterface } from 'src/app/shared/models/patient.interface';
+import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
+import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
@@ -18,8 +18,8 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   template: '',
 })
 export abstract class RegistrationBaseComponent implements OnDestroy {
-  private authService: AuthService = inject(AuthService);
-  private toastService: ToastService = inject(ToastService);
+  private readonly authService = inject(AuthService);
+  private readonly toastService = inject(ToastService);
 
   registrationForm!: FormGroup;
   isRegistrationAndResidenceAddressesMatch: WritableSignal<boolean> =
@@ -61,8 +61,9 @@ export abstract class RegistrationBaseComponent implements OnDestroy {
   }
 
   onSubmitForm(): void {
-    const userData: PatientRequestInterface | DoctorRequestInterface =
-      this.registrationForm.value;
+    const userData:
+      | PatientRegistrationRequestInterface
+      | DoctorRegistrationRequestInterface = this.registrationForm.value;
 
     console.log('userData', userData);
 

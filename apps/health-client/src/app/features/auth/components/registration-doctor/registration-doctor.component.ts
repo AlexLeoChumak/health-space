@@ -22,6 +22,7 @@ import { EducationMedicalWorkerInfoFormComponent } from 'src/app/shared/componen
 import { IdentificationInfoFormComponent } from 'src/app/shared/components/identification-info-form/identification-info-form.component';
 import { PersonalInfoFormComponent } from 'src/app/shared/components/personal-info-form/personal-info-form.component';
 import { PlaceWorkInfoFormComponent } from 'src/app/shared/components/place-work-info-form/place-work-info-form.component';
+import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/components/mobile-phone-number-password-info-form/mobile-phone-number-password-info-form.component';
 
 @Component({
   selector: 'health-registration-doctor',
@@ -49,6 +50,7 @@ import { PlaceWorkInfoFormComponent } from 'src/app/shared/components/place-work
     IdentificationInfoFormComponent,
     EducationMedicalWorkerInfoFormComponent,
     PlaceWorkInfoFormComponent,
+    MobilePhoneNumberPasswordInfoFormComponent,
     ActionButtonComponent,
   ],
 })

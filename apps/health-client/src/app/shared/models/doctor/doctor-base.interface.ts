@@ -1,6 +1,6 @@
-import { UserBaseInterface } from 'src/app/shared/models/patient.interface';
+import { UserBaseInterface } from 'src/app/shared/models/patient/user-base.interface';
 
-interface DoctorBaseInterface extends UserBaseInterface {
+export interface DoctorBaseInterface extends UserBaseInterface {
   addressMedicalInstitutionInfo: {
     city: string;
     district: string;
@@ -23,17 +23,4 @@ interface DoctorBaseInterface extends UserBaseInterface {
     department: string;
     nameMedicalInstitution: string;
   };
-}
-
-export interface DoctorRequestInterface {
-  user: DoctorBaseInterface & {
-    contactInfo: DoctorBaseInterface['contactInfo'] & {
-      password: string;
-    };
-  };
-}
-
-export interface DoctorResponseInterface {
-  id: string;
-  user: DoctorBaseInterface;
 }

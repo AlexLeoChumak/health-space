@@ -20,6 +20,7 @@ import { AddressInfoFormComponent } from 'src/app/shared/components/address-info
 import { ContactInfoFormComponent } from 'src/app/shared/components/contact-info-form/contact-info-form.component';
 import { IdentificationInfoFormComponent } from 'src/app/shared/components/identification-info-form/identification-info-form.component';
 import { PersonalInfoFormComponent } from 'src/app/shared/components/personal-info-form/personal-info-form.component';
+import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/components/mobile-phone-number-password-info-form/mobile-phone-number-password-info-form.component';
 
 @Component({
   selector: 'health-registration-patient',
@@ -46,6 +47,7 @@ import { PersonalInfoFormComponent } from 'src/app/shared/components/personal-in
     PersonalInfoFormComponent,
     IdentificationInfoFormComponent,
     ActionButtonComponent,
+    MobilePhoneNumberPasswordInfoFormComponent,
   ],
 })
 export class RegistrationPatientComponent
@@ -56,7 +58,7 @@ export class RegistrationPatientComponent
     super();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.initializeForm();
   }
 }

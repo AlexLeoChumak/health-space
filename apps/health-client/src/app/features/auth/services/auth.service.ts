@@ -2,12 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, of, switchMap } from 'rxjs';
 
-import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-api-response.interface';
-import { DoctorRequestInterface } from 'src/app/shared/models/doctor.interface';
+import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface';
 import { GlobalApiResponseInterface } from 'src/app/shared/models/global-api-response.interface';
-import { PatientRequestInterface } from 'src/app/shared/models/patient.interface';
 import { UpdateResultInterface } from 'src/app/shared/models/update-result.interface';
-import { environment } from 'src/environments/environment.prod';
+import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
+import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
+import { LoginRequestInterface } from 'src/app/features/auth/models/login-request.interface';
+import { environment } from 'src/environments/environment';
+import { PatientLoginResponseInterface } from 'src/app/shared/models/patient/patient-login-response.interface';
+import { DoctorLoginResponseInterface } from 'src/app/shared/models/doctor/doctor-login-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,17 +19,21 @@ export class AuthService {
   private http: HttpClient = inject(HttpClient);
 
   private isDoctor(
-    userData: PatientRequestInterface | DoctorRequestInterface
+    userData:
+      | PatientRegistrationRequestInterface
+      | DoctorRegistrationRequestInterface
   ): boolean {
     return 'placeWorkInfo' in userData.user;
   }
 
   registration(
-    userData: PatientRequestInterface | DoctorRequestInterface
+    userData:
+      | PatientRegistrationRequestInterface
+      | DoctorRegistrationRequestInterface
   ): Observable<GlobalApiResponseInterface<RegistrationApiResponseInterface>> {
     const registrationBaseUrl = 'auth/registration';
 
-    const url = `${environment.apiBaseUrl}/${registrationBaseUrl}/${
+    const fullUrl = `${environment.apiBaseUrl}/${registrationBaseUrl}/${
       this.isDoctor(userData) ? 'doctor' : 'patient'
     }`;
 
@@ -42,13 +49,13 @@ export class AuthService {
       ...userData,
       user: {
         ...userData.user,
-        personalInfo: personalInfo, //внёс изменения
+        personalInfo: personalInfo,
       },
     };
 
     return this.http
       .post<GlobalApiResponseInterface<RegistrationApiResponseInterface>>(
-        url,
+        fullUrl,
         requestData
       )
       .pipe(
@@ -61,7 +68,9 @@ export class AuthService {
   uploadUserPhoto(
     response: GlobalApiResponseInterface<RegistrationApiResponseInterface>,
     photo: string | File | null,
-    userData: PatientRequestInterface | DoctorRequestInterface
+    userData:
+      | PatientRegistrationRequestInterface
+      | DoctorRegistrationRequestInterface
   ): Observable<GlobalApiResponseInterface<RegistrationApiResponseInterface>> {
     const userProfileBaseUrl = 'user-profile';
     const uploadPhotoBaseUrl = 'upload-photo';
@@ -87,5 +96,26 @@ export class AuthService {
     }
 
     return of(response);
+  }
+
+  public login(
+    loginData: LoginRequestInterface,
+    isDoctor: boolean
+  ): Observable<
+    GlobalApiResponseInterface<
+      PatientLoginResponseInterface | DoctorLoginResponseInterface
+    >
+  > {
+    const loginBaseUrl = 'auth/login';
+
+    const fullUrl = `${environment.apiBaseUrl}/${loginBaseUrl}/${
+      isDoctor ? 'doctor' : 'patient'
+    }`;
+
+    return this.http.post<
+      GlobalApiResponseInterface<
+        PatientLoginResponseInterface | DoctorLoginResponseInterface
+      >
+    >(fullUrl, loginData);
   }
 }

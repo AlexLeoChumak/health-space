@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface UpdateResultInterface {
   generatedMaps: any[]; // Массив сгенерированных значений
   raw: any[]; // Необработанные данные из базы

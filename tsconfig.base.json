@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@health-client/*": ["apps/health-client/src/*"]
+      "@health-client/*": ["apps/health-client/src/*"],
+      "@health-space/my-angular-lib": ["my-angular-lib/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
