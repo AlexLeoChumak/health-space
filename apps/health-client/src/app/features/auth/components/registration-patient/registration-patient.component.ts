@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -12,6 +13,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonButtons,
 } from '@ionic/angular/standalone';
 
 import { RegistrationBaseComponent } from 'src/app/features/auth/components/registration-base/registration-base.component';
@@ -29,9 +31,11 @@ import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/compo
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonButtons,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     IonCol,
     IonRow,
     IonGrid,
