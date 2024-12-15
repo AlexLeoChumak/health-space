@@ -15,7 +15,8 @@ export type LabelButtonType =
   | 'медработник'
   | 'выбрать фото'
   | 'показать календарь'
-  | 'скрыть календарь';
+  | 'скрыть календарь'
+  | 'главная';
 
 interface ActionButtonConfigInterface {
   label: LabelButtonType;
