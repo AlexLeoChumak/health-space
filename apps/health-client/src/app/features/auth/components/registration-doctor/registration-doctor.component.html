@@ -1,10 +1,29 @@
 <ion-header>
   <div class="container">
-    <ion-toolbar>
-      <ion-title> Регистрация медработника</ion-title>
+    <ion-toolbar color="medium">
+      <ion-title>Регистрация медработника</ion-title>
+      <ion-buttons slot="end">
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'главная',
+            isDisabled: false,
+            routerLink: '../../../home'
+          }"
+        ></health-action-button>
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'войти',
+            isDisabled: false,
+            routerLink: '../../login'
+          }"
+        ></health-action-button>
+      </ion-buttons>
     </ion-toolbar>
   </div>
 </ion-header>
+
 <ion-content>
   <div class="container">
     <ion-grid>
