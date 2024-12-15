@@ -7,9 +7,11 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface';
 
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
+import { GlobalApiResponseInterface } from 'src/app/shared/models/global-api-response.interface';
 import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
@@ -65,13 +67,14 @@ export abstract class RegistrationBaseComponent implements OnDestroy {
       | PatientRegistrationRequestInterface
       | DoctorRegistrationRequestInterface = this.registrationForm.value;
 
-    console.log('userData', userData);
+    console.log('userData', userData); //удалить
 
     this.registrationSubscription = this.authService
       .registration(userData)
       .subscribe({
-        next: (res: any) => {
-          //any
+        next: (
+          res: GlobalApiResponseInterface<RegistrationApiResponseInterface>
+        ) => {
           this.toastService.presentToast(res.message);
         },
       });
