@@ -146,6 +146,14 @@
   margin-top: #{vars.$margin-10px};
 }
 
+.no-underline {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .required-to-fill::after {
   content: ' *';
   color: #{vars.$danger-color};
