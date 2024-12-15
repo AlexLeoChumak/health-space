@@ -1,7 +1,25 @@
 <ion-header>
   <div class="container">
-    <ion-toolbar>
+    <ion-toolbar color="medium">
       <ion-title>Авторизация</ion-title>
+      <ion-buttons slot="end">
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'главная',
+            isDisabled: false,
+            routerLink: '../../home'
+          }"
+        ></health-action-button>
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'зарегистрироваться',
+            isDisabled: false,
+            routerLink: '../registration'
+          }"
+        ></health-action-button>
+      </ion-buttons>
     </ion-toolbar>
   </div>
 </ion-header>
@@ -35,6 +53,18 @@
               ></health-action-button>
             </ion-item>
           </form>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <a
+              routerLink="../registration"
+              class="ion-text-secondary no-underline"
+            >
+              Ещё нет аккаунта? Зарегистрироваться...
+            </a>
+          </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
