@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -11,6 +12,7 @@ import {
   IonRow,
   IonLabel,
   IonCheckbox,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { LoginRequestInterface } from 'src/app/features/auth/models/login-request.interface';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
@@ -27,6 +29,8 @@ import { PatientLoginResponseInterface } from 'src/app/shared/models/patient/pat
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
+    IonButtons,
+    RouterModule,
     IonCheckbox,
     IonLabel,
     IonCol,
