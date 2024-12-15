@@ -1,7 +1,11 @@
 <ion-header>
-  <ion-toolbar class="container">
-    <ion-title class="ion-text-center"> Зарегистрироваться как ... </ion-title>
-  </ion-toolbar>
+  <div class="container">
+    <ion-toolbar color="medium">
+      <ion-title class="ion-text-center">
+        Зарегистрироваться как ...
+      </ion-title>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
 <ion-content>
@@ -33,6 +37,13 @@
                   routerLink: '/auth/registration/doctor',
                 }"
         ></health-action-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <a routerLink="../login" class="ion-text-secondary no-underline">
+          Уже зарегистрированы? Войти...
+        </a>
       </ion-col>
     </ion-row>
   </ion-grid>
