@@ -12,6 +12,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonButtons,
 } from '@ionic/angular/standalone';
 
 import { RegistrationBaseComponent } from 'src/app/features/auth/components/registration-base/registration-base.component';
@@ -31,6 +32,7 @@ import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/compo
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonButtons,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
