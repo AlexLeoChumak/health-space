@@ -1,5 +1,23 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="medium">
     <ion-title>Медицина Беларуси</ion-title>
+    <ion-buttons slot="end">
+      <health-action-button
+        [configProps]="{
+          isFormButton: false,
+          label: 'зарегистрироваться',
+          isDisabled: false,
+          routerLink: 'auth/registration'
+        }"
+      ></health-action-button>
+      <health-action-button
+        [configProps]="{
+          isFormButton: false,
+          label: 'войти',
+          isDisabled: false,
+          routerLink: 'auth/login'
+        }"
+      ></health-action-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
