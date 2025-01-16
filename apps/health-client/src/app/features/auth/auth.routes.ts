@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
+import { authGuard } from 'src/app/core/guards/auth/auth.guard';
 
 export const authRoutes: Routes = [
   {
-    path: 'auth', // Префикс 'auth' для всех маршрутов авторизации
+    path: 'auth',
+    canActivate: [authGuard], // Защищаем все маршруты внутри 'auth'
+    canActivateChild: [authGuard],
     children: [
       {
         path: 'login',
