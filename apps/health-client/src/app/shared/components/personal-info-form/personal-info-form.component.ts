@@ -137,8 +137,6 @@ export class PersonalInfoFormComponent implements OnInit {
   }
 
   protected onPhotoUpload(event: Event): void {
-    console.log('event', event);
-
     const input = event.target as HTMLInputElement;
     const photoControl = this.personalInfoFormGroup.get('photo');
 
