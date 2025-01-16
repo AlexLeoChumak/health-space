@@ -1,41 +1,39 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 
 import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface';
-import { GlobalApiResponseInterface } from 'src/app/shared/models/global-api-response.interface';
-import { UpdateResultInterface } from 'src/app/shared/models/update-result.interface';
 import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
 import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
-import { LoginRequestInterface } from 'src/app/features/auth/models/login-request.interface';
+import { LoginRequestInterface } from 'src/app/shared/models/login-request.interface';
 import { environment } from 'src/environments/environment';
 import { PatientLoginResponseInterface } from 'src/app/shared/models/patient/patient-login-response.interface';
 import { DoctorLoginResponseInterface } from 'src/app/shared/models/doctor/doctor-login-response.interface';
+import { GlobalApiSuccessResponseInterface } from 'src/app/shared/models/global-api-success-response.interface';
+import { UserPhotoService } from 'src/app/shared/services/user-photo/user-photo.service';
+import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
+import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
+import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private http: HttpClient = inject(HttpClient);
-
-  private isDoctor(
-    userData:
-      | PatientRegistrationRequestInterface
-      | DoctorRegistrationRequestInterface
-  ): boolean {
-    return 'placeWorkInfo' in userData.user;
-  }
+  private readonly http = inject(HttpClient);
+  private readonly userPhotoService = inject(UserPhotoService);
 
   registration(
     userData:
       | PatientRegistrationRequestInterface
       | DoctorRegistrationRequestInterface
-  ): Observable<GlobalApiResponseInterface<RegistrationApiResponseInterface>> {
+  ): Observable<
+    GlobalApiSuccessResponseInterface<RegistrationApiResponseInterface>
+  > {
     const registrationBaseUrl = 'auth/registration';
 
-    const fullUrl = `${environment.apiBaseUrl}/${registrationBaseUrl}/${
-      this.isDoctor(userData) ? 'doctor' : 'patient'
-    }`;
+    const fullUrl = `${
+      environment.apiBaseUrl
+    }/${registrationBaseUrl}/${getUserRole(userData.user)}`;
 
     let photo: string | File | null;
     let personalInfo;
@@ -54,68 +52,70 @@ export class AuthService {
     };
 
     return this.http
-      .post<GlobalApiResponseInterface<RegistrationApiResponseInterface>>(
-        fullUrl,
-        requestData
-      )
+      .post<
+        GlobalApiSuccessResponseInterface<RegistrationApiResponseInterface>
+      >(fullUrl, requestData)
       .pipe(
         switchMap((response) => {
-          return this.uploadUserPhoto(response, photo, userData);
+          return this.userPhotoService.uploadUserPhoto(
+            response,
+            photo,
+            userData
+          );
         })
       );
-  }
-
-  uploadUserPhoto(
-    response: GlobalApiResponseInterface<RegistrationApiResponseInterface>,
-    photo: string | File | null,
-    userData:
-      | PatientRegistrationRequestInterface
-      | DoctorRegistrationRequestInterface
-  ): Observable<GlobalApiResponseInterface<RegistrationApiResponseInterface>> {
-    const userProfileBaseUrl = 'user-profile';
-    const uploadPhotoBaseUrl = 'upload-photo';
-
-    const userId = response?.data?.userId;
-
-    if (userId && photo && photo instanceof File) {
-      const uploadPhotoFullUrl = `${
-        environment.apiBaseUrl
-      }/${userProfileBaseUrl}/${
-        this.isDoctor(userData) ? 'doctor' : 'patient'
-      }/${userId}/${uploadPhotoBaseUrl}`;
-
-      const formData = new FormData();
-      formData.append('photo', photo);
-
-      return this.http
-        .patch<GlobalApiResponseInterface<UpdateResultInterface>>(
-          uploadPhotoFullUrl,
-          formData
-        )
-        .pipe(map(() => response));
-    }
-
-    return of(response);
   }
 
   public login(
     loginData: LoginRequestInterface,
     isDoctor: boolean
   ): Observable<
-    GlobalApiResponseInterface<
+    GlobalApiSuccessResponseInterface<
       PatientLoginResponseInterface | DoctorLoginResponseInterface
     >
   > {
     const loginBaseUrl = 'auth/login';
-
-    const fullUrl = `${environment.apiBaseUrl}/${loginBaseUrl}/${
-      isDoctor ? 'doctor' : 'patient'
-    }`;
+    const role = isDoctor ? 'doctor' : 'patient';
+    const fullUrl = `${environment.apiBaseUrl}/${loginBaseUrl}/${role}`;
 
     return this.http.post<
-      GlobalApiResponseInterface<
+      GlobalApiSuccessResponseInterface<
         PatientLoginResponseInterface | DoctorLoginResponseInterface
       >
     >(fullUrl, loginData);
+  }
+
+  public validateToken(
+    accessToken: string
+  ): Observable<PatientInterface | DoctorInterface> {
+    const validateTokenUrl = 'auth/validate-token';
+    const fullUrl = `${environment.apiBaseUrl}/${validateTokenUrl}`;
+
+    return this.http
+      .post<
+        GlobalApiSuccessResponseInterface<
+          PatientLoginResponseInterface | DoctorLoginResponseInterface
+        >
+      >(fullUrl, {
+        accessToken,
+      })
+      .pipe(map((response) => response.data.user));
+  }
+
+  public refreshToken(
+    accessToken: string
+  ): Observable<PatientLoginResponseInterface | DoctorLoginResponseInterface> {
+    const validateTokenUrl = 'auth/refresh-token';
+    const fullUrl = `${environment.apiBaseUrl}/${validateTokenUrl}`;
+
+    return this.http
+      .post<
+        GlobalApiSuccessResponseInterface<
+          PatientLoginResponseInterface | DoctorLoginResponseInterface
+        >
+      >(fullUrl, {
+        accessToken,
+      })
+      .pipe(map((response) => response.data));
   }
 }
