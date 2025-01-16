@@ -52,6 +52,24 @@
 
   <ion-item>
     <ion-label position="floating" class="required-to-fill"
+      >Орган, выдавший паспорт</ion-label
+    >
+    <ion-input
+      type="text"
+      [formControl]="controls['passportIssuingAuthority']"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator( 'passportIssuingAuthority', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
       >Дата выдачи паспорта
       <ion-note>(выберите в календаре)</ion-note></ion-label
     >
@@ -60,7 +78,7 @@
       type="text"
       [formControl]="controls['passportIssueDate']"
       class="margin-top"
-      placeholder="например, 01 января 2000 г."
+      placeholder="например, 12 января 2000 г."
       aria-placeholder="Выберите вашу дату рождения в календаре"
       readonly
     ></ion-input>
@@ -89,22 +107,4 @@
   @if (isDatepickerOpen()) {
   <health-datepicker (dateChange)="onDateChange($event)"></health-datepicker>
   }
-
-  <ion-item>
-    <ion-label position="floating" class="required-to-fill"
-      >Орган, выдавший паспорт</ion-label
-    >
-    <ion-input
-      type="text"
-      [formControl]="controls['passportIssuingAuthority']"
-      class="margin-top"
-      autocomplete="on"
-    ></ion-input>
-
-    @if (checkInputValidator( 'passportIssuingAuthority', 'required')) {
-    <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
-    ></health-error-notification>
-    }
-  </ion-item>
 </ion-item-group>
