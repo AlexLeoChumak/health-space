@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -14,14 +14,14 @@ import {
   IonCheckbox,
   IonButtons,
 } from '@ionic/angular/standalone';
-import { LoginRequestInterface } from 'src/app/features/auth/models/login-request.interface';
-import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
+import { LoginRequestInterface } from 'src/app/shared/models/login-request.interface';
 import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
+import { selectUser } from 'src/app/store/user';
 import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/components/mobile-phone-number-password-info-form/mobile-phone-number-password-info-form.component';
-import { DoctorLoginResponseInterface } from 'src/app/shared/models/doctor/doctor-login-response.interface';
-import { GlobalApiResponseInterface } from 'src/app/shared/models/global-api-response.interface';
-import { PatientLoginResponseInterface } from 'src/app/shared/models/patient/patient-login-response.interface';
+import { AppState, login } from 'src/app/store/app';
 
 @Component({
   selector: 'health-login',
@@ -47,13 +47,16 @@ import { PatientLoginResponseInterface } from 'src/app/shared/models/patient/pat
     MobilePhoneNumberPasswordInfoFormComponent,
   ],
 })
-export class LoginComponent implements OnInit {
-  private readonly authService = inject(AuthService);
+export class LoginComponent implements OnInit, OnDestroy {
+  private readonly router = inject(Router);
+  private readonly store = inject(Store<AppState>);
   public loginForm!: FormGroup;
-  private readonly isDoctor = signal<boolean>(false);
+  protected readonly isDoctor = signal<boolean>(false);
+  private userSubscription!: Subscription;
 
   public ngOnInit(): void {
     this.initializeForm();
+    this.subscribeToUserState();
   }
 
   private initializeForm(): void {
@@ -65,15 +68,7 @@ export class LoginComponent implements OnInit {
 
     const loginData: LoginRequestInterface = this.loginForm.value;
 
-    this.authService
-      .login(loginData, this.isDoctor())
-      .subscribe(
-        (
-          userData: GlobalApiResponseInterface<
-            PatientLoginResponseInterface | DoctorLoginResponseInterface
-          >
-        ) => console.log('юзер из логина', userData)
-      );
+    this.store.dispatch(login({ loginData, isDoctor: this.isDoctor() }));
   }
 
   protected addFormGroup(formGroup: FormGroup): void {
@@ -86,7 +81,23 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  protected onCheckboxChange(event: CustomEvent): void {
-    this.isDoctor.set(event.detail.checked);
+  protected onCheckboxChange(): void {
+    this.isDoctor.update((prevValue) => !prevValue);
+  }
+
+  private subscribeToUserState(): void {
+    this.userSubscription = this.store.select(selectUser).subscribe((user) => {
+      if (user) {
+        this.router.navigate(['/user-profile']);
+        console.log('Логин успешен:', user);
+        // запись в localStorage, редирект, очистка формы
+      }
+    });
+  }
+
+  public ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 }

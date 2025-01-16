@@ -35,10 +35,13 @@
             ></health-mobile-phone-number-password-info-form>
 
             <ion-item>
-              <ion-label>Войти как медработник</ion-label>
+              <ion-label (click)="onCheckboxChange()"
+                >Войти как медработник</ion-label
+              >
               <ion-checkbox
                 slot="start"
-                (ionChange)="onCheckboxChange($event)"
+                [checked]="isDoctor()"
+                (ionChange)="onCheckboxChange()"
               ></ion-checkbox>
             </ion-item>
 
