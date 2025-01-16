@@ -91,7 +91,7 @@
                 [configProps]="{
                 isFormButton: true,
                 label: 'зарегистрироваться',
-                isDisabled: false,
+                isDisabled: registrationForm.invalid || isSubmittingForm(),
                 routerLink: null,
               }"
               ></health-action-button>
