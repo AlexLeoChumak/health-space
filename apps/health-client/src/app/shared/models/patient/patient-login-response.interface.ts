@@ -1,7 +1,6 @@
-import { UserBaseInterface } from 'src/app/shared/models/patient/user-base.interface';
+import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
 
-// Интерфейс для ответа пациента с оберткой user
 export interface PatientLoginResponseInterface {
-  id: string;
-  user: UserBaseInterface; // Ответ с пользователем без модификаций
+  accessToken: string;
+  user: PatientInterface;
 }
