@@ -1,6 +1,6 @@
-import { DoctorBaseInterface } from 'src/app/shared/models/doctor/doctor-base.interface';
+import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
 
 export interface DoctorLoginResponseInterface {
-  id: string;
-  user: DoctorBaseInterface;
+  accessToken: string;
+  user: DoctorInterface;
 }
