@@ -1,8 +1,8 @@
-import { DoctorBaseInterface } from 'src/app/shared/models/doctor/doctor-base.interface';
+import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
 
 export interface DoctorRegistrationRequestInterface {
-  user: DoctorBaseInterface & {
-    contactInfo: DoctorBaseInterface['contactInfo'] & {
+  user: DoctorInterface & {
+    mobilePhoneNumberPasswordInfo: DoctorInterface['mobilePhoneNumberPasswordInfo'] & {
       password: string;
     };
   };
