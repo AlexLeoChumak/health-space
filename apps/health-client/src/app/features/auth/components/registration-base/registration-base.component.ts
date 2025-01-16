@@ -1,40 +1,36 @@
-import {
-  Component,
-  inject,
-  signal,
-  OnDestroy,
-  WritableSignal,
-} from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface';
+import { Store } from '@ngrx/store';
+import { catchError, Subject, takeUntil, throwError } from 'rxjs';
 
-import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
-import { GlobalApiResponseInterface } from 'src/app/shared/models/global-api-response.interface';
 import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { selectIsLoading } from 'src/app/store/app';
+import {
+  clearRegistrationState,
+  registration,
+  selectRegistrationSuccess,
+} from 'src/app/store/registration';
 
 @Component({
   selector: 'health-registration-base',
   template: '',
 })
 export abstract class RegistrationBaseComponent implements OnDestroy {
-  private readonly authService = inject(AuthService);
-  private readonly toastService = inject(ToastService);
-
-  registrationForm!: FormGroup;
-  isRegistrationAndResidenceAddressesMatch: WritableSignal<boolean> =
+  private readonly store = inject(Store);
+  protected registrationForm!: FormGroup;
+  protected readonly isRegistrationAndResidenceAddressesMatch =
     signal<boolean>(false);
-  private registrationSubscription!: Subscription;
-
-  initializeForm(): void {
+  protected readonly isSubmittingForm =
+    this.store.selectSignal(selectIsLoading);
+  private destroy$ = new Subject<void>();
+  protected initializeForm(): void {
     this.registrationForm = new FormGroup({
       user: new FormGroup({}),
     });
   }
 
-  toggleCheckboxCopyRegistrationAddress(): void {
+  protected toggleCheckboxCopyRegistrationAddress(): void {
     this.isRegistrationAndResidenceAddressesMatch.update(
       (prevValue) => !prevValue
     );
@@ -43,7 +39,7 @@ export abstract class RegistrationBaseComponent implements OnDestroy {
     );
   }
 
-  copyRegistrationAddressToResidenceAddress(
+  private copyRegistrationAddressToResidenceAddress(
     isRegistrationAndResidenceAddressesMatch: boolean
   ): void {
     if (isRegistrationAndResidenceAddressesMatch) {
@@ -57,32 +53,40 @@ export abstract class RegistrationBaseComponent implements OnDestroy {
     }
   }
 
-  addFormGroup(formGroupName: string, formGroup: FormGroup): void {
+  protected addFormGroup(formGroupName: string, formGroup: FormGroup): void {
     const userGroup = this.registrationForm.get('user') as FormGroup;
     userGroup.addControl(formGroupName, formGroup);
   }
 
-  onSubmitForm(): void {
-    const userData:
+  protected onSubmitForm(): void {
+    if (this.registrationForm.invalid) return;
+
+    const registrationData:
       | PatientRegistrationRequestInterface
       | DoctorRegistrationRequestInterface = this.registrationForm.value;
 
-    console.log('userData', userData); //удалить
+    this.store.dispatch(registration({ registrationData }));
 
-    this.registrationSubscription = this.authService
-      .registration(userData)
+    this.store
+      .select(selectRegistrationSuccess)
+      .pipe(
+        catchError((error) => throwError(() => error)),
+        takeUntil(this.destroy$)
+      )
       .subscribe({
-        next: (
-          res: GlobalApiResponseInterface<RegistrationApiResponseInterface>
-        ) => {
-          this.toastService.presentToast(res.message);
+        next: (success) => {
+          if (success) {
+            this.registrationForm.reset();
+          }
+        },
+        complete: () => {
+          this.store.dispatch(clearRegistrationState());
         },
       });
   }
 
   ngOnDestroy(): void {
-    if (this.registrationSubscription) {
-      this.registrationSubscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
