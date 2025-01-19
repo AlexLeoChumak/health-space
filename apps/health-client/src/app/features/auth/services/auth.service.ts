@@ -30,7 +30,6 @@ export class AuthService {
     GlobalApiSuccessResponseInterface<RegistrationApiResponseInterface>
   > {
     const registrationBaseUrl = 'auth/registration';
-
     const fullUrl = `${
       environment.apiBaseUrl
     }/${registrationBaseUrl}/${getUserRole(userData.user)}`;
