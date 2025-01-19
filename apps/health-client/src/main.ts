@@ -17,7 +17,6 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AppComponent } from 'src/app/app.component';
 import { routes } from 'src/app/app.routes';
 import { errorInterceptor } from 'src/app/core/interceptors/error.interceptor';
-import * as UserEffects from 'src/app/store/user/user.effects';
 import * as RegistrationEffects from 'src/app/store/registration/registration.effects';
 import * as appEffects from 'src/app/store/app/app.effects';
 import { registrationReducer } from 'src/app/store/registration';
@@ -36,7 +35,9 @@ bootstrapApplication(AppComponent, {
       registration: registrationReducer,
       user: userReducer,
     }),
-    provideEffects(appEffects, RegistrationEffects, UserEffects),
+    provideEffects(appEffects, RegistrationEffects),
     provideStoreDevtools(),
   ],
 });
+
+// генерация nx g @nx/angular:service shared/services/backblaze/backblaze --project=health-client

@@ -5,4 +5,8 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:3000/api',
+  bucketInfo: {
+    bucketId: 'a6344930d3bc5f169a2e0617',
+    bucketName: 'health12345',
+  },
 };
