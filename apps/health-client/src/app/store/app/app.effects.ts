@@ -1,9 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, of, catchError, tap, throwError } from 'rxjs';
 
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
+import { ToastService } from 'src/app/shared/services/toast/toast.service';
+import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
 import {
   appInitialize,
   appInitialized,
@@ -16,8 +20,10 @@ import { loadUser, clearUser } from 'src/app/store/user';
 
 export const restoreSessionEffect = createEffect(
   (
+    router = inject(Router),
     actions$ = inject(Actions),
     authService = inject(AuthService),
+    toastService = inject(ToastService),
     localStorageService = inject(LocalStorageService)
   ) =>
     actions$.pipe(
@@ -26,20 +32,16 @@ export const restoreSessionEffect = createEffect(
         const token = localStorageService.getItem('accessToken');
 
         if (!token) {
-          console.log('токен нет');
           return of(logout(), appInitialized());
         }
 
         return authService.validateToken(token).pipe(
-          tap(() => console.log('токен валиден')),
           switchMap((user) => [
             loginSuccess({ accessToken: token }),
             loadUser({ user }),
             appInitialized(),
           ]),
           catchError(() => {
-            console.log('здесь рефрешится токен');
-
             return authService.refreshToken(token).pipe(
               tap((userLoginResponse) =>
                 localStorageService.setItem(
@@ -52,7 +54,11 @@ export const restoreSessionEffect = createEffect(
                 loadUser({ user: userLoginResponse.user }),
                 appInitialized(),
               ]),
-              catchError(() => of(logout(), appInitialized()))
+              catchError((error: HttpErrorResponse) => {
+                toastService.presentToast(error.error.message);
+                router.navigate(['/']);
+                return of(logout(), appInitialized());
+              })
             );
           })
         );
@@ -74,6 +80,9 @@ export const loginEffect = createEffect(
           tap((response) => {
             const accessToken = response.data.accessToken;
             localStorageService.setItem('accessToken', accessToken);
+
+            const role = getUserRole(response.data.user);
+            localStorageService.setItem('role', role);
           }),
           switchMap((response) => [
             loginSuccess({ accessToken: response.data.accessToken }),
@@ -97,9 +106,10 @@ export const logoutEffect = createEffect(
       ofType(logout),
       tap(() => {
         localStorageService.removeItem('accessToken');
+        localStorageService.removeItem('role');
       }),
       switchMap(() => of(clearUser())),
-      catchError((error) => throwError(() => error)) // Простой возврат ошибки вместо throwError
+      catchError((error) => throwError(() => error))
     ),
   { functional: true }
 );
