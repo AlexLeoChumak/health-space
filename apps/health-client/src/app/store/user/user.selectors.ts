@@ -15,7 +15,7 @@ export const selectUserRole = createSelector(selectUserFeature, (state) => {
   return null;
 });
 
-export const selectIsUserLoggedIn = createSelector(
+export const selectUrlUserPhoto = createSelector(
   selectUserFeature,
-  (state) => !!state.user
+  (state) => state.urlUserPhoto
 );
