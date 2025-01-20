@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { switchMap, of, catchError, tap, throwError } from 'rxjs';
+import { switchMap, of, catchError, tap } from 'rxjs';
 
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
@@ -108,8 +108,7 @@ export const logoutEffect = createEffect(
         localStorageService.removeItem('accessToken');
         localStorageService.removeItem('role');
       }),
-      switchMap(() => of(clearUser())),
-      catchError((error) => throwError(() => error))
+      switchMap(() => of(clearUser()))
     ),
   { functional: true }
 );
