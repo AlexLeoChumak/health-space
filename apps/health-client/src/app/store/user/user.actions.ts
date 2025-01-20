@@ -14,8 +14,4 @@ export const getUrlUserPhotoSuccess = createAction(
   props<{ urlUserPhoto: string }>()
 );
 
-export const getUrlUserPhotoFailure = createAction(
-  '[User] Get Url User Photo Failure'
-);
-
 export const clearUser = createAction('[User] Clear User');
