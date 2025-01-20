@@ -4,9 +4,11 @@ import { PatientInterface } from 'src/app/shared/models/patient/patient.interfac
 export interface UserState {
   user: PatientInterface | DoctorInterface | null;
   role: 'patient' | 'doctor' | null;
+  urlUserPhoto: string;
 }
 
 export const initialUserState: UserState = {
   user: null,
   role: null,
+  urlUserPhoto: 'default-profile-image.png',
 };
