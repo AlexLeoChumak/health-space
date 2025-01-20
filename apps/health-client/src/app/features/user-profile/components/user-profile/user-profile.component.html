@@ -4,68 +4,64 @@
   </ion-toolbar>
 </ion-header>
 
-<ng-container *ngrxLet="user$ as user">
-  <ion-content>
-    <!-- Карточка пользователя -->
-    <ion-card>
-      <ion-card-header>
-        <ion-item lines="none">
-          <!-- Аватар пользователя -->
-          <ion-avatar slot="start">
-            <img [src]="userPhotoUrl()" alt="user-photo" />
-          </ion-avatar>
-          <ion-label>
-            <h2>
-              {{ user?.personalInfo?.lastName }}
-              {{ user?.personalInfo?.firstName }}
-              {{ user?.personalInfo?.middleName }}
-            </h2>
-            <p>Профиль пользователя</p>
-          </ion-label>
+<ion-content>
+  <!-- Карточка пользователя -->
+  <ion-card>
+    <ion-card-header>
+      <ion-item lines="none">
+        <!-- Аватар пользователя -->
+        <ion-avatar slot="start">
+          <img [src]="urlUserPhoto()" alt="user-photo" />
+        </ion-avatar>
+        <ion-label>
+          <h2>
+            {{ user()?.personalInfo?.lastName }}
+            {{ user()?.personalInfo?.firstName }}
+            {{ user()?.personalInfo?.middleName }}
+          </h2>
+          <p>Профиль пользователя</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Список данных пользователя -->
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label position="stacked">Имя</ion-label>
+          <ion-text>{{ user()?.personalInfo?.firstName }}</ion-text>
         </ion-item>
-      </ion-card-header>
 
-      <ion-card-content>
-        <!-- Список данных пользователя -->
-        <ion-list lines="full">
-          <ion-item>
-            <ion-label position="stacked">Имя</ion-label>
-            <ion-text>{{ user?.personalInfo?.firstName }}</ion-text>
-          </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Фамилия</ion-label>
+          <ion-text>{{ user()?.personalInfo?.lastName }}</ion-text>
+        </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Фамилия</ion-label>
-            <ion-text>{{ user?.personalInfo?.lastName }}</ion-text>
-          </ion-item>
+        @if (user()?.personalInfo?.middleName) {
+        <ion-item>
+          <ion-label position="stacked">Отчество</ion-label>
+          <ion-text>{{ user()?.personalInfo?.middleName }}</ion-text>
+        </ion-item>
+        }
 
-          @if (user?.personalInfo?.middleName) {
-          <ion-item>
-            <ion-label position="stacked">Отчество</ion-label>
-            <ion-text>{{ user?.personalInfo?.middleName }}</ion-text>
-          </ion-item>
-          }
+        <ion-item>
+          <ion-label position="stacked">Электронная почта</ion-label>
+          <ion-text>{{ user()?.contactInfo?.email }}</ion-text>
+        </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Электронная почта</ion-label>
-            <ion-text>{{ user?.contactInfo?.email }}</ion-text>
-          </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Мобильный номер телефона</ion-label>
+          <ion-text>{{
+            user()?.mobilePhoneNumberPasswordInfo?.mobilePhoneNumber
+          }}</ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-          <ion-item>
-            <ion-label position="stacked">Мобильный номер телефона</ion-label>
-            <ion-text>{{
-              user?.mobilePhoneNumberPasswordInfo?.mobilePhoneNumber
-            }}</ion-text>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-
-    <!-- Дополнительные кнопки -->
-    <ion-button expand="block" color="primary"
-      >Редактировать профиль</ion-button
-    >
-    <ion-button expand="block" (click)="onLogout()" color="medium"
-      >Выйти</ion-button
-    >
-  </ion-content>
-</ng-container>
+  <!-- Дополнительные кнопки -->
+  <ion-button expand="block" color="primary">Редактировать профиль</ion-button>
+  <ion-button expand="block" (click)="onLogout()" color="medium"
+    >Выйти</ion-button
+  >
+</ion-content>
