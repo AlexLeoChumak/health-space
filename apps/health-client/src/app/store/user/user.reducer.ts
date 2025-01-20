@@ -1,7 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
-import { clearUser, loadUser } from 'src/app/store/user/user.actions';
+import {
+  clearUser,
+  getUrlUserPhotoSuccess,
+  loadUser,
+} from 'src/app/store/user/user.actions';
 import { initialUserState } from 'src/app/store/user/user.state';
 
 export const userReducer = createReducer(
@@ -10,6 +14,10 @@ export const userReducer = createReducer(
     ...state,
     user,
     role: getUserRole(user),
+  })),
+  on(getUrlUserPhotoSuccess, (state, { urlUserPhoto }) => ({
+    ...state,
+    urlUserPhoto,
   })),
   on(clearUser, () => initialUserState)
 );
