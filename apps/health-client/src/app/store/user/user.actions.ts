@@ -9,4 +9,13 @@ export const loadUser = createAction(
   }>()
 );
 
+export const getUrlUserPhotoSuccess = createAction(
+  '[User] Get Url User Photo Success',
+  props<{ urlUserPhoto: string }>()
+);
+
+export const getUrlUserPhotoFailure = createAction(
+  '[User] Get Url User Photo Failure'
+);
+
 export const clearUser = createAction('[User] Clear User');
