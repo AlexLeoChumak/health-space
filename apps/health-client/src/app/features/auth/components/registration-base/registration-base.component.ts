@@ -1,7 +1,7 @@
-import { Component, inject, OnDestroy, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { catchError, Subject, takeUntil, throwError } from 'rxjs';
 
 import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
 import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
@@ -16,14 +16,14 @@ import {
   selector: 'health-registration-base',
   template: '',
 })
-export abstract class RegistrationBaseComponent implements OnDestroy {
+export abstract class RegistrationBaseComponent {
   private readonly store = inject(Store);
+  private readonly destroyRef = inject(DestroyRef);
   protected registrationForm!: FormGroup;
   protected readonly isRegistrationAndResidenceAddressesMatch =
     signal<boolean>(false);
   protected readonly isSubmittingForm =
     this.store.selectSignal(selectIsLoading);
-  private destroy$ = new Subject<void>();
   protected initializeForm(): void {
     this.registrationForm = new FormGroup({
       user: new FormGroup({}),
@@ -69,10 +69,7 @@ export abstract class RegistrationBaseComponent implements OnDestroy {
 
     this.store
       .select(selectRegistrationSuccess)
-      .pipe(
-        catchError((error) => throwError(() => error)),
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (success) => {
           if (success) {
@@ -83,10 +80,5 @@ export abstract class RegistrationBaseComponent implements OnDestroy {
           this.store.dispatch(clearRegistrationState());
         },
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

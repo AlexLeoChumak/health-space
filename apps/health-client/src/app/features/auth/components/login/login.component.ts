@@ -1,6 +1,7 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   IonHeader,
   IonToolbar,
@@ -15,7 +16,6 @@ import {
   IonButtons,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 
 import { LoginRequestInterface } from 'src/app/shared/models/login-request.interface';
 import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
@@ -47,12 +47,12 @@ import { AppState, login } from 'src/app/store/app';
     MobilePhoneNumberPasswordInfoFormComponent,
   ],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly store = inject(Store<AppState>);
+  private readonly destroyRef = inject(DestroyRef);
   public loginForm!: FormGroup;
   protected readonly isDoctor = signal<boolean>(false);
-  private userSubscription!: Subscription;
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -61,6 +61,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private initializeForm(): void {
     this.loginForm = new FormGroup({});
+  }
+
+  private subscribeToUserState(): void {
+    this.store
+      .select(selectUser)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((user) => {
+        if (user) {
+          this.router.navigate(['/user-profile']);
+        }
+      });
   }
 
   protected onSubmitForm(): void {
@@ -83,21 +94,5 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   protected onCheckboxChange(): void {
     this.isDoctor.update((prevValue) => !prevValue);
-  }
-
-  private subscribeToUserState(): void {
-    this.userSubscription = this.store.select(selectUser).subscribe((user) => {
-      if (user) {
-        this.router.navigate(['/user-profile']);
-        console.log('Логин успешен:', user);
-        // запись в localStorage, редирект, очистка формы
-      }
-    });
-  }
-
-  public ngOnDestroy(): void {
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
-    }
   }
 }
