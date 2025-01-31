@@ -42,3 +42,5 @@ bootstrapApplication(AppComponent, {
 });
 
 // генерация nx g @nx/angular:service shared/services/backblaze/backblaze --project=health-client
+
+// import { LetDirective } from '@ngrx/component'; для ngrxLet и ngrxPush
