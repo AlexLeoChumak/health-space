@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Личный кабинет</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <!-- Карточка пользователя -->
   <ion-card>
@@ -11,7 +5,7 @@
       <ion-item lines="none">
         <!-- Аватар пользователя -->
         <ion-avatar slot="start">
-          <img [src]="urlUserPhoto()" alt="user-photo" />
+          <ion-img [src]="urlUserPhoto()" alt="user-photo" />
         </ion-avatar>
         <ion-label>
           <h2>
@@ -57,11 +51,34 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-  </ion-card>
 
-  <!-- Дополнительные кнопки -->
-  <ion-button expand="block" color="primary">Редактировать профиль</ion-button>
-  <ion-button expand="block" (click)="onLogout()" color="medium"
-    >Выйти</ion-button
-  >
+    <!-- Кнопки действий -->
+    <ion-footer>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <health-action-button
+              [configProps]="{
+                isFormButton: false,
+                label: 'редактировать',
+                isDisabled: false,
+                routerLink: '/profile/edit'
+              }"
+            ></health-action-button>
+          </ion-col>
+          <ion-col size="6">
+            <health-action-button
+              (click)="onLogout()"
+              [configProps]="{
+                isFormButton: false,
+                label: 'выйти',
+                isDisabled: false,
+                routerLink: null
+              }"
+            ></health-action-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+  </ion-card>
 </ion-content>
