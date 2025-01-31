@@ -50,7 +50,7 @@
                 [configProps]="{
                   isFormButton: true,
                   label: 'войти',
-                  isDisabled: false,
+                  isDisabled: loginForm.invalid || isSubmittingForm(),
                   routerLink: null,
                 }"
               ></health-action-button>
