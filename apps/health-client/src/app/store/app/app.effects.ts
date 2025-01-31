@@ -20,7 +20,6 @@ import { loadUser, clearUser } from 'src/app/store/user';
 
 export const restoreSessionEffect = createEffect(
   (
-    router = inject(Router),
     actions$ = inject(Actions),
     authService = inject(AuthService),
     toastService = inject(ToastService),
@@ -56,7 +55,6 @@ export const restoreSessionEffect = createEffect(
               ]),
               catchError((error: HttpErrorResponse) => {
                 toastService.presentToast(error.error.message);
-                router.navigate(['/']);
                 return of(logout(), appInitialized());
               })
             );
@@ -71,6 +69,7 @@ export const loginEffect = createEffect(
   (
     actions$ = inject(Actions),
     authService = inject(AuthService),
+    router = inject(Router),
     localStorageService = inject(LocalStorageService)
   ) =>
     actions$.pipe(
@@ -83,6 +82,8 @@ export const loginEffect = createEffect(
 
             const role = getUserRole(response.data.user);
             localStorageService.setItem('role', role);
+
+            router.navigate(['/user-profile']);
           }),
           switchMap((response) => [
             loginSuccess({ accessToken: response.data.accessToken }),
@@ -99,6 +100,7 @@ export const loginEffect = createEffect(
 
 export const logoutEffect = createEffect(
   (
+    router = inject(Router),
     actions$ = inject(Actions),
     localStorageService = inject(LocalStorageService)
   ) =>
@@ -107,6 +109,7 @@ export const logoutEffect = createEffect(
       tap(() => {
         localStorageService.removeItem('accessToken');
         localStorageService.removeItem('role');
+        router.navigate(['auth/login']);
       }),
       switchMap(() => of(clearUser()))
     ),
