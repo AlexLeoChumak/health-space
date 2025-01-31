@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, IonContent } from '@ionic/angular/standalone';
 import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { filter, map } from 'rxjs';
@@ -23,6 +23,7 @@ import { appInitialize } from 'src/app/store/app';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonContent,
     CommonModule,
     IonApp,
     IonRouterOutlet,
@@ -43,7 +44,7 @@ export class AppComponent implements OnInit {
     })
   );
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dispatchAppStateInitialization();
   }
 
