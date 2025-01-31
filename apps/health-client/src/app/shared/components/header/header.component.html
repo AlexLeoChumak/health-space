@@ -1,7 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="medium">
-    <ion-title>Медицина Беларуси</ion-title>
+    <ion-title>Health</ion-title>
     <ion-buttons slot="end">
+      <health-action-button
+        [configProps]="{
+          isFormButton: false,
+          label: 'главная',
+          isDisabled: false,
+          routerLink: '/'
+        }"
+      ></health-action-button>
+
+      @if (isAuthenticated()) {
+      <health-action-button
+        [configProps]="{
+          isFormButton: false,
+          label: 'личный кабинет',
+          isDisabled: false,
+          routerLink: 'user-profile'
+        }"
+      ></health-action-button>
+      } @else {
       <health-action-button
         [configProps]="{
           isFormButton: false,
@@ -18,6 +37,7 @@
           routerLink: 'auth/login'
         }"
       ></health-action-button>
+      }
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
