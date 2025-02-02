@@ -26,7 +26,7 @@ import { Store } from '@ngrx/store';
 
 import { LoginRequestInterface } from 'src/app/shared/models/login-request.interface';
 import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
-import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/components/mobile-phone-number-password-info-form/mobile-phone-number-password-info-form.component';
+import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/components/forms-user-info/mobile-phone-number-password-info-form/mobile-phone-number-password-info-form.component';
 import {
   AppState,
   login,
