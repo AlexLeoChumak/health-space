@@ -1,0 +1,158 @@
+<ion-item-group [formGroup]="addressInfoFormGroup">
+  <ion-item class="section-title">{{ addressTypeProps() }} </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill">Область</ion-label>
+    <ion-select formControlName="region" class="margin-top">
+      @for (region of regions; track region) {
+      <ion-select-option>{{ region }}</ion-select-option>
+      } @empty {
+      <ion-select-option>Беларусь</ion-select-option>
+      }
+    </ion-select>
+
+    @if(checkInputValidator(addressInfoFormGroup, 'region', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill">Район</ion-label>
+    <ion-input
+      type="text"
+      formControlName="district"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if(checkInputValidator(addressInfoFormGroup, 'district', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Населённый пункт</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="city"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if(checkInputValidator(addressInfoFormGroup, 'city', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill">Улица</ion-label>
+    <ion-input
+      type="text"
+      formControlName="street"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if(checkInputValidator(addressInfoFormGroup, 'street', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill">Дом</ion-label>
+    <ion-input
+      type="number"
+      formControlName="house"
+      class="margin-top"
+      autocomplete="on"
+      maxlength="5"
+      healthNumericInputRestriction
+    ></ion-input>
+
+    @if(checkInputValidator(addressInfoFormGroup, 'house', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    } @if(checkInputValidator(addressInfoFormGroup, 'house', 'min')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.min"
+    ></health-error-notification>
+    } @if(checkInputValidator(addressInfoFormGroup, 'house', 'max')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.max"
+    ></health-error-notification>
+    } @if(checkInputValidator(addressInfoFormGroup, 'house', 'pattern')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.pattern"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating"
+      >Корпус <ion-note>(при наличии)</ion-note></ion-label
+    >
+    <ion-input
+      type="number"
+      formControlName="housing"
+      class="margin-top"
+      autocomplete="on"
+      maxlength="5"
+      healthNumericInputRestriction
+    ></ion-input>
+
+    @if(checkInputValidator(addressInfoFormGroup, 'housing', 'min')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.min"
+    ></health-error-notification>
+    } @if(checkInputValidator(addressInfoFormGroup, 'housing', 'max')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.max"
+    ></health-error-notification>
+    } @if(checkInputValidator(addressInfoFormGroup, 'housing', 'pattern')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.pattern"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  @if (addressTypeProps() !== 'Адрес места работы') {
+  <ion-item>
+    <ion-label position="floating"
+      >Квартира <ion-note>(при наличии)</ion-note></ion-label
+    >
+    <ion-input
+      type="number"
+      formControlName="apartment"
+      class="margin-top"
+      autocomplete="on"
+      maxlength="5"
+      healthNumericInputRestriction
+    ></ion-input>
+
+    @if(checkInputValidator(addressInfoFormGroup, 'apartment', 'min')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.min"
+    ></health-error-notification>
+    } @if(checkInputValidator(addressInfoFormGroup, 'apartment', 'max')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.max"
+    ></health-error-notification>
+    } @if(checkInputValidator(addressInfoFormGroup, 'housing', 'pattern')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.pattern"
+    ></health-error-notification>
+    }
+  </ion-item>
+  }
+</ion-item-group>

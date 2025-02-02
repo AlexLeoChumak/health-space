@@ -1,0 +1,91 @@
+<ion-item-group>
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Укажите государство, чьим гражданином являетесь</ion-label
+    >
+    <ion-input
+      type="text"
+      [formControl]="controls['nameStateForeignCitizen']"
+      class="margin-top"
+      autocomplete="country-name"
+    ></ion-input>
+
+    @if (checkInputValidator( 'nameStateForeignCitizen', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Наименование документа, удостоверяющего личность</ion-label
+    >
+    <ion-input
+      type="text"
+      [formControl]="controls['documentName']"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator( 'documentName', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Номер документа, удостоверяющего личность</ion-label
+    >
+    <ion-input
+      type="text"
+      [formControl]="controls['documentNumber']"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator('documentNumber', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Наименование компании - медицинского страховщика</ion-label
+    >
+    <ion-input
+      type="text"
+      [formControl]="controls['nameInsuranceCompany']"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator('nameInsuranceCompany', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Номер договора медицинского страхования</ion-label
+    >
+    <ion-input
+      type="text"
+      [formControl]="controls['healthInsuranceContractNumber']"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator('healthInsuranceContractNumber', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+</ion-item-group>
