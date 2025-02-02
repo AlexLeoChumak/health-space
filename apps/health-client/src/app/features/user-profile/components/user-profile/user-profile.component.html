@@ -2,25 +2,26 @@
   <!-- Карточка пользователя -->
   <ion-card>
     <ion-card-header>
-      <ion-item lines="none">
-        <!-- Аватар пользователя -->
-        <ion-avatar slot="start">
-          <ion-img [src]="urlUserPhoto()" alt="user-photo" />
-        </ion-avatar>
-        <ion-label>
-          <h2>
-            {{ user()?.personalInfo?.lastName }}
-            {{ user()?.personalInfo?.firstName }}
-            {{ user()?.personalInfo?.middleName }}
-          </h2>
-          <p>Профиль пользователя</p>
-        </ion-label>
-      </ion-item>
+      <ion-card-title>Профиль пользователя</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <!-- Список данных пользователя -->
       <ion-list lines="full">
+        <ion-item lines="none">
+          <!-- Аватар пользователя -->
+          <ion-avatar slot="start">
+            <ion-img [src]="urlUserPhoto()" alt="user-photo" />
+          </ion-avatar>
+          <ion-label>
+            <h2>
+              {{ user()?.personalInfo?.lastName }}
+              {{ user()?.personalInfo?.firstName }}
+              {{ user()?.personalInfo?.middleName }}
+            </h2>
+          </ion-label>
+        </ion-item>
+
         <ion-item>
           <ion-label position="stacked">Имя</ion-label>
           <ion-text>{{ user()?.personalInfo?.firstName }}</ion-text>
@@ -50,10 +51,7 @@
           }}</ion-text>
         </ion-item>
       </ion-list>
-    </ion-card-content>
 
-    <!-- Кнопки действий -->
-    <ion-footer>
       <ion-grid>
         <ion-row>
           <ion-col size="6">
@@ -79,6 +77,19 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-footer>
+    </ion-card-content>
+
+    <!-- Кнопки действий -->
   </ion-card>
+
+  <health-address-info-card addressTypeProps="addressRegistrationInfo">
+  </health-address-info-card>
+
+  <health-address-info-card addressTypeProps="addressResidenceInfo">
+  </health-address-info-card>
+
+  @if(userRole() === 'doctor') {
+  <health-address-info-card addressTypeProps="addressMedicalInstitutionInfo">
+  </health-address-info-card>
+  }
 </ion-content>
