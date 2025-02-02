@@ -1,0 +1,33 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Персональная информация</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list lines="full">
+      <ion-item lines="none">
+        <!-- Аватар пользователя -->
+        <ion-avatar slot="start">
+          <ion-img [src]="urlUserPhoto()" alt="user-photo" />
+        </ion-avatar>
+        <ion-label>
+          <h2>
+            {{ user()?.personalInfo?.lastName }}
+            {{ user()?.personalInfo?.firstName }}
+            {{ user()?.personalInfo?.middleName }}
+          </h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Дата рождения</ion-label>
+        <ion-text>{{ user()?.personalInfo?.dateOfBirth }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Пол</ion-label>
+        <ion-text>{{ user()?.personalInfo?.gender }}</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
