@@ -76,7 +76,8 @@
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "changeDetection": "OnPush"
     },
     "@nx/angular:library": {
       "linter": "eslint",
