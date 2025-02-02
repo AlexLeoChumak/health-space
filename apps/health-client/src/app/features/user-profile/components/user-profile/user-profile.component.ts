@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonAvatar,
@@ -14,13 +19,15 @@ import {
   IonCol,
   IonGrid,
   IonRow,
-  IonFooter,
+  IonCardTitle,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
-import { selectUrlUserPhoto, selectUser } from 'src/app/store/user';
 import { logout } from 'src/app/store/app';
+import { selectUrlUserPhoto, selectUser } from 'src/app/store/user';
 import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
+import { AddressInfoCardComponent } from 'src/app/shared/components/cards-user-info/address-info-card/address-info-card.component';
+import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
 
 @Component({
   selector: 'health-user-profile',
@@ -29,6 +36,7 @@ import { ActionButtonComponent } from 'src/app/shared/components/action-button/a
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonCardTitle,
     IonRow,
     IonGrid,
     IonCol,
@@ -39,18 +47,22 @@ import { ActionButtonComponent } from 'src/app/shared/components/action-button/a
     IonCardContent,
     IonContent,
     IonCardHeader,
-    IonFooter,
     IonCard,
     IonItem,
     IonLabel,
     IonAvatar,
     ActionButtonComponent,
+    AddressInfoCardComponent,
   ],
 })
 export class UserProfileComponent {
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
   protected readonly urlUserPhoto = this.store.selectSignal(selectUrlUserPhoto);
+  protected readonly userRole = computed(() => {
+    const currentUser = this.user();
+    return currentUser ? getUserRole(currentUser) : null;
+  });
 
   protected onLogout() {
     this.store.dispatch(logout());
