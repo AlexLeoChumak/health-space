@@ -1,0 +1,27 @@
+<!-- Карточка пользователя -->
+<ion-card>
+  <ion-card-header>
+    @switch (addressTypeProps()) { @case ('addressRegistrationInfo') {
+    <ion-card-title>{{ 'Адрес регистрации' }}</ion-card-title>
+    } @case ('addressResidenceInfo') {
+    <ion-card-title>{{ 'Адрес проживания' }}</ion-card-title>
+    } @case ('addressMedicalInstitutionInfo') {
+    <ion-card-title>{{ 'Адрес места работы' }}</ion-card-title>
+    } @default {
+    <ion-card-title>{{ 'Адрес' }}</ion-card-title>
+    }}
+  </ion-card-header>
+
+  <ion-card-content>
+    <!-- Список данных пользователя -->
+    <ion-list lines="full">
+      @for (field of addressFields; track field.key) { @if
+      (selectedAddress()?.[field.key]) {
+      <ion-item>
+        <ion-label position="stacked">{{ field.label }}</ion-label>
+        <ion-text>{{ selectedAddress()?.[field.key] }}</ion-text>
+      </ion-item>
+      } }
+    </ion-list>
+  </ion-card-content>
+</ion-card>
