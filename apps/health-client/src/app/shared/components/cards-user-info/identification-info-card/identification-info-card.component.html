@@ -1,0 +1,27 @@
+<!-- Создаем переменную шаблона -->
+@let userObj = user();
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Идентификационная информация</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list lines="full">
+      @for (field of identificationFields; track field.key) { @if
+      (userObj?.identificationInfo?.[field.key]) {
+      <ion-item>
+        <ion-label position="stacked">{{ field.label }}</ion-label>
+        @if (userObj?.identificationInfo?.[field.key] !== other) {
+        <ion-text>{{ userObj?.identificationInfo?.[field.key] }}</ion-text>
+        } @else {
+        <ion-text>{{
+          userObj?.identificationInfo?.nameStateForeignCitizen
+        }}</ion-text>
+
+        }
+      </ion-item>
+      } }
+    </ion-list>
+  </ion-card-content>
+</ion-card>
