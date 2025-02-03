@@ -17,8 +17,10 @@ import {
   IonList,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
+
 import { selectUser } from 'src/app/store/user';
 import { AddressInfoInterface } from 'src/app/shared/models/patient/patient.interface';
+import { FieldInterface } from 'src/app/shared/models/field.interface';
 
 type PatientAddressProps = 'addressRegistrationInfo' | 'addressResidenceInfo';
 type DoctorAddressProps = PatientAddressProps | 'addressMedicalInstitutionInfo';
@@ -46,10 +48,7 @@ export class AddressInfoCardComponent {
   public readonly addressTypeProps = input.required<AddressPropsType>();
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
-  protected readonly addressFields: {
-    key: keyof AddressInfoInterface;
-    label: string;
-  }[] = [
+  protected readonly addressFields: FieldInterface<AddressInfoInterface>[] = [
     { key: 'region', label: 'Область' },
     { key: 'district', label: 'Район' },
     { key: 'city', label: 'Город' },
