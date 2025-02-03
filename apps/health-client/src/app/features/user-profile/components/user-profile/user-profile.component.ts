@@ -14,6 +14,7 @@ import { ActionButtonComponent } from 'src/app/shared/components/action-button/a
 import { AddressInfoCardComponent } from 'src/app/shared/components/cards-user-info/address-info-card/address-info-card.component';
 import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
 import { PersonalInfoCardComponent } from 'src/app/shared/components/cards-user-info/personal-info-card/personal-info-card.component';
+import { IdentificationInfoCardComponent } from 'src/app/shared/components/cards-user-info/identification-info-card/identification-info-card.component';
 
 @Component({
   selector: 'health-user-profile',
@@ -30,6 +31,7 @@ import { PersonalInfoCardComponent } from 'src/app/shared/components/cards-user-
     ActionButtonComponent,
     AddressInfoCardComponent,
     PersonalInfoCardComponent,
+    IdentificationInfoCardComponent,
   ],
 })
 export class UserProfileComponent {
