@@ -132,9 +132,9 @@
 }
 
 .container {
-  max-width: #{vars.$container-max-width};
-  width: #{vars.$container-width};
-  margin: #{vars.$margin-center};
+  max-width: #{vars.$container-max-width}; // 1440px;
+  width: #{vars.$container-width}; // 100%;
+  margin: #{vars.$margin-center}; // 0 auto;
 }
 
 .section-title {
