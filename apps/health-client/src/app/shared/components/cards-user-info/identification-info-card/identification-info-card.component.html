@@ -1,5 +1,4 @@
-<!-- Создаем переменную шаблона -->
-@let userObj = user();
+@let userObj = user()?.identificationInfo;
 
 <ion-card>
   <ion-card-header>
@@ -9,15 +8,13 @@
   <ion-card-content>
     <ion-list lines="full">
       @for (field of identificationFields; track field.key) { @if
-      (userObj?.identificationInfo?.[field.key]) {
+      (userObj?.[field.key]) {
       <ion-item>
         <ion-label position="stacked">{{ field.label }}</ion-label>
-        @if (userObj?.identificationInfo?.[field.key] !== other) {
-        <ion-text>{{ userObj?.identificationInfo?.[field.key] }}</ion-text>
+        @if (userObj?.[field.key] !== other) {
+        <ion-text>{{ userObj?.[field.key] }}</ion-text>
         } @else {
-        <ion-text>{{
-          userObj?.identificationInfo?.nameStateForeignCitizen
-        }}</ion-text>
+        <ion-text>{{ userObj?.nameStateForeignCitizen }}</ion-text>
 
         }
       </ion-item>
