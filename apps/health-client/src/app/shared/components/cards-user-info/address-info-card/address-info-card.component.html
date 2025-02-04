@@ -1,3 +1,5 @@
+@let address = selectedAddress();
+
 <!-- Карточка пользователя -->
 <ion-card>
   <ion-card-header>
@@ -16,10 +18,10 @@
     <!-- Список данных пользователя -->
     <ion-list lines="full">
       @for (field of addressFields; track field.key) { @if
-      (selectedAddress()?.[field.key]) {
+      (address?.[field.key]) {
       <ion-item>
         <ion-label position="stacked">{{ field.label }}</ion-label>
-        <ion-text>{{ selectedAddress()?.[field.key] }}</ion-text>
+        <ion-text>{{ address?.[field.key] }}</ion-text>
       </ion-item>
       } }
     </ion-list>
