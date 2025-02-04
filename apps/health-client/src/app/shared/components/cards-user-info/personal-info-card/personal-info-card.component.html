@@ -1,3 +1,5 @@
+@let userObj = user()?.personalInfo;
+
 <ion-card>
   <ion-card-header>
     <ion-card-title>Персональная информация</ion-card-title>
@@ -11,22 +13,25 @@
           <ion-img [src]="urlUserPhoto()" alt="user-photo" />
         </ion-avatar>
         <ion-label>
-          <h2>
-            {{ user()?.personalInfo?.lastName }}
-            {{ user()?.personalInfo?.firstName }}
-            {{ user()?.personalInfo?.middleName }}
-          </h2>
+          <ion-text>
+            {{ userRole() === 'patient' ? 'Пациент' : 'Доктор' }}
+          </ion-text>
+          <ion-title class="ion-no-padding">
+            {{ userObj?.lastName }}
+            {{ userObj?.firstName }}
+            {{ userObj?.middleName }}
+          </ion-title>
         </ion-label>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Дата рождения</ion-label>
-        <ion-text>{{ user()?.personalInfo?.dateOfBirth }}</ion-text>
+        <ion-text>{{ userObj?.dateOfBirth }}</ion-text>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Пол</ion-label>
-        <ion-text>{{ user()?.personalInfo?.gender }}</ion-text>
+        <ion-text>{{ userObj?.gender }}</ion-text>
       </ion-item>
     </ion-list>
   </ion-card-content>
