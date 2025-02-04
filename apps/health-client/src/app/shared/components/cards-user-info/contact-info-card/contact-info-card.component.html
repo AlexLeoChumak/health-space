@@ -1,0 +1,27 @@
+<!-- Создаем переменную шаблона -->
+@let userObj = user();
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Контактная информация</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="stacked">Мобильный номер телефона</ion-label>
+        <ion-text>{{
+          userObj?.mobilePhoneNumberPasswordInfo?.mobilePhoneNumber
+        }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Домашний номер телефона</ion-label>
+        <ion-text>{{ userObj?.contactInfo?.homePhoneNumber }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Электронная почта</ion-label>
+        <ion-text>{{ userObj?.contactInfo?.email }}</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
