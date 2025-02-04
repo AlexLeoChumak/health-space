@@ -1,44 +1,49 @@
 <ion-content>
-  <health-personal-info-card></health-personal-info-card>
+  <div class="container">
+    <health-personal-info-card></health-personal-info-card>
 
-  <health-identification-info-card></health-identification-info-card>
+    <health-contact-info-card></health-contact-info-card>
 
-  <health-address-info-card addressTypeProps="addressRegistrationInfo">
-  </health-address-info-card>
+    <health-identification-info-card></health-identification-info-card>
 
-  <health-address-info-card addressTypeProps="addressResidenceInfo">
-  </health-address-info-card>
+    <health-address-info-card addressTypeProps="addressRegistrationInfo">
+    </health-address-info-card>
 
-  @if(userRole() === 'doctor') {
-  <health-address-info-card addressTypeProps="addressMedicalInstitutionInfo">
-  </health-address-info-card>
-  }
+    <health-address-info-card addressTypeProps="addressResidenceInfo">
+    </health-address-info-card>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'редактировать',
-            isDisabled: false,
-            routerLink: '/profile/edit'
-          }"
-        ></health-action-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <health-action-button
-          (click)="onLogout()"
-          [configProps]="{
-            isFormButton: false,
-            label: 'выйти',
-            isDisabled: false,
-            routerLink: null
-          }"
-        ></health-action-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    @if(userRole() === 'doctor') {
+    <health-address-info-card addressTypeProps="addressMedicalInstitutionInfo">
+    </health-address-info-card>
+    }
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <health-action-button
+            [configProps]="{
+              isFormButton: false,
+              label: 'редактировать',
+              isDisabled: false,
+              routerLink: '/profile/edit'
+            }"
+          ></health-action-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <health-action-button
+            (click)="onLogout()"
+            [configProps]="{
+              isFormButton: false,
+              label: 'выйти',
+              isDisabled: false,
+              routerLink: null
+            }"
+          ></health-action-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <health-footer></health-footer>
 </ion-content>
