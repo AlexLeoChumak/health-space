@@ -1,4 +1,4 @@
-<ion-app *ngrxLet="showHeaderFooter$ as showHeaderFooter" class="container">
+<ion-app *ngrxLet="showHeaderFooter$ as showHeaderFooter">
   @if (showHeaderFooter) {
   <health-header></health-header>
   }
@@ -6,9 +6,5 @@
   <ion-content>
     <ion-router-outlet></ion-router-outlet>
   </ion-content>
-
-  @if (showHeaderFooter) {
-  <health-footer></health-footer>
-  }
 </ion-app>
 <health-loader></health-loader>
