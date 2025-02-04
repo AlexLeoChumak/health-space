@@ -11,9 +11,15 @@ import {
   IonImg,
   IonText,
   IonCardHeader,
+  IonTitle,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
-import { selectUrlUserPhoto, selectUser } from 'src/app/store/user';
+
+import {
+  selectUrlUserPhoto,
+  selectUser,
+  selectUserRole,
+} from 'src/app/store/user';
 
 @Component({
   selector: 'health-personal-info-card',
@@ -22,6 +28,7 @@ import { selectUrlUserPhoto, selectUser } from 'src/app/store/user';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonTitle,
     IonCardHeader,
     IonText,
     IonImg,
@@ -38,5 +45,6 @@ import { selectUrlUserPhoto, selectUser } from 'src/app/store/user';
 export class PersonalInfoCardComponent {
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
+  protected readonly userRole = this.store.selectSignal(selectUserRole);
   protected readonly urlUserPhoto = this.store.selectSignal(selectUrlUserPhoto);
 }
