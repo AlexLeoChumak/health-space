@@ -1,43 +1,45 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar color="medium">
-    <ion-title>Health</ion-title>
-    <ion-buttons slot="end">
-      <health-action-button
-        [configProps]="{
-          isFormButton: false,
-          label: 'главная',
-          isDisabled: false,
-          routerLink: '/'
-        }"
-      ></health-action-button>
+    <div class="container flex">
+      <ion-title>Health</ion-title>
+      <ion-buttons>
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'главная',
+            isDisabled: false,
+            routerLink: '/'
+          }"
+        ></health-action-button>
 
-      @if (isAuthenticated()) {
-      <health-action-button
-        [configProps]="{
-          isFormButton: false,
-          label: 'личный кабинет',
-          isDisabled: false,
-          routerLink: 'user-profile'
-        }"
-      ></health-action-button>
-      } @else {
-      <health-action-button
-        [configProps]="{
-          isFormButton: false,
-          label: 'зарегистрироваться',
-          isDisabled: false,
-          routerLink: 'auth/registration'
-        }"
-      ></health-action-button>
-      <health-action-button
-        [configProps]="{
-          isFormButton: false,
-          label: 'войти',
-          isDisabled: false,
-          routerLink: 'auth/login'
-        }"
-      ></health-action-button>
-      }
-    </ion-buttons>
+        @if (isAuthenticated()) {
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'личный кабинет',
+            isDisabled: false,
+            routerLink: 'user-profile'
+          }"
+        ></health-action-button>
+        } @else {
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'зарегистрироваться',
+            isDisabled: false,
+            routerLink: 'auth/registration'
+          }"
+        ></health-action-button>
+        <health-action-button
+          [configProps]="{
+            isFormButton: false,
+            label: 'войти',
+            isDisabled: false,
+            routerLink: 'auth/login'
+          }"
+        ></health-action-button>
+        }
+      </ion-buttons>
+    </div>
   </ion-toolbar>
 </ion-header>
