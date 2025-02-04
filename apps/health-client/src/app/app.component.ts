@@ -11,9 +11,8 @@ import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
 import { filter, map } from 'rxjs';
 
-import { FooterComponent } from 'src/app/shared/components/footer/footer.component';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
-import { LoaderComponent } from './core/components/loader/loader.component';
+import { LoaderComponent } from 'src/app/core/components/loader/loader.component';
 import { appInitialize } from 'src/app/store/app';
 
 @Component({
@@ -28,7 +27,6 @@ import { appInitialize } from 'src/app/store/app';
     IonApp,
     IonRouterOutlet,
     HeaderComponent,
-    FooterComponent,
     LetDirective,
     LoaderComponent,
   ],
