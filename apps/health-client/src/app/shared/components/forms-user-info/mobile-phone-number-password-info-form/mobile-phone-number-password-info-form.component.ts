@@ -24,7 +24,7 @@ import {
   FormValidationErrorMessagesInterface,
   FORM_VALIDATION_ERROR_MESSAGES,
 } from 'src/app/shared/constants/form-validation-error-messages.constant';
-import { checkInputValidatorUtility } from 'src/app/shared/utils/check-input-validator.utility';
+import { checkInputValidatorUtility } from 'src/app/shared/utilities/check-input-validator.utility';
 import { PhonePrefixFormatterDirective } from 'src/app/features/auth/directives/phone-prefix-formatter.directive';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 

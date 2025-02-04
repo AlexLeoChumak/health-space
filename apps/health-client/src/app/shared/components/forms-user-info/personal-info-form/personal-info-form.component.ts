@@ -42,9 +42,9 @@ import {
 } from 'src/app/shared/components/action-button/action-button.component';
 import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
-import { checkInputValidatorUtility } from 'src/app/shared/utils/check-input-validator.utility';
-import { formattingDateToLocalStringUtility } from 'src/app/shared/utils/formatting-date-to-local-string.utility';
-import { getDatepickerButtonLabelUtility } from 'src/app/shared/utils/get-datepicker-button-label.utility';
+import { checkInputValidatorUtility } from 'src/app/shared/utilities/check-input-validator.utility';
+import { formattingDateToLocalStringUtility } from 'src/app/shared/utilities/formatting-date-to-local-string.utility';
+import { getDatepickerButtonLabelUtility } from 'src/app/shared/utilities/get-datepicker-button-label.utility';
 
 @Component({
   selector: 'health-personal-info-form',

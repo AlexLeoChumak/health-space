@@ -11,7 +11,7 @@ import { PatientLoginResponseInterface } from 'src/app/shared/models/patient/pat
 import { DoctorLoginResponseInterface } from 'src/app/shared/models/doctor/doctor-login-response.interface';
 import { GlobalApiSuccessResponseInterface } from 'src/app/shared/models/global-api-success-response.interface';
 import { UserPhotoService } from 'src/app/shared/services/user-photo/user-photo.service';
-import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
+import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
 import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
 import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
 

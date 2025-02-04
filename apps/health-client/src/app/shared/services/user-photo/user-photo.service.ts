@@ -7,7 +7,7 @@ import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor
 import { GlobalApiSuccessResponseInterface } from 'src/app/shared/models/global-api-success-response.interface';
 import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
 import { UpdateResultInterface } from 'src/app/shared/models/update-result.interface';
-import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
+import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

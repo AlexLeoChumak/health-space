@@ -7,7 +7,7 @@ import { switchMap, of, catchError, tap } from 'rxjs';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
-import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
+import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
 import {
   appInitialize,
   appInitialized,

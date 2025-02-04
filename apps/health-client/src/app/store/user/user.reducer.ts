@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { getUserRole } from 'src/app/shared/utils/get-user-role.utility';
+import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
 import {
   clearUser,
   getUrlUserPhotoSuccess,
