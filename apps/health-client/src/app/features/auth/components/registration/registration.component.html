@@ -1,50 +1,52 @@
 <ion-header>
-  <div class="container">
-    <ion-toolbar color="medium">
+  <ion-toolbar color="medium">
+    <div class="container">
       <ion-title class="ion-text-center">
         Зарегистрироваться как ...
       </ion-title>
-    </ion-toolbar>
-  </div>
+    </div>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-router-outlet></ion-router-outlet>
-      </ion-col>
-    </ion-row>
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-router-outlet></ion-router-outlet>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-text-center">
-      <ion-col>
-        <health-action-button
-          [configProps]="{
+      <ion-row class="ion-text-center">
+        <ion-col>
+          <health-action-button
+            [configProps]="{
                   isFormButton: false,
                   label: 'пациент',
                   isDisabled: false,
                   routerLink: '/auth/registration/patient',
                 }"
-        ></health-action-button>
-      </ion-col>
+          ></health-action-button>
+        </ion-col>
 
-      <ion-col>
-        <health-action-button
-          [configProps]="{
+        <ion-col>
+          <health-action-button
+            [configProps]="{
                   isFormButton: false,
                   label: 'медработник',
                   isDisabled: false,
                   routerLink: '/auth/registration/doctor',
                 }"
-        ></health-action-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <a routerLink="../login" class="ion-text-secondary no-underline">
-          Уже зарегистрированы? Войти...
-        </a>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+          ></health-action-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <a routerLink="../login" class="ion-text-secondary no-underline">
+            Уже зарегистрированы? Войти...
+          </a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
