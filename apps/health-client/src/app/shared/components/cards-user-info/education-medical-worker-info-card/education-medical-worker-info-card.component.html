@@ -1,0 +1,19 @@
+@let userEducationInfo = educationInfo();
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Медицинское образование</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list lines="full">
+      @for (field of educationMedicalWorkerFields; track field.key) { @if
+      (userEducationInfo?.[field.key]) {
+      <ion-item>
+        <ion-label position="stacked">{{ field.label }}</ion-label>
+        <ion-text>{{ userEducationInfo?.[field.key] }}</ion-text>
+      </ion-item>
+      } }
+    </ion-list>
+  </ion-card-content>
+</ion-card>
