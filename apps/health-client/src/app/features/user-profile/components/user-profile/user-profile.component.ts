@@ -17,6 +17,7 @@ import { PersonalInfoCardComponent } from 'src/app/shared/components/cards-user-
 import { IdentificationInfoCardComponent } from 'src/app/shared/components/cards-user-info/identification-info-card/identification-info-card.component';
 import { ContactInfoCardComponent } from 'src/app/shared/components/cards-user-info/contact-info-card/contact-info-card.component';
 import { FooterComponent } from 'src/app/shared/components/footer/footer.component';
+import { EducationMedicalWorkerInfoCardComponent } from 'src/app/shared/components/cards-user-info/education-medical-worker-info-card/education-medical-worker-info-card.component';
 
 @Component({
   selector: 'health-user-profile',
@@ -35,6 +36,7 @@ import { FooterComponent } from 'src/app/shared/components/footer/footer.compone
     PersonalInfoCardComponent,
     IdentificationInfoCardComponent,
     ContactInfoCardComponent,
+    EducationMedicalWorkerInfoCardComponent,
     FooterComponent,
   ],
 })
