@@ -1,0 +1,19 @@
+@let userPlaceWorkInfo = placeWorkInfo();
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Место работы</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list lines="full">
+      @for (field of placeWorkFields; track field.key) { @if
+      (userPlaceWorkInfo?.[field.key]) {
+      <ion-item>
+        <ion-label position="stacked">{{ field.label }}</ion-label>
+        <ion-text>{{ userPlaceWorkInfo?.[field.key] }}</ion-text>
+      </ion-item>
+      } }
+    </ion-list>
+  </ion-card-content>
+</ion-card>
