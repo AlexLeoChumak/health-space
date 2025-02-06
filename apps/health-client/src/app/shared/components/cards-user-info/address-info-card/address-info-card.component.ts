@@ -48,17 +48,8 @@ export class AddressInfoCardComponent {
   public readonly addressTypeProps = input.required<AddressPropsType>();
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
-  protected readonly addressFields: FieldInterface<AddressInfoInterface>[] = [
-    { key: 'region', label: 'Область' },
-    { key: 'district', label: 'Район' },
-    { key: 'city', label: 'Город' },
-    { key: 'street', label: 'Улица' },
-    { key: 'house', label: 'Дом' },
-    { key: 'housing', label: 'Корпус' },
-    { key: 'apartment', label: 'Квартира' },
-  ];
 
-  selectedAddress = computed<AddressInfoInterface | null>(() => {
+  protected readonly addressInfo = computed<AddressInfoInterface | null>(() => {
     const user = this.user();
     if (!user) return null;
 
@@ -71,4 +62,14 @@ export class AddressInfoCardComponent {
 
     return null;
   });
+
+  protected readonly addressFields: FieldInterface<AddressInfoInterface>[] = [
+    { key: 'region', label: 'Область' },
+    { key: 'district', label: 'Район' },
+    { key: 'city', label: 'Город' },
+    { key: 'street', label: 'Улица' },
+    { key: 'house', label: 'Дом' },
+    { key: 'housing', label: 'Корпус' },
+    { key: 'apartment', label: 'Квартира' },
+  ];
 }
