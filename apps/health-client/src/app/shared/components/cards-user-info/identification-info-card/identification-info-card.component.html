@@ -1,4 +1,4 @@
-@let userObj = user()?.identificationInfo;
+@let userIdentificationInfo = user()?.identificationInfo;
 
 <ion-card>
   <ion-card-header>
@@ -8,13 +8,15 @@
   <ion-card-content>
     <ion-list lines="full">
       @for (field of identificationFields; track field.key) { @if
-      (userObj?.[field.key]) {
+      (userIdentificationInfo?.[field.key]) {
       <ion-item>
         <ion-label position="stacked">{{ field.label }}</ion-label>
-        @if (userObj?.[field.key] !== other) {
-        <ion-text>{{ userObj?.[field.key] }}</ion-text>
+        @if (userIdentificationInfo?.[field.key] !== other) {
+        <ion-text>{{ userIdentificationInfo?.[field.key] }}</ion-text>
         } @else {
-        <ion-text>{{ userObj?.nameStateForeignCitizen }}</ion-text>
+        <ion-text>{{
+          userIdentificationInfo?.nameStateForeignCitizen
+        }}</ion-text>
 
         }
       </ion-item>
