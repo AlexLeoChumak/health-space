@@ -1,5 +1,5 @@
 <!-- Создаем переменную шаблона -->
-@let userObj = user();
+@let userData = user();
 
 <ion-card>
   <ion-card-header>
@@ -11,16 +11,16 @@
       <ion-item>
         <ion-label position="stacked">Мобильный номер телефона</ion-label>
         <ion-text>{{
-          userObj?.mobilePhoneNumberPasswordInfo?.mobilePhoneNumber
+          userData?.mobilePhoneNumberPasswordInfo?.mobilePhoneNumber
         }}</ion-text>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Домашний номер телефона</ion-label>
-        <ion-text>{{ userObj?.contactInfo?.homePhoneNumber }}</ion-text>
+        <ion-text>{{ userData?.contactInfo?.homePhoneNumber }}</ion-text>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Электронная почта</ion-label>
-        <ion-text>{{ userObj?.contactInfo?.email }}</ion-text>
+        <ion-text>{{ userData?.contactInfo?.email }}</ion-text>
       </ion-item>
     </ion-list>
   </ion-card-content>
