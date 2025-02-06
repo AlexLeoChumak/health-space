@@ -42,12 +42,14 @@ import {
 export class EducationMedicalWorkerInfoCardComponent {
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
-  protected educationInfo = computed(() => {
-    const user = this.user();
-    return user && 'educationMedicalWorkerInfo' in user
-      ? user.educationMedicalWorkerInfo
-      : null;
-  });
+
+  protected readonly educationInfo =
+    computed<EducationMedicalWorkerInfoInterface | null>(() => {
+      const user = this.user();
+      return user && 'educationMedicalWorkerInfo' in user
+        ? user.educationMedicalWorkerInfo
+        : null;
+    });
 
   protected readonly educationMedicalWorkerFields: FieldInterface<EducationMedicalWorkerInfoInterface>[] =
     [
