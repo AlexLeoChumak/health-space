@@ -1,4 +1,4 @@
-@let userObj = user()?.personalInfo;
+@let userPersonalInfo = user()?.personalInfo;
 
 <ion-card>
   <ion-card-header>
@@ -17,21 +17,21 @@
             {{ userRole() === 'patient' ? 'Пациент' : 'Доктор' }}
           </ion-text>
           <ion-title class="ion-no-padding">
-            {{ userObj?.lastName }}
-            {{ userObj?.firstName }}
-            {{ userObj?.middleName }}
+            {{ userPersonalInfo?.lastName }}
+            {{ userPersonalInfo?.firstName }}
+            {{ userPersonalInfo?.middleName }}
           </ion-title>
         </ion-label>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Дата рождения</ion-label>
-        <ion-text>{{ userObj?.dateOfBirth }}</ion-text>
+        <ion-text>{{ userPersonalInfo?.dateOfBirth }}</ion-text>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Пол</ion-label>
-        <ion-text>{{ userObj?.gender }}</ion-text>
+        <ion-text>{{ userPersonalInfo?.gender }}</ion-text>
       </ion-item>
     </ion-list>
   </ion-card-content>
