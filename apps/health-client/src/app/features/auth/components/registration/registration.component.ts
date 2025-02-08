@@ -6,10 +6,8 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonRouterOutlet,
+  IonCard,
+  IonCardContent,
 } from '@ionic/angular/standalone';
 
 import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
@@ -21,16 +19,14 @@ import { ActionButtonComponent } from 'src/app/shared/components/action-button/a
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonCol,
-    IonRow,
-    IonGrid,
+    IonCardContent,
+    IonCard,
     CommonModule,
     RouterModule,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
-    IonRouterOutlet,
     ActionButtonComponent,
   ],
 })
