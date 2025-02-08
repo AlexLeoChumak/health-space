@@ -1,45 +1,35 @@
 <ion-header>
   <ion-toolbar color="medium">
     <div class="container flex">
-      <ion-title>Health</ion-title>
-      <ion-buttons>
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'главная',
-            isDisabled: false,
-            routerLink: '/'
-          }"
-        ></health-action-button>
+      <h3>Health</h3>
+
+      <div>
+        <a
+          routerLink="/home"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <ion-icon name="home"></ion-icon>
+          Главная
+        </a>
 
         @if (isAuthenticated()) {
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'личный кабинет',
-            isDisabled: false,
-            routerLink: 'user-profile'
-          }"
-        ></health-action-button>
+        <a routerLink="/user-profile" routerLinkActive="active-link">
+          <ion-icon name="person"></ion-icon>
+          Профиль
+        </a>
         } @else {
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'зарегистрироваться',
-            isDisabled: false,
-            routerLink: 'auth/registration'
-          }"
-        ></health-action-button>
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'войти',
-            isDisabled: false,
-            routerLink: 'auth/login'
-          }"
-        ></health-action-button>
+        <a routerLink="/auth/registration" routerLinkActive="active-link">
+          <ion-icon name="person-add"></ion-icon>
+          Зарегистрироваться
+        </a>
+
+        <a routerLink="/auth/login" routerLinkActive="active-link">
+          <ion-icon name="log-in"></ion-icon>
+          Войти
+        </a>
         }
-      </ion-buttons>
+      </div>
     </div>
   </ion-toolbar>
 </ion-header>
