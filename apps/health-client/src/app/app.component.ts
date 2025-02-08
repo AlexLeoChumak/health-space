@@ -5,11 +5,8 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 import { IonApp, IonRouterOutlet, IonContent } from '@ionic/angular/standalone';
-import { LetDirective } from '@ngrx/component';
 import { Store } from '@ngrx/store';
-import { filter, map } from 'rxjs';
 
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 import { LoaderComponent } from 'src/app/core/components/loader/loader.component';
@@ -27,20 +24,11 @@ import { appInitialize } from 'src/app/store/app';
     IonApp,
     IonRouterOutlet,
     HeaderComponent,
-    LetDirective,
     LoaderComponent,
   ],
 })
 export class AppComponent implements OnInit {
-  private readonly router = inject(Router);
   private readonly store = inject(Store);
-
-  protected readonly showHeaderFooter$ = this.router.events.pipe(
-    filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-    map((event: NavigationEnd) => {
-      return !event.url.includes('auth');
-    })
-  );
 
   public ngOnInit(): void {
     this.dispatchAppStateInitialization();
