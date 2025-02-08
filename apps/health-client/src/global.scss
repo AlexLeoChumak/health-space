@@ -131,6 +131,16 @@
   --ion-border-radius-preview-photo: 10px;
 }
 
+ion-content {
+  --background: radial-gradient(
+    circle at 50% 50%,
+    #{vars.$gradient-start} 0%,
+    #{vars.$gradient-mid1} 33%,
+    #{vars.$gradient-mid2} 66%,
+    #{vars.$gradient-end} 100%
+  );
+}
+
 .container {
   max-width: #{vars.$container-max-width}; // 1440px;
   width: #{vars.$container-width}; // 100%;
@@ -168,4 +178,14 @@ health-error-notification {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+  color: var(--ion-color-light);
+  padding: 0 10px;
+}
+
+.active-link {
+  color: var(--ion-color-dark);
 }
