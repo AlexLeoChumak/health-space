@@ -1,14 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
-} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonIcon } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
-import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
 import { selectIsAuthenticated } from 'src/app/store/app';
 
 @Component({
@@ -17,14 +11,7 @@ import { selectIsAuthenticated } from 'src/app/store/app';
   styleUrls: ['./header.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    RouterModule,
-    IonButtons,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    ActionButtonComponent,
-  ],
+  imports: [IonIcon, RouterModule, IonHeader, IonToolbar],
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
