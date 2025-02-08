@@ -29,8 +29,6 @@ import {
   IonImg,
   IonIcon,
 } from '@ionic/angular/standalone';
-import { trashBin } from 'ionicons/icons';
-import { addIcons } from 'ionicons';
 
 import {
   FormValidationErrorMessagesInterface,
@@ -84,10 +82,6 @@ export class PersonalInfoFormComponent implements OnInit {
   );
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
-
-  constructor() {
-    addIcons({ trashBin });
-  }
 
   public ngOnInit(): void {
     this.initializeForm();
