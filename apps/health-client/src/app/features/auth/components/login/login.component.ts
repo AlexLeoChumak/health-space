@@ -10,17 +10,13 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonItem,
-  IonCol,
-  IonGrid,
-  IonRow,
   IonLabel,
   IonCheckbox,
-  IonButtons,
+  IonList,
+  IonCard,
+  IonCardContent,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
@@ -41,19 +37,14 @@ import {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonButtons,
+    IonCardContent,
+    IonCard,
+    IonList,
     RouterModule,
     IonCheckbox,
     IonLabel,
-    IonCol,
     ReactiveFormsModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
-    IonCol,
-    IonRow,
-    IonGrid,
     IonItem,
     ActionButtonComponent,
     MobilePhoneNumberPasswordInfoFormComponent,

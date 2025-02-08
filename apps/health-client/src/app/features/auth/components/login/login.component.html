@@ -1,35 +1,9 @@
-<ion-header>
-  <ion-toolbar color="medium">
-    <div class="container flex">
-      <ion-title>Авторизация</ion-title>
-      <ion-buttons slot="end">
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'главная',
-            isDisabled: false,
-            routerLink: '../../home'
-          }"
-        ></health-action-button>
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'зарегистрироваться',
-            isDisabled: false,
-            routerLink: '../registration'
-          }"
-        ></health-action-button>
-      </ion-buttons>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="container">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+    <ion-card>
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+          <ion-list>
             <health-mobile-phone-number-password-info-form
               (formReady)="addFormGroup($event)"
             ></health-mobile-phone-number-password-info-form>
@@ -44,32 +18,29 @@
                 (ionChange)="onCheckboxChange()"
               ></ion-checkbox>
             </ion-item>
+          </ion-list>
 
-            <ion-item lines="none">
-              <health-action-button
-                [configProps]="{
-                  isFormButton: true,
-                  label: 'войти',
-                  isDisabled: loginForm.invalid || isSubmittingForm(),
-                  routerLink: null,
-                }"
-              ></health-action-button>
-            </ion-item>
-          </form>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item lines="none">
-            <a
-              routerLink="../registration"
-              class="ion-text-secondary no-underline"
-            >
-              Ещё нет аккаунта? Зарегистрироваться...
-            </a>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+          <div>
+            <health-action-button
+              [configProps]="{
+                isFormButton: true,
+                label: 'войти',
+                isDisabled: loginForm.invalid || isSubmittingForm(),
+                routerLink: null,
+              }"
+            ></health-action-button>
+          </div>
+        </form>
+
+        <div class="ion-margin-top">
+          <a
+            routerLink="../registration"
+            class="ion-text-secondary no-underline"
+          >
+            Ещё нет аккаунта? Зарегистрироваться...
+          </a>
+        </div>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
