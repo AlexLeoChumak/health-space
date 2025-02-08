@@ -13,6 +13,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { addIcons } from 'ionicons';
+import { home, logIn, person, personAdd, trashBin } from 'ionicons/icons';
 
 import { AppComponent } from 'src/app/app.component';
 import { routes } from 'src/app/app.routes';
@@ -23,6 +25,14 @@ import * as UserEffects from 'src/app/store/user/user.effects';
 import { registrationReducer } from 'src/app/store/registration';
 import { userReducer } from 'src/app/store/user';
 import { appReducer } from 'src/app/store/app/app.reducer';
+
+addIcons({
+  person,
+  home,
+  trashBin,
+  personAdd,
+  logIn,
+});
 
 bootstrapApplication(AppComponent, {
   providers: [
