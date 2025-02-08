@@ -26,10 +26,10 @@
 
 <ion-content>
   <div class="container">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <form [formGroup]="registrationForm" (ngSubmit)="onSubmitForm()">
+    <ion-card>
+      <ion-card-content>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmitForm()">
+          <ion-list>
             <health-personal-info-form
               (formReady)="addFormGroup('personalInfo', $event)"
             ></health-personal-info-form>
@@ -70,7 +70,7 @@
               "
             ></health-mobile-phone-number-password-info-form>
 
-            <ion-item lines="none">
+            <ion-item lines="none" class="ion-margin-top">
               <health-action-button
                 [configProps]="{
                 isFormButton: true,
@@ -80,9 +80,9 @@
               }"
               ></health-action-button>
             </ion-item>
-          </form>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+          </ion-list>
+        </form>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>

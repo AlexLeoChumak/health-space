@@ -9,10 +9,10 @@ import {
   IonItem,
   IonLabel,
   IonCheckbox,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonButtons,
+  IonCardContent,
+  IonList,
+  IonCard,
 } from '@ionic/angular/standalone';
 
 import { RegistrationBaseComponent } from 'src/app/features/auth/components/registration-base/registration-base.component';
@@ -33,13 +33,13 @@ import { IdentificationInfoFormComponent } from 'src/app/shared/components/forms
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonCard,
+    IonList,
+    IonCardContent,
     IonButtons,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonCol,
-    IonRow,
-    IonGrid,
     IonCheckbox,
     IonLabel,
     IonItem,
