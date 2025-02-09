@@ -1,40 +1,32 @@
-import { inject } from '@angular/core';
+import { DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CanActivateFn, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, finalize, map, Subject, switchMap, takeUntil } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
+
 import {
   selectIsAppInitialized,
   selectIsAuthenticated,
-} from 'src/app/store/app/app.selectors';
+} from 'src/app/store/app';
 
 export const authGuard: CanActivateFn = () => {
   const store = inject(Store);
   const router = inject(Router);
-  const destroy$ = new Subject<void>();
+  const destroyRef = inject(DestroyRef);
 
   return store.select(selectIsAppInitialized).pipe(
-    // Ждем, пока приложение завершит инициализацию
-    filter((isInitialized) => isInitialized),
+    filter((isInitialized) => isInitialized), // Ждем, пока приложение завершит инициализацию
     switchMap(() =>
       store.select(selectIsAuthenticated).pipe(
-        takeUntil(destroy$),
         map((isAuthenticated) => {
           if (isAuthenticated) {
-            // Если пользователь залогинен, перенаправляем на домашнюю страницу или другой маршрут
-            router.navigate(['/']);
+            router.navigate(['/']); // Если залогинен, перенаправляем на главную
             return false;
           }
-
-          // Если не залогинен, разрешаем доступ
-          return true;
-        }),
-        takeUntil(destroy$)
+          return true; // Если не залогинен, разрешаем доступ
+        })
       )
     ),
-    takeUntil(destroy$),
-    finalize(() => {
-      destroy$.next();
-      destroy$.complete();
-    })
+    takeUntilDestroyed(destroyRef) // Один раз для всей цепочки
   );
 };
