@@ -3,13 +3,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
-import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
+import {
+  PatientRegistrationRequestInterface,
+  DoctorRegistrationRequestInterface,
+} from 'src/app/shared/models';
 import { selectIsLoading } from 'src/app/store/app';
 import {
-  clearRegistrationState,
   registration,
   selectRegistrationSuccess,
+  clearRegistrationState,
 } from 'src/app/store/registration';
 
 @Component({

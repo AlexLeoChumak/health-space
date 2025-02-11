@@ -1,16 +1,10 @@
-<ion-header>
-  <ion-toolbar color="medium">
-    <div class="container">
-      <ion-title class="ion-text-center">
-        Зарегистрироваться как ...
-      </ion-title>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="container">
     <ion-card>
+      <ion-card-header class="ion-text-center">
+        <ion-card-title>Зарегистрироваться как ...</ion-card-title>
+      </ion-card-header>
+
       <ion-card-content class="ion-text-center">
         <health-action-button
           class="ion-margin"
@@ -33,7 +27,7 @@
         ></health-action-button>
 
         <div class="ion-margin-top">
-          <a routerLink="../login" class="ion-text-secondary no-underline">
+          <a routerLink="../login" class="no-underline">
             Уже зарегистрированы? Войти...
           </a>
         </div>

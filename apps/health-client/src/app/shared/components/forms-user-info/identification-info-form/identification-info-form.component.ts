@@ -19,6 +19,7 @@ import {
   IonRadioGroup,
   IonRadio,
 } from '@ionic/angular/standalone';
+
 import { IdentificationInfoFormForCitizensBelarusComponent } from 'src/app/shared/components/forms-user-info/identification-info-form/identification-info-form-for-citizens-belarus/identification-info-form-for-citizens-belarus.component';
 import { IdentificationInfoFormForForeignCitizensComponent } from 'src/app/shared/components/forms-user-info/identification-info-form/identification-info-form-for-foreign-citizens/identification-info-form-for-foreign-citizens.component';
 

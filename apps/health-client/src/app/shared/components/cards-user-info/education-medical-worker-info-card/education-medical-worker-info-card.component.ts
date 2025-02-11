@@ -6,10 +6,6 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-
-import { FieldInterface } from 'src/app/shared/models/field.interface';
-import { selectUser } from 'src/app/store/user';
-import { EducationMedicalWorkerInfoInterface } from 'src/app/shared/models/doctor/doctor.interface';
 import {
   IonCard,
   IonText,
@@ -20,6 +16,12 @@ import {
   IonItem,
   IonCardTitle,
 } from '@ionic/angular/standalone';
+
+import {
+  EducationMedicalWorkerInfoInterface,
+  FieldInterface,
+} from 'src/app/shared/models';
+import { selectUser } from 'src/app/store/user';
 
 @Component({
   selector: 'health-education-medical-worker-info-card',

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, finalize, map, of, switchMap, tap } from 'rxjs';
-import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { AuthService } from 'src/app/features/auth';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import { setLoading } from 'src/app/store/app';
 import {

@@ -1,0 +1,12 @@
+a {
+  color: var(--ion-color-light);
+  vertical-align: bottom;
+}
+
+.active-link {
+  color: var(--ion-color-dark);
+}
+
+ion-icon {
+  transform: translateY(2px); // смещение иконки по высоте относительно текста
+}

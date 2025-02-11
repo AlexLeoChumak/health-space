@@ -1,6 +1,7 @@
 import { Component, effect, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LoadingController } from '@ionic/angular';
+
 import { selectIsLoading } from 'src/app/store/app';
 
 @Component({

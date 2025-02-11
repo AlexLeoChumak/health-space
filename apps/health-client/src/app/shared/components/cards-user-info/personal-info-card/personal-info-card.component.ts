@@ -16,9 +16,9 @@ import {
 import { Store } from '@ngrx/store';
 
 import {
-  selectUrlUserPhoto,
   selectUser,
   selectUserRole,
+  selectUrlUserPhoto,
 } from 'src/app/store/user';
 
 @Component({

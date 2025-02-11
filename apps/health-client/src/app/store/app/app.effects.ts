@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, of, catchError, tap } from 'rxjs';
 
-import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { AuthService } from 'src/app/features/auth';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';

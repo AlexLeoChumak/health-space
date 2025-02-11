@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { selectUser } from 'src/app/store/user';
 import {
   IonCard,
   IonCardHeader,
@@ -12,6 +11,8 @@ import {
   IonLabel,
   IonText,
 } from '@ionic/angular/standalone';
+
+import { selectUser } from 'src/app/store/user';
 
 @Component({
   selector: 'health-contact-info-card',

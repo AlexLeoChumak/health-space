@@ -8,8 +8,8 @@ import {
 import { IonApp, IonRouterOutlet, IonContent } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
-import { HeaderComponent } from 'src/app/shared/components/header/header.component';
-import { LoaderComponent } from 'src/app/core/components/loader/loader.component';
+import { LoaderComponent } from 'src/app/core/components';
+import { HeaderComponent } from 'src/app/shared/components';
 import { appInitialize } from 'src/app/store/app';
 
 @Component({

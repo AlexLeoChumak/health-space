@@ -2,15 +2,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonCard,
   IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
 } from '@ionic/angular/standalone';
 
-import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
+import { ActionButtonComponent } from 'src/app/shared/components';
 
 @Component({
   selector: 'health-registration',
@@ -19,13 +18,12 @@ import { ActionButtonComponent } from 'src/app/shared/components/action-button/a
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonCardTitle,
+    IonCardHeader,
     IonCardContent,
     IonCard,
     CommonModule,
     RouterModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     ActionButtonComponent,
   ],

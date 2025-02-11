@@ -2,18 +2,20 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, switchMap } from 'rxjs';
 
-import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface';
-import { DoctorRegistrationRequestInterface } from 'src/app/shared/models/doctor/doctor-registration-request.interface';
-import { PatientRegistrationRequestInterface } from 'src/app/shared/models/patient/patient-registration-request.interface';
-import { LoginRequestInterface } from 'src/app/shared/models/login-request.interface';
 import { environment } from 'src/environments/environment';
-import { PatientLoginResponseInterface } from 'src/app/shared/models/patient/patient-login-response.interface';
-import { DoctorLoginResponseInterface } from 'src/app/shared/models/doctor/doctor-login-response.interface';
-import { GlobalApiSuccessResponseInterface } from 'src/app/shared/models/global-api-success-response.interface';
-import { UserPhotoService } from 'src/app/shared/services/user-photo/user-photo.service';
-import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
-import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
-import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
+import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface'; ////////////
+import {
+  PatientRegistrationRequestInterface,
+  DoctorRegistrationRequestInterface,
+  GlobalApiSuccessResponseInterface,
+  LoginRequestInterface,
+  PatientLoginResponseInterface,
+  DoctorLoginResponseInterface,
+  PatientInterface,
+  DoctorInterface,
+} from 'src/app/shared/models';
+import { UserPhotoService } from 'src/app/shared/services';
+import { getUserRole } from 'src/app/shared/utilities';
 
 @Injectable({
   providedIn: 'root',

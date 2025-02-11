@@ -18,9 +18,8 @@ import {
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
+import { AddressInfoInterface, FieldInterface } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
-import { AddressInfoInterface } from 'src/app/shared/models/patient/patient.interface';
-import { FieldInterface } from 'src/app/shared/models/field.interface';
 
 type PatientAddressProps = 'addressRegistrationInfo' | 'addressResidenceInfo';
 type DoctorAddressProps = PatientAddressProps | 'addressMedicalInstitutionInfo';

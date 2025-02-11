@@ -8,19 +8,19 @@ import { CommonModule } from '@angular/common';
 import { IonContent, IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
-import { logout } from 'src/app/store/app';
-import { selectUser } from 'src/app/store/user';
-import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
-import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
-import { FooterComponent } from 'src/app/shared/components/footer/footer.component';
 import {
+  ActionButtonComponent,
   AddressInfoCardComponent,
+  PersonalInfoCardComponent,
+  IdentificationInfoCardComponent,
   ContactInfoCardComponent,
   EducationMedicalWorkerInfoCardComponent,
-  IdentificationInfoCardComponent,
-  PersonalInfoCardComponent,
   PlaceWorkInfoCardComponent,
+  FooterComponent,
 } from 'src/app/shared/components';
+import { getUserRole } from 'src/app/shared/utilities';
+import { logout } from 'src/app/store/app';
+import { selectUser } from 'src/app/store/user';
 
 @Component({
   selector: 'health-user-profile',

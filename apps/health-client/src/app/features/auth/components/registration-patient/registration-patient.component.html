@@ -1,32 +1,10 @@
-<ion-header>
-  <ion-toolbar color="medium">
-    <div class="container flex">
-      <ion-title>Регистрация пациента</ion-title>
-      <ion-buttons slot="end">
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'главная',
-            isDisabled: false,
-            routerLink: '../../../home'
-          }"
-        ></health-action-button>
-        <health-action-button
-          [configProps]="{
-            isFormButton: false,
-            label: 'войти',
-            isDisabled: false,
-            routerLink: '../../login'
-          }"
-        ></health-action-button>
-      </ion-buttons>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="container">
     <ion-card>
+      <ion-card-header>
+        <ion-card-title>Регистрация пациента</ion-card-title>
+      </ion-card-header>
+
       <ion-card-content>
         <form [formGroup]="registrationForm" (ngSubmit)="onSubmitForm()">
           <ion-list>

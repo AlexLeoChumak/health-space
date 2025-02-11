@@ -20,14 +20,16 @@ import {
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
-import { LoginRequestInterface } from 'src/app/shared/models/login-request.interface';
-import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
-import { MobilePhoneNumberPasswordInfoFormComponent } from 'src/app/shared/components/forms-user-info/mobile-phone-number-password-info-form/mobile-phone-number-password-info-form.component';
+import {
+  ActionButtonComponent,
+  MobilePhoneNumberPasswordInfoFormComponent,
+} from 'src/app/shared/components';
+import { LoginRequestInterface } from 'src/app/shared/models';
 import {
   AppState,
+  selectIsLoading,
   login,
   selectIsAuthenticated,
-  selectIsLoading,
 } from 'src/app/store/app';
 
 @Component({

@@ -17,9 +17,8 @@ import {
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
+import { PlaceWorkInfoInterface, FieldInterface } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
-import { FieldInterface } from 'src/app/shared/models/field.interface';
-import { PlaceWorkInfoInterface } from 'src/app/shared/models/doctor/doctor.interface';
 
 @Component({
   selector: 'health-place-work-info-card',

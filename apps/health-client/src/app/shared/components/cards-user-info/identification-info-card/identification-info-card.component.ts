@@ -11,9 +11,12 @@ import {
   IonCardContent,
   IonCardTitle,
 } from '@ionic/angular/standalone';
+
+import {
+  FieldInterface,
+  IdentificationInfoInterface,
+} from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
-import { IdentificationInfoInterface } from 'src/app/shared/models/patient/patient.interface';
-import { FieldInterface } from 'src/app/shared/models/field.interface';
 
 @Component({
   selector: 'health-identification-info-card',
