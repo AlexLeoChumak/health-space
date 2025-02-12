@@ -1,0 +1,17 @@
+<ion-button color="light" (click)="openPopover($event)">
+  <ion-icon name="menu"></ion-icon>
+</ion-button>
+
+<ion-popover
+  [isOpen]="isPopoverOpen"
+  [event]="popoverEvent"
+  (ionPopoverDidDismiss)="closePopover()"
+>
+  <ng-template>
+    <ion-list>
+      <ion-item button>Настройки</ion-item>
+      <ion-item button>Подключить услуги</ion-item>
+      <ion-item button>Выйти</ion-item>
+    </ion-list>
+  </ng-template>
+</ion-popover>
