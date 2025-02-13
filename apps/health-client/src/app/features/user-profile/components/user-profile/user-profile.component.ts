@@ -16,11 +16,11 @@ import {
   ContactInfoCardComponent,
   EducationMedicalWorkerInfoCardComponent,
   PlaceWorkInfoCardComponent,
-  FooterComponent,
 } from 'src/app/shared/components';
 import { getUserRole } from 'src/app/shared/utilities';
 import { logout } from 'src/app/store/app';
 import { selectUser } from 'src/app/store/user';
+import { FooterComponent } from 'src/app/features/footer';
 
 @Component({
   selector: 'health-user-profile',
