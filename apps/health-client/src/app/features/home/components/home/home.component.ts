@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent } from '@ionic/angular/standalone';
-
-import { FooterComponent } from 'src/app/shared/components';
+import { FooterComponent } from 'src/app/features/footer';
 
 @Component({
   selector: 'health-home',
