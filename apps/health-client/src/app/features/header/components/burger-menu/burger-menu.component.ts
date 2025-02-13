@@ -17,8 +17,8 @@ import {
   imports: [IonItem, IonList, IonPopover, IonIcon, IonButton, CommonModule],
 })
 export class BurgerMenuComponent {
-  isPopoverOpen = false;
-  popoverEvent: any;
+  protected isPopoverOpen = false;
+  protected popoverEvent!: Event;
 
   openPopover(event: Event) {
     this.popoverEvent = event;
