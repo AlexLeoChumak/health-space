@@ -1,4 +1,8 @@
-<ion-button color="light" (click)="openPopover($event)">
+<ion-button
+  color="light"
+  (click)="openPopover($event)"
+  class="ion-margin-start"
+>
   <ion-icon name="menu"></ion-icon>
 </ion-button>
 
@@ -9,9 +13,12 @@
 >
   <ng-template>
     <ion-list>
-      <ion-item button>Настройки</ion-item>
-      <ion-item button>Подключить услуги</ion-item>
-      <ion-item button>Выйти</ion-item>
+      @if (isAuth()) {
+      <ion-item button>Что то можно сделать ещё</ion-item>
+      <ion-item button (click)="onLogout()">Выйти</ion-item>
+      } @else {
+      <ion-item button>Что то можно сделать</ion-item>
+      }
     </ion-list>
   </ng-template>
 </ion-popover>
