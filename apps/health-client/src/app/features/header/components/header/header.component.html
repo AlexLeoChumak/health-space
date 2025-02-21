@@ -3,34 +3,37 @@
     <div class="container flex">
       <h3>Health</h3>
 
-      <div>
-        <a
-          routerLink="/home"
-          routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <ion-icon name="home"></ion-icon>
-          Главная
-        </a>
+      <div class="flex">
+        <div>
+          <a
+            routerLink="/home"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <ion-icon name="home"></ion-icon>
+            Главная
+          </a>
 
-        @if (isAuthenticated()) {
-        <a routerLink="/user-profile" routerLinkActive="active-link">
-          <ion-icon name="person"></ion-icon>
-          Профиль
-        </a>
-        } @else {
-        <a routerLink="/auth/registration" routerLinkActive="active-link">
-          <ion-icon name="person-add"></ion-icon>
-          Зарегистрироваться
-        </a>
+          @if (isAuthenticated()) {
+          <a routerLink="/user-profile" routerLinkActive="active-link">
+            <ion-icon name="person"></ion-icon>
+            Профиль
+          </a>
+          } @else {
+          <a routerLink="/auth/registration" routerLinkActive="active-link">
+            <ion-icon name="person-add"></ion-icon>
+            Зарегистрироваться
+          </a>
 
-        <a routerLink="/auth/login" routerLinkActive="active-link">
-          <ion-icon name="log-in"></ion-icon>
-          Войти
-        </a>
-        }
+          <a routerLink="/auth/login" routerLinkActive="active-link">
+            <ion-icon name="log-in"></ion-icon>
+            Войти
+          </a>
+          }
+        </div>
+
+        <health-burger-menu></health-burger-menu>
       </div>
-      <health-burger-menu></health-burger-menu>
     </div>
   </ion-toolbar>
 </ion-header>
