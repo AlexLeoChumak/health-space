@@ -20,34 +20,6 @@
     <health-address-info-card addressTypeProps="addressMedicalInstitutionInfo">
     </health-address-info-card>
     }
-
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <health-action-button
-            [configProps]="{
-              isFormButton: false,
-              label: 'редактировать',
-              isDisabled: false,
-              routerLink: '/profile/edit'
-            }"
-          ></health-action-button>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <health-action-button
-            (click)="onLogout()"
-            [configProps]="{
-              isFormButton: false,
-              label: 'выйти',
-              isDisabled: false,
-              routerLink: null
-            }"
-          ></health-action-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
   </div>
   <health-footer></health-footer>
 </ion-content>
