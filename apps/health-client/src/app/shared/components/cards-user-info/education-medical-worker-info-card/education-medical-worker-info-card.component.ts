@@ -15,6 +15,10 @@ import {
   IonList,
   IonItem,
   IonCardTitle,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
 
 import {
@@ -22,6 +26,7 @@ import {
   FieldInterface,
 } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
+import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
 
 @Component({
   selector: 'health-education-medical-worker-info-card',
@@ -30,6 +35,10 @@ import { selectUser } from 'src/app/store/user';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonIcon,
+    IonButton,
+    IonButtons,
+    IonToolbar,
     IonCardTitle,
     IonItem,
     IonList,
@@ -42,6 +51,7 @@ import { selectUser } from 'src/app/store/user';
   ],
 })
 export class EducationMedicalWorkerInfoCardComponent {
+  private readonly navigationService = inject(NavigationService);
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
 
@@ -78,4 +88,9 @@ export class EducationMedicalWorkerInfoCardComponent {
         label: 'Номер сертификата специалиста',
       },
     ];
+
+  protected editUserInfo(section: string): void {
+    const sectionId = this.user()?.personalInfo.id;
+    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+  }
 }

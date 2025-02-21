@@ -14,11 +14,16 @@ import {
   IonList,
   IonCardTitle,
   IonLabel,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
 import { PlaceWorkInfoInterface, FieldInterface } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
+import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
 
 @Component({
   selector: 'health-place-work-info-card',
@@ -27,6 +32,10 @@ import { selectUser } from 'src/app/store/user';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonIcon,
+    IonButton,
+    IonButtons,
+    IonToolbar,
     IonLabel,
     IonCardTitle,
     IonList,
@@ -39,6 +48,7 @@ import { selectUser } from 'src/app/store/user';
   ],
 })
 export class PlaceWorkInfoCardComponent {
+  private readonly navigationService = inject(NavigationService);
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
   protected placeWorkInfo = computed<PlaceWorkInfoInterface | null>(() => {
@@ -57,4 +67,9 @@ export class PlaceWorkInfoCardComponent {
       },
       { key: 'currentSpecialization', label: 'Текущая специализация' },
     ];
+
+  protected editUserInfo(section: string): void {
+    const sectionId = this.user()?.personalInfo.id;
+    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+  }
 }

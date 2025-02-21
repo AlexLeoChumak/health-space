@@ -12,6 +12,10 @@ import {
   IonText,
   IonCardHeader,
   IonTitle,
+  IonButton,
+  IonIcon,
+  IonToolbar,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
@@ -20,6 +24,7 @@ import {
   selectUserRole,
   selectUrlUserPhoto,
 } from 'src/app/store/user';
+import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
 
 @Component({
   selector: 'health-personal-info-card',
@@ -28,6 +33,10 @@ import {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonButtons,
+    IonToolbar,
+    IonIcon,
+    IonButton,
     IonTitle,
     IonCardHeader,
     IonText,
@@ -43,8 +52,14 @@ import {
   ],
 })
 export class PersonalInfoCardComponent {
+  private readonly navigationService = inject(NavigationService);
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
   protected readonly userRole = this.store.selectSignal(selectUserRole);
   protected readonly urlUserPhoto = this.store.selectSignal(selectUrlUserPhoto);
+
+  protected editUserInfo(section: string): void {
+    const sectionId = this.user()?.personalInfo.id;
+    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+  }
 }

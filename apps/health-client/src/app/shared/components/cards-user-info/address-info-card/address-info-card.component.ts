@@ -15,11 +15,16 @@ import {
   IonCardTitle,
   IonCardContent,
   IonList,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
 import { AddressInfoInterface, FieldInterface } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
+import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
 
 type PatientAddressProps = 'addressRegistrationInfo' | 'addressResidenceInfo';
 type DoctorAddressProps = PatientAddressProps | 'addressMedicalInstitutionInfo';
@@ -32,6 +37,10 @@ type AddressPropsType = PatientAddressProps | DoctorAddressProps;
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonIcon,
+    IonButton,
+    IonButtons,
+    IonToolbar,
     IonList,
     IonCardContent,
     IonCardTitle,
@@ -45,6 +54,7 @@ type AddressPropsType = PatientAddressProps | DoctorAddressProps;
 })
 export class AddressInfoCardComponent {
   public readonly addressTypeProps = input.required<AddressPropsType>();
+  private readonly navigationService = inject(NavigationService);
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
 
@@ -71,4 +81,9 @@ export class AddressInfoCardComponent {
     { key: 'housing', label: 'Корпус' },
     { key: 'apartment', label: 'Квартира' },
   ];
+
+  protected editUserInfo(section: string): void {
+    const sectionId = this.user()?.personalInfo.id;
+    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+  }
 }

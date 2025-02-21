@@ -10,6 +10,10 @@ import {
   IonItem,
   IonCardContent,
   IonCardTitle,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonToolbar,
 } from '@ionic/angular/standalone';
 
 import {
@@ -17,6 +21,7 @@ import {
   IdentificationInfoInterface,
 } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
+import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
 
 @Component({
   selector: 'health-identification-info-card',
@@ -25,6 +30,10 @@ import { selectUser } from 'src/app/store/user';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonToolbar,
+    IonIcon,
+    IonButton,
+    IonButtons,
     IonCardTitle,
     IonCardContent,
     IonItem,
@@ -37,6 +46,7 @@ import { selectUser } from 'src/app/store/user';
   ],
 })
 export class IdentificationInfoCardComponent {
+  private readonly navigationService = inject(NavigationService);
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
   protected readonly other: string = 'Иное';
@@ -62,4 +72,9 @@ export class IdentificationInfoCardComponent {
         label: 'Номер договора медицинского страхования',
       },
     ];
+
+  protected editUserInfo(section: string): void {
+    const sectionId = this.user()?.personalInfo.id;
+    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+  }
 }
