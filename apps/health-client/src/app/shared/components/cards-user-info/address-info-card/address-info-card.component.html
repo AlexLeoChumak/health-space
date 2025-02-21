@@ -3,15 +3,22 @@
 <!-- Карточка пользователя -->
 <ion-card>
   <ion-card-header>
-    @switch (addressTypeProps()) { @case ('addressRegistrationInfo') {
-    <ion-card-title>{{ 'Адрес регистрации' }}</ion-card-title>
-    } @case ('addressResidenceInfo') {
-    <ion-card-title>{{ 'Адрес проживания' }}</ion-card-title>
-    } @case ('addressMedicalInstitutionInfo') {
-    <ion-card-title>{{ 'Адрес места работы' }}</ion-card-title>
-    } @default {
-    <ion-card-title>{{ 'Адрес' }}</ion-card-title>
-    }}
+    <ion-toolbar>
+      @switch (addressTypeProps()) { @case ('addressRegistrationInfo') {
+      <ion-card-title>{{ 'Адрес регистрации' }}</ion-card-title>
+      } @case ('addressResidenceInfo') {
+      <ion-card-title>{{ 'Адрес проживания' }}</ion-card-title>
+      } @case ('addressMedicalInstitutionInfo') {
+      <ion-card-title>{{ 'Адрес места работы' }}</ion-card-title>
+      } @default {
+      <ion-card-title>{{ 'Адрес' }}</ion-card-title>
+      }}
+      <ion-buttons slot="end">
+        <ion-button (click)="editUserInfo('address')" fill="clear" size="small">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
   </ion-card-header>
 
   <ion-card-content>

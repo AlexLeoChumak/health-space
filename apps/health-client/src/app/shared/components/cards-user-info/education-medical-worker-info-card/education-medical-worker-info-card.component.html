@@ -2,7 +2,19 @@
 
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Медицинское образование</ion-card-title>
+    <ion-toolbar>
+      <ion-card-title>Медицинское образование</ion-card-title>
+
+      <ion-buttons slot="end">
+        <ion-button
+          (click)="editUserInfo('education')"
+          fill="clear"
+          size="small"
+        >
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
   </ion-card-header>
 
   <ion-card-content>
