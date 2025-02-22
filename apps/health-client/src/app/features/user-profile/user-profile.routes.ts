@@ -11,6 +11,13 @@ export const userProfileRoutes: Routes = [
             (m) => m.UserProfileComponent
           ),
       },
+      {
+        path: 'edit',
+        loadComponent: () =>
+          import('./components/edit-profile/edit-profile.component').then(
+            (m) => m.EditProfileComponent
+          ),
+      },
     ],
   },
 ];
