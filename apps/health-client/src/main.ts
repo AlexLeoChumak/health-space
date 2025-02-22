@@ -14,7 +14,16 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { addIcons } from 'ionicons';
-import { home, logIn, menu, person, personAdd, trashBin } from 'ionicons/icons';
+import {
+  home,
+  logIn,
+  menu,
+  pencil,
+  person,
+  personAdd,
+  save,
+  trashBin,
+} from 'ionicons/icons';
 
 import * as RegistrationEffects from 'src/app/store/registration/registration.effects';
 import * as AppEffects from 'src/app/store/app/app.effects';
@@ -33,6 +42,8 @@ addIcons({
   personAdd,
   logIn,
   menu,
+  pencil,
+  save,
 });
 
 bootstrapApplication(AppComponent, {
