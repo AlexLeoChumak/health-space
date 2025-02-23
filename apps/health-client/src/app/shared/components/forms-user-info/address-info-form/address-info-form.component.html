@@ -1,5 +1,24 @@
+@let addressTypeFromRegistrationPage = addressTypeProps(); @let
+addressTypeFromEditProfilePage = formDataProps();
+
 <ion-item-group [formGroup]="addressInfoFormGroup">
-  <ion-item class="section-title">{{ addressTypeProps() }} </ion-item>
+  @if (addressTypeFromEditProfilePage &&
+  addressTypeFromEditProfilePage.fieldName) { @switch
+  (addressTypeFromEditProfilePage.fieldName) { @case ('addressRegistrationInfo')
+  {
+  <ion-item class="section-title">{{ 'Адрес регистрации' }}</ion-item>
+  } @case ('addressResidenceInfo') {
+  <ion-item class="section-title">{{ 'Адрес проживания' }}</ion-item>
+  } @case ('addressMedicalInstitutionInfo') {
+  <ion-item class="section-title">{{ 'Адрес места работы' }}</ion-item>
+  } @default {
+  <ion-item class="section-title">{{ 'Адрес' }}</ion-item>
+  }} } @else {
+  <ion-item class="section-title"
+    >{{ addressTypeFromRegistrationPage }}
+  </ion-item>
+
+  }
 
   <ion-item>
     <ion-label position="floating" class="required-to-fill">Область</ion-label>
@@ -126,7 +145,7 @@
     }
   </ion-item>
 
-  @if (addressTypeProps() !== 'Адрес места работы') {
+  @if (addressTypeFromRegistrationPage !== 'Адрес места работы') {
   <ion-item>
     <ion-label position="floating"
       >Квартира <ion-note>(при наличии)</ion-note></ion-label
