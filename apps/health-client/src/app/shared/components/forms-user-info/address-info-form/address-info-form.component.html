@@ -145,7 +145,10 @@ addressTypeFromEditProfilePage = formDataProps();
     }
   </ion-item>
 
-  @if (addressTypeFromRegistrationPage !== 'Адрес места работы') {
+  @if (addressTypeFromRegistrationPage !== 'Адрес места работы' ) { @if
+  (addressTypeFromEditProfilePage?.fieldName !==
+  'addressMedicalInstitutionInfo') {
+
   <ion-item>
     <ion-label position="floating"
       >Квартира <ion-note>(при наличии)</ion-note></ion-label
@@ -173,5 +176,5 @@ addressTypeFromEditProfilePage = formDataProps();
     ></health-error-notification>
     }
   </ion-item>
-  }
+  } }
 </ion-item-group>
