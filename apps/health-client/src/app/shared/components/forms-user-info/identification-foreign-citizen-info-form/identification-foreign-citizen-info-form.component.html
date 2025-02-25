@@ -1,0 +1,101 @@
+<ion-item-group [formGroup]="identificationForeignCitizenInfoFormGroup">
+  <ion-item class="section-title"
+    >Идентификационная информация иностранного гражданина</ion-item
+  >
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Укажите государство, чьим гражданином являетесь</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="nameStateForeignCitizen"
+      class="margin-top"
+      autocomplete="country-name"
+    ></ion-input>
+
+    @if (checkInputValidator(identificationForeignCitizenInfoFormGroup,
+    'nameStateForeignCitizen', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Наименование документа, удостоверяющего личность</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="documentName"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator(identificationForeignCitizenInfoFormGroup,
+    'documentName', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Номер документа, удостоверяющего личность</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="documentNumber"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if
+    (checkInputValidator(identificationForeignCitizenInfoFormGroup,'documentNumber',
+    'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Наименование компании - медицинского страховщика</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="nameInsuranceCompany"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator(identificationForeignCitizenInfoFormGroup,
+    'nameInsuranceCompany', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" class="required-to-fill"
+      >Номер договора медицинского страхования</ion-label
+    >
+    <ion-input
+      type="text"
+      formControlName="healthInsuranceContractNumber"
+      class="margin-top"
+      autocomplete="on"
+    ></ion-input>
+
+    @if (checkInputValidator(identificationForeignCitizenInfoFormGroup,
+    'healthInsuranceContractNumber', 'required')) {
+    <health-error-notification
+      [errorNotificationProps]="formValidationErrorMessages.required"
+    ></health-error-notification>
+    }
+  </ion-item>
+</ion-item-group>
