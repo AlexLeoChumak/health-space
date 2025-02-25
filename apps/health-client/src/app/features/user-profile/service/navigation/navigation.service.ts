@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { StringConverterService } from 'src/app/shared/services';
 
 @Injectable({
   providedIn: 'root',
@@ -7,9 +8,11 @@ import { Router } from '@angular/router';
 export class NavigationService {
   private readonly router = inject(Router);
 
-  editUserInfo(section: string, sectionId: string): void {
+  public editUserInfo(section: string, sectionId: string): void {
+    const sectionKebabCase = StringConverterService.camelToKebab(section);
+
     this.router.navigate(['/user-profile/edit'], {
-      queryParams: { section, 'section-id': sectionId },
+      queryParams: { section: sectionKebabCase, 'section-id': sectionId },
     });
   }
 }
