@@ -23,6 +23,7 @@ import {
   personAdd,
   save,
   trashBin,
+  arrowBack,
 } from 'ionicons/icons';
 
 import * as RegistrationEffects from 'src/app/store/registration/registration.effects';
@@ -44,6 +45,7 @@ addIcons({
   menu,
   pencil,
   save,
+  arrowBack,
 });
 
 bootstrapApplication(AppComponent, {
