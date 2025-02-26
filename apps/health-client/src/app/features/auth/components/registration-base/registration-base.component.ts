@@ -22,8 +22,8 @@ export abstract class RegistrationBaseComponent {
   private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
   protected registrationForm!: FormGroup;
-  protected readonly isRegistrationAndResidenceAddressesMatch =
-    signal<boolean>(false);
+  protected readonly isRegistrationAndResidenceAddressesMatch = signal(false);
+  protected readonly isBelarusCitizen = signal(true);
   protected readonly isSubmittingForm =
     this.store.selectSignal(selectIsLoading);
   protected initializeForm(): void {
@@ -39,6 +39,10 @@ export abstract class RegistrationBaseComponent {
     this.copyRegistrationAddressToResidenceAddress(
       this.isRegistrationAndResidenceAddressesMatch()
     );
+  }
+
+  protected toggleCheckboxIsBelarusCitizen(): void {
+    this.isBelarusCitizen.update((prevValue) => !prevValue);
   }
 
   private copyRegistrationAddressToResidenceAddress(
@@ -57,6 +61,7 @@ export abstract class RegistrationBaseComponent {
 
   protected addFormGroup(formGroupName: string, formGroup: FormGroup): void {
     const userGroup = this.registrationForm.get('user') as FormGroup;
+
     userGroup.addControl(formGroupName, formGroup);
   }
 
