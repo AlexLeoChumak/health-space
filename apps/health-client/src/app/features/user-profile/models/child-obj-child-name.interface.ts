@@ -2,7 +2,8 @@ import {
   AddressInfoInterface,
   ContactInfoInterface,
   MobilePhoneNumberPasswordInfoInterface,
-  IdentificationInfoInterface,
+  IdentificationBelarusCitizenInfoInterface,
+  IdentificationForeignCitizenInfoInterface,
   PersonalInfoInterface,
   EducationMedicalWorkerInfoInterface,
   PlaceWorkInfoInterface,
@@ -13,7 +14,8 @@ export interface ChildObjChildNameInterface {
     | AddressInfoInterface
     | ContactInfoInterface
     | MobilePhoneNumberPasswordInfoInterface
-    | IdentificationInfoInterface
+    | IdentificationBelarusCitizenInfoInterface
+    | IdentificationForeignCitizenInfoInterface
     | PersonalInfoInterface
     | EducationMedicalWorkerInfoInterface
     | PlaceWorkInfoInterface
