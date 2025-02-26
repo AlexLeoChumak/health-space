@@ -23,19 +23,23 @@ export interface MobilePhoneNumberPasswordInfoInterface {
   mobilePhoneNumber: string;
 }
 
-// Интерфейс идентификационных данных
-export interface IdentificationInfoInterface {
+// Интерфейс идентификационных данных гражданина РБ
+export interface IdentificationBelarusCitizenInfoInterface {
+  id: string | null;
+  passportIssueDate: string | null;
+  passportIssuingAuthority: string | null;
+  passportSeriesNumber: string | null;
+  personalIdentificationNumber: string | null;
+}
+
+// Интерфейс идентификационных данных иностранного гражданина
+export interface IdentificationForeignCitizenInfoInterface {
   id: string | null;
   documentName: string | null;
   documentNumber: string | null;
   healthInsuranceContractNumber: string | null;
   nameInsuranceCompany: string | null;
   nameStateForeignCitizen: string | null;
-  passportIssueDate: string | null;
-  passportIssuingAuthority: string | null;
-  passportSeriesNumber: string | null;
-  personalIdentificationNumber: string | null;
-  userCitizenship: string;
 }
 
 // Интерфейс персональной информации
@@ -56,6 +60,7 @@ export interface PatientInterface {
   addressResidenceInfo: AddressInfoInterface;
   contactInfo: ContactInfoInterface;
   mobilePhoneNumberPasswordInfo: MobilePhoneNumberPasswordInfoInterface;
-  identificationInfo: IdentificationInfoInterface;
+  identificationBelarusCitizenInfo: IdentificationBelarusCitizenInfoInterface;
+  identificationForeignCitizenInfo: IdentificationForeignCitizenInfoInterface;
   personalInfo: PersonalInfoInterface;
 }
