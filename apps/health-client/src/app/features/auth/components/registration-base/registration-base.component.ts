@@ -43,6 +43,23 @@ export abstract class RegistrationBaseComponent {
 
   protected toggleCheckboxIsBelarusCitizen(): void {
     this.isBelarusCitizen.update((prevValue) => !prevValue);
+
+    this.removeFormGroup();
+  }
+
+  private removeFormGroup(): void {
+    const userGroup = this.registrationForm.get('user') as FormGroup;
+
+    if (this.isBelarusCitizen()) {
+      userGroup.removeControl('identificationForeignCitizenInfo');
+    } else {
+      userGroup.removeControl('identificationBelarusCitizenInfo');
+    }
+  }
+
+  protected addFormGroup(formGroupName: string, formGroup: FormGroup): void {
+    const userGroup = this.registrationForm.get('user') as FormGroup;
+    userGroup.addControl(formGroupName, formGroup);
   }
 
   private copyRegistrationAddressToResidenceAddress(
@@ -57,12 +74,6 @@ export abstract class RegistrationBaseComponent {
     } else {
       this.registrationForm.get('user.addressResidenceInfo')?.reset();
     }
-  }
-
-  protected addFormGroup(formGroupName: string, formGroup: FormGroup): void {
-    const userGroup = this.registrationForm.get('user') as FormGroup;
-
-    userGroup.addControl(formGroupName, formGroup);
   }
 
   protected onSubmitForm(): void {
