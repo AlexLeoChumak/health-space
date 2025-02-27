@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { ChildObjChildNameInterface } from 'src/app/shared/models';
 import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
 import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
 
@@ -12,6 +13,16 @@ export const loadUser = createAction(
 export const getUrlUserPhotoSuccess = createAction(
   '[User] Get Url User Photo Success',
   props<{ urlUserPhoto: string }>()
+);
+
+export const getIdUserSection = createAction(
+  '[User] Get Id User Section',
+  props<{ idUserSection: string }>()
+);
+
+export const setUserSectionData = createAction(
+  '[User] Set User Section Data',
+  props<{ userSectionData: ChildObjChildNameInterface }>()
 );
 
 export const clearUser = createAction('[User] Clear User');
