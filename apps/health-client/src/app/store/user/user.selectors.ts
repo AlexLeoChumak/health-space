@@ -20,3 +20,13 @@ export const selectUrlUserPhoto = createSelector(
   selectUserFeature,
   (state) => state.urlUserPhoto
 );
+
+export const selectIdUserSection = createSelector(
+  selectUserFeature,
+  (state) => state.idUserSection
+);
+
+export const selectUserSectionData = createSelector(
+  selectUserFeature,
+  (state) => state.userSectionData
+);
