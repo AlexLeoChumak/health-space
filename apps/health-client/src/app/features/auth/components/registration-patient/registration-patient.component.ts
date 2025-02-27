@@ -19,9 +19,10 @@ import {
   ContactInfoFormComponent,
   AddressInfoFormComponent,
   PersonalInfoFormComponent,
-  IdentificationInfoFormComponent,
   ActionButtonComponent,
   MobilePhoneNumberPasswordInfoFormComponent,
+  IdentificationBelarusCitizenInfoFormComponent,
+  IdentificationForeignCitizenInfoFormComponent,
 } from 'src/app/shared/components';
 
 @Component({
@@ -47,9 +48,10 @@ import {
     ContactInfoFormComponent,
     AddressInfoFormComponent,
     PersonalInfoFormComponent,
-    IdentificationInfoFormComponent,
     ActionButtonComponent,
     MobilePhoneNumberPasswordInfoFormComponent,
+    IdentificationBelarusCitizenInfoFormComponent,
+    IdentificationForeignCitizenInfoFormComponent,
   ],
 })
 export class RegistrationPatientComponent

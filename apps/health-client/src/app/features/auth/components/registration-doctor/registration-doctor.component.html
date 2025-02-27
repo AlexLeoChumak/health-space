@@ -1,3 +1,5 @@
+@let isBelarussian = isBelarusCitizen();
+
 <ion-content>
   <div class="container">
     <ion-card>
@@ -12,9 +14,32 @@
               (formReady)="addFormGroup('personalInfo', $event)"
             ></health-personal-info-form>
 
-            <health-identification-info-form
-              (formReady)="addFormGroup('identificationInfo', $event)"
-            ></health-identification-info-form>
+            <ion-item>
+              <ion-label (click)="toggleCheckboxIsBelarusCitizen()"
+                >Гражданин Республики Беларусь</ion-label
+              >
+              <ion-checkbox
+                (ionChange)="toggleCheckboxIsBelarusCitizen()"
+                [checked]="isBelarussian"
+                slot="start"
+              ></ion-checkbox>
+            </ion-item>
+
+            @if (isBelarussian) {
+            <health-identification-belarus-citizen-info-form
+              (formReady)="
+                addFormGroup('identificationBelarusCitizenInfo', $event)
+              "
+            >
+            </health-identification-belarus-citizen-info-form>
+            } @else {
+            <health-identification-foreign-citizen-info-form
+              (formReady)="
+                addFormGroup('identificationForeignCitizenInfo', $event)
+              "
+            >
+            </health-identification-foreign-citizen-info-form>
+            }
 
             <health-address-info-form
               addressTypeProps="Адрес регистрации"
