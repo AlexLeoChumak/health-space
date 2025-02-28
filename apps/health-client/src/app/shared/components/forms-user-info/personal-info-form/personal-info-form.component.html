@@ -48,6 +48,29 @@
     ></ion-input>
   </ion-item>
 
+  <ion-radio-group formControlName="gender">
+    <ion-item>
+      <ion-label class="required-to-fill">Пол</ion-label>
+    </ion-item>
+
+    <ion-item
+      (click)="personalInfoFormGroup.get('gender')?.setValue('Мужской')"
+    >
+      <ion-label>Мужской</ion-label>
+      <ion-radio
+        slot="start"
+        value="Мужской"
+        aria-placeholder="Выберите ваш пол"
+      ></ion-radio>
+    </ion-item>
+    <ion-item
+      (click)="personalInfoFormGroup.get('gender')?.setValue('Женский')"
+    >
+      <ion-label>Женский</ion-label>
+      <ion-radio slot="start" value="Женский"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
   <ion-item>
     <ion-label position="floating" class="required-to-fill"
       >Дата рождения <ion-note>(выберите в календаре)</ion-note></ion-label
@@ -89,29 +112,6 @@
   @if (isDatepickerOpen()) {
   <health-datepicker (dateChange)="onDateChange($event)"></health-datepicker>
   }
-
-  <ion-radio-group formControlName="gender">
-    <ion-item>
-      <ion-label class="required-to-fill">Пол</ion-label>
-    </ion-item>
-
-    <ion-item
-      (click)="personalInfoFormGroup.get('gender')?.setValue('Мужской')"
-    >
-      <ion-label>Мужской</ion-label>
-      <ion-radio
-        slot="start"
-        value="Мужской"
-        aria-placeholder="Выберите ваш пол"
-      ></ion-radio>
-    </ion-item>
-    <ion-item
-      (click)="personalInfoFormGroup.get('gender')?.setValue('Женский')"
-    >
-      <ion-label>Женский</ion-label>
-      <ion-radio slot="start" value="Женский"></ion-radio>
-    </ion-item>
-  </ion-radio-group>
 
   <ion-item>
     <ion-label position="floating" class="required-to-fill"

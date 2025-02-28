@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  inject,
   OnInit,
   output,
 } from '@angular/core';
@@ -18,9 +20,12 @@ import {
   IonInput,
 } from '@ionic/angular/standalone';
 
-import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { FORM_VALIDATION_ERROR_MESSAGES } from 'src/app/shared/constants';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { selectUserSectionData } from 'src/app/store/user';
 
 @Component({
   selector: 'health-place-work-info-form',
@@ -39,13 +44,16 @@ import { checkInputValidatorUtility } from 'src/app/shared/utilities';
   ],
 })
 export class PlaceWorkInfoFormComponent implements OnInit {
+  private readonly store = inject(Store);
   protected readonly formReady = output<FormGroup>();
   protected placeWorkInfoFormGroup!: FormGroup;
+  private readonly destroyRef = inject(DestroyRef);
   protected readonly formValidationErrorMessages =
     FORM_VALIDATION_ERROR_MESSAGES;
 
   public ngOnInit(): void {
     this.initializeForm();
+    this.updateFormValuesForEdit();
   }
 
   private initializeForm(): void {
@@ -56,6 +64,22 @@ export class PlaceWorkInfoFormComponent implements OnInit {
     });
 
     this.formReady.emit(this.placeWorkInfoFormGroup);
+  }
+
+  private updateFormValuesForEdit(): void {
+    this.store
+      .select(selectUserSectionData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        if (
+          data &&
+          data.childObj &&
+          typeof data.childObj === 'object' &&
+          this.placeWorkInfoFormGroup
+        ) {
+          this.placeWorkInfoFormGroup.patchValue(data.childObj);
+        }
+      });
   }
 
   protected checkInputValidator(

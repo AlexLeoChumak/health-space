@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
+  inject,
   OnInit,
   output,
   signal,
@@ -45,6 +47,9 @@ import {
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { selectUserSectionData } from 'src/app/store/user';
 
 @Component({
   selector: 'health-personal-info-form',
@@ -74,6 +79,7 @@ import {
 })
 export class PersonalInfoFormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  private readonly store = inject(Store);
 
   protected readonly formReady = output<FormGroup>();
   protected personalInfoFormGroup!: FormGroup;
@@ -82,11 +88,13 @@ export class PersonalInfoFormComponent implements OnInit {
   protected readonly photoPreviewUrl = signal<string | ArrayBuffer | null>(
     null
   );
+  private readonly destroyRef = inject(DestroyRef);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
 
   public ngOnInit(): void {
     this.initializeForm();
+    this.updateFormValuesForEdit();
   }
 
   private initializeForm(): void {
@@ -105,6 +113,22 @@ export class PersonalInfoFormComponent implements OnInit {
     });
 
     this.formReady.emit(this.personalInfoFormGroup);
+  }
+
+  private updateFormValuesForEdit(): void {
+    this.store
+      .select(selectUserSectionData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        if (
+          data &&
+          data.childObj &&
+          typeof data.childObj === 'object' &&
+          this.personalInfoFormGroup
+        ) {
+          this.personalInfoFormGroup.patchValue(data.childObj);
+        }
+      });
   }
 
   protected onClickFileInput(fileInput: HTMLInputElement): void {

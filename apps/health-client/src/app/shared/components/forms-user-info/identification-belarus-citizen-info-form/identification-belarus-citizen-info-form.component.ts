@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  input,
+  DestroyRef,
+  inject,
   OnInit,
   output,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   Validators,
@@ -20,7 +22,7 @@ import {
   IonInput,
   IonNote,
 } from '@ionic/angular/standalone';
-import { ChildObjChildNameInterface } from 'src/app/features/user-profile';
+import { Store } from '@ngrx/store';
 
 import {
   ActionButtonComponent,
@@ -37,6 +39,7 @@ import {
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
+import { selectUserSectionData } from 'src/app/store/user';
 
 @Component({
   selector: 'health-identification-belarus-citizen-info-form',
@@ -58,16 +61,17 @@ import {
   ],
 })
 export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
-  public readonly formDataProps = input<ChildObjChildNameInterface | null>();
+  private readonly store = inject(Store);
   protected readonly formReady = output<FormGroup>();
   protected identificationBelarusCitizenInfoFormGroup!: FormGroup;
   protected readonly isDatepickerOpen = signal<boolean>(false);
+  private readonly destroyRef = inject(DestroyRef);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
 
   public ngOnInit(): void {
     this.initializeForm();
-    console.log(2);
+    this.updateFormValuesForEdit();
   }
 
   private initializeForm(): void {
@@ -104,6 +108,24 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
     this.identificationBelarusCitizenInfoFormGroup.patchValue({
       passportIssueDate: formattedPassportIssueDate,
     });
+  }
+
+  private updateFormValuesForEdit(): void {
+    this.store
+      .select(selectUserSectionData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        if (
+          data &&
+          data.childObj &&
+          typeof data.childObj === 'object' &&
+          this.identificationBelarusCitizenInfoFormGroup
+        ) {
+          this.identificationBelarusCitizenInfoFormGroup.patchValue(
+            data.childObj
+          );
+        }
+      });
   }
 
   protected checkInputValidator(

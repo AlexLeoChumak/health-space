@@ -1,7 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  input,
+  DestroyRef,
+  inject,
   OnInit,
   output,
 } from '@angular/core';
@@ -19,7 +20,6 @@ import {
   IonLabel,
   IonInput,
 } from '@ionic/angular/standalone';
-import { ChildObjChildNameInterface } from 'src/app/features/user-profile/models/child-obj-child-name.interface';
 
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import {
@@ -27,6 +27,9 @@ import {
   FORM_VALIDATION_ERROR_MESSAGES,
 } from 'src/app/shared/constants';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { selectUserSectionData } from 'src/app/store/user';
 
 @Component({
   selector: 'health-identification-foreign-citizen-info-form',
@@ -45,14 +48,16 @@ import { checkInputValidatorUtility } from 'src/app/shared/utilities';
   ],
 })
 export class IdentificationForeignCitizenInfoFormComponent implements OnInit {
-  public readonly formDataProps = input<ChildObjChildNameInterface | null>();
+  private readonly store = inject(Store);
   protected readonly formReady = output<FormGroup>();
   protected identificationForeignCitizenInfoFormGroup!: FormGroup;
+  private readonly destroyRef = inject(DestroyRef);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
 
   public ngOnInit(): void {
     this.initializeForm();
+    this.updateFormValuesForEdit();
   }
 
   private initializeForm(): void {
@@ -67,6 +72,24 @@ export class IdentificationForeignCitizenInfoFormComponent implements OnInit {
     });
 
     this.formReady.emit(this.identificationForeignCitizenInfoFormGroup);
+  }
+
+  private updateFormValuesForEdit(): void {
+    this.store
+      .select(selectUserSectionData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        if (
+          data &&
+          data.childObj &&
+          typeof data.childObj === 'object' &&
+          this.identificationForeignCitizenInfoFormGroup
+        ) {
+          this.identificationForeignCitizenInfoFormGroup.patchValue(
+            data.childObj
+          );
+        }
+      });
   }
 
   protected checkInputValidator(

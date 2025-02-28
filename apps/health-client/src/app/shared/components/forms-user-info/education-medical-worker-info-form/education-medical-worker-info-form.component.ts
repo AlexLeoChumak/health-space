@@ -1,9 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  inject,
   OnInit,
   output,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormGroup,
   FormControl,
@@ -16,13 +19,15 @@ import {
   IonLabel,
   IonInput,
 } from '@ionic/angular/standalone';
+import { Store } from '@ngrx/store';
 
-import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import {
   FormValidationErrorMessagesInterface,
   FORM_VALIDATION_ERROR_MESSAGES,
 } from 'src/app/shared/constants';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { selectUserSectionData } from 'src/app/store/user';
+import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 
 @Component({
   selector: 'health-education-medical-worker-info-form',
@@ -40,13 +45,16 @@ import { checkInputValidatorUtility } from 'src/app/shared/utilities';
   ],
 })
 export class EducationMedicalWorkerInfoFormComponent implements OnInit {
+  private readonly store = inject(Store);
   public readonly formReady = output<FormGroup>();
   public educationMedicalWorkerInfoFormGroup!: FormGroup;
+  private readonly destroyRef = inject(DestroyRef);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
 
   public ngOnInit(): void {
     this.initializeForm();
+    this.updateFormValuesForEdit();
   }
 
   private initializeForm(): void {
@@ -65,6 +73,22 @@ export class EducationMedicalWorkerInfoFormComponent implements OnInit {
     });
 
     this.formReady.emit(this.educationMedicalWorkerInfoFormGroup);
+  }
+
+  private updateFormValuesForEdit(): void {
+    this.store
+      .select(selectUserSectionData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        if (
+          data &&
+          data.childObj &&
+          typeof data.childObj === 'object' &&
+          this.educationMedicalWorkerInfoFormGroup
+        ) {
+          this.educationMedicalWorkerInfoFormGroup.patchValue(data.childObj);
+        }
+      });
   }
 
   protected checkInputValidator(
