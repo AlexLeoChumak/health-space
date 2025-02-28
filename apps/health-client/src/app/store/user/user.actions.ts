@@ -10,13 +10,13 @@ export const loadUser = createAction(
   }>()
 );
 
-export const getUrlUserPhotoSuccess = createAction(
-  '[User] Get Url User Photo Success',
+export const setUrlUserPhotoSuccess = createAction(
+  '[User] Set Url User Photo Success',
   props<{ urlUserPhoto: string }>()
 );
 
-export const getIdUserSection = createAction(
-  '[User] Get Id User Section',
+export const setIdUserSection = createAction(
+  '[User] Set Id User Section',
   props<{ idUserSection: string }>()
 );
 
