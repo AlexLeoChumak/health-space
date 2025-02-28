@@ -2,10 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  inject,
   input,
   OnInit,
   output,
+  signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormGroup,
   FormControl,
@@ -22,6 +26,7 @@ import {
   IonNote,
   IonItemGroup,
 } from '@ionic/angular/standalone';
+import { Store } from '@ngrx/store';
 
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import {
@@ -30,6 +35,7 @@ import {
 } from 'src/app/shared/constants';
 import { NumericInputRestrictionDirective } from 'src/app/shared/directives';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { selectUserSectionData } from 'src/app/store/user';
 
 type AddressPropsType =
   | 'Адрес регистрации'
@@ -58,9 +64,12 @@ type AddressPropsType =
   ],
 })
 export class AddressInfoFormComponent implements OnInit {
+  private readonly store = inject(Store);
   public readonly addressTypeProps = input<AddressPropsType>();
   public readonly formReady = output<FormGroup>();
   public addressInfoFormGroup!: FormGroup;
+  private readonly destroyRef = inject(DestroyRef);
+  protected addressTypeFromEditProfilePage = signal('');
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
   public readonly regions: string[] = [
@@ -74,6 +83,7 @@ export class AddressInfoFormComponent implements OnInit {
 
   public ngOnInit(): void {
     this.initializeForm();
+    this.updateFormValuesForEdit();
   }
 
   private initializeForm(): void {
@@ -104,6 +114,26 @@ export class AddressInfoFormComponent implements OnInit {
     });
 
     this.formReady.emit(this.addressInfoFormGroup);
+  }
+
+  private updateFormValuesForEdit(): void {
+    this.store
+      .select(selectUserSectionData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        if (data?.childName) {
+          this.addressTypeFromEditProfilePage.set(data.childName);
+        }
+
+        if (
+          data &&
+          data.childObj &&
+          typeof data.childObj === 'object' &&
+          this.addressInfoFormGroup
+        ) {
+          this.addressInfoFormGroup.patchValue(data.childObj);
+        }
+      });
   }
 
   protected checkInputValidator(
