@@ -47,7 +47,7 @@ export class ContactInfoCardComponent {
   protected readonly user = this.store.selectSignal(selectUser);
 
   protected editUserInfo(section: string): void {
-    const sectionId = this.user()?.personalInfo.id;
+    const sectionId = this.user()?.contactInfo.id;
     if (sectionId) this.navigationService.editUserInfo(section, sectionId);
   }
 }
