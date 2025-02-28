@@ -1,0 +1,31 @@
+@let userIdentificationInfo = user()?.identificationBelarusCitizenInfo;
+
+<ion-card>
+  <ion-card-header>
+    <ion-toolbar>
+      <ion-card-title
+        >Идентификационная информация гражданина Беларуси</ion-card-title
+      >
+      <ion-buttons slot="end">
+        <ion-button
+          (click)="editUserInfo('identification-belarus-citizen-info')"
+          fill="clear"
+          size="small"
+        >
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list lines="full">
+      @for (field of identificationFields; track field.key) {
+      <ion-item>
+        <ion-label position="stacked">{{ field.label }}</ion-label>
+        <ion-text>{{ userIdentificationInfo?.[field.key] }}</ion-text>
+      </ion-item>
+      }
+    </ion-list>
+  </ion-card-content>
+</ion-card>
