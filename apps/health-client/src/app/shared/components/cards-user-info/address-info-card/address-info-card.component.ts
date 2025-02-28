@@ -60,13 +60,13 @@ export class AddressInfoCardComponent {
 
   protected readonly addressInfo = computed<AddressInfoInterface | null>(() => {
     const user = this.user();
+
     if (!user) return null;
 
-    // Проверяем, есть ли у объекта нужное поле перед доступом
-    if (this.addressTypeProps() in user) {
-      return user[
-        this.addressTypeProps() as keyof typeof user
-      ] as AddressInfoInterface;
+    const addressType = this.addressTypeProps();
+    // Проверяю, есть ли у объекта нужное поле перед доступом
+    if (addressType in user) {
+      return user[addressType as keyof typeof user] as AddressInfoInterface;
     }
 
     return null;
@@ -83,7 +83,26 @@ export class AddressInfoCardComponent {
   ];
 
   protected editUserInfo(section: string): void {
-    const sectionId = this.user()?.personalInfo.id;
-    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    const userData = this.user();
+
+    if (userData) {
+      const addressType = this.addressTypeProps();
+
+      // Проверяю, существует ли addressType в userData
+      if (addressType in userData) {
+        const addressData = userData[addressType as keyof typeof userData];
+
+        // Проверяю, что addressData - это объект с полем id
+        if (
+          addressData &&
+          typeof addressData === 'object' &&
+          'id' in addressData
+        ) {
+          const sectionId = addressData.id;
+          if (sectionId)
+            this.navigationService.editUserInfo(section, sectionId);
+        }
+      }
+    }
   }
 }
