@@ -69,7 +69,11 @@ export class PlaceWorkInfoCardComponent {
     ];
 
   protected editUserInfo(section: string): void {
-    const sectionId = this.user()?.personalInfo.id;
-    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    const user = this.user();
+
+    if (user && 'placeWorkInfo' in user) {
+      const sectionId = user.placeWorkInfo?.id;
+      if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    }
   }
 }
