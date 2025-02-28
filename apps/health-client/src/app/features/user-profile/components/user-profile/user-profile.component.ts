@@ -5,17 +5,17 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
 import {
-  ActionButtonComponent,
   AddressInfoCardComponent,
   PersonalInfoCardComponent,
-  IdentificationInfoCardComponent,
   ContactInfoCardComponent,
   EducationMedicalWorkerInfoCardComponent,
   PlaceWorkInfoCardComponent,
+  IdentificationBelarusCitizenInfoCardComponent,
+  IdentificationForeignCitizenInfoCardComponent,
 } from 'src/app/shared/components';
 import { getUserRole } from 'src/app/shared/utilities';
 import { logout } from 'src/app/store/app';
@@ -29,19 +29,16 @@ import { FooterComponent } from 'src/app/features/footer';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonRow,
-    IonGrid,
-    IonCol,
     CommonModule,
     IonContent,
-    ActionButtonComponent,
     AddressInfoCardComponent,
     PersonalInfoCardComponent,
-    IdentificationInfoCardComponent,
     ContactInfoCardComponent,
     EducationMedicalWorkerInfoCardComponent,
     PlaceWorkInfoCardComponent,
     FooterComponent,
+    IdentificationBelarusCitizenInfoCardComponent,
+    IdentificationForeignCitizenInfoCardComponent,
   ],
 })
 export class UserProfileComponent {
