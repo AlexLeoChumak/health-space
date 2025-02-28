@@ -90,7 +90,11 @@ export class EducationMedicalWorkerInfoCardComponent {
     ];
 
   protected editUserInfo(section: string): void {
-    const sectionId = this.user()?.personalInfo.id;
-    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    const user = this.user();
+
+    if (user && 'educationMedicalWorkerInfo' in user) {
+      const sectionId = user.educationMedicalWorkerInfo?.id;
+      if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    }
   }
 }
