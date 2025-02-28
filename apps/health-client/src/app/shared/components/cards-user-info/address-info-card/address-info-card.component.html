@@ -1,10 +1,10 @@
-@let userAddressInfo = addressInfo();
+@let userAddressInfo = addressInfo(); @let addressType = addressTypeProps();
 
 <!-- Карточка пользователя -->
 <ion-card>
   <ion-card-header>
     <ion-toolbar>
-      @switch (addressTypeProps()) { @case ('addressRegistrationInfo') {
+      @switch (addressType) { @case ('addressRegistrationInfo') {
       <ion-card-title>{{ 'Адрес регистрации' }}</ion-card-title>
       } @case ('addressResidenceInfo') {
       <ion-card-title>{{ 'Адрес проживания' }}</ion-card-title>
@@ -14,7 +14,11 @@
       <ion-card-title>{{ 'Адрес' }}</ion-card-title>
       }}
       <ion-buttons slot="end">
-        <ion-button (click)="editUserInfo('address')" fill="clear" size="small">
+        <ion-button
+          (click)="editUserInfo(addressType)"
+          fill="clear"
+          size="small"
+        >
           <ion-icon slot="icon-only" name="pencil"></ion-icon>
         </ion-button>
       </ion-buttons>
