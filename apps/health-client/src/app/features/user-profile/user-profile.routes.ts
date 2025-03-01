@@ -17,6 +17,15 @@ export const userProfileRoutes: Routes = [
           import('./components/edit-profile/edit-profile.component').then(
             (m) => m.EditProfileComponent
           ),
+        children: [
+          {
+            path: 'change-password',
+            loadComponent: () =>
+              import(
+                './components/change-password-form/change-password-form.component'
+              ).then((m) => m.ChangePasswordFormComponent),
+          },
+        ],
       },
     ],
   },
