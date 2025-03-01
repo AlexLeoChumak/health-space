@@ -1,8 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  inject,
   OnInit,
   output,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -27,6 +30,9 @@ import {
 } from 'src/app/shared/constants';
 import { PhonePrefixFormatterDirective } from 'src/app/shared/directives';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { selectUserSectionData } from 'src/app/store/user';
 
 @Component({
   selector: 'health-mobile-phone-number-password-info-form',
@@ -48,13 +54,17 @@ import { checkInputValidatorUtility } from 'src/app/shared/utilities';
   ],
 })
 export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
+  private readonly store = inject(Store);
   public readonly formReady = output<FormGroup>();
   public mobilePhoneNumberPasswordInfoFormGroup!: FormGroup;
+  private readonly destroyRef = inject(DestroyRef);
+  protected isEditableUserInfo = signal(false);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
 
   public ngOnInit(): void {
     this.initializeForm();
+    this.updateFormValuesForEdit();
   }
 
   private initializeForm(): void {
@@ -73,6 +83,24 @@ export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
     });
 
     this.formReady.emit(this.mobilePhoneNumberPasswordInfoFormGroup);
+  }
+
+  private updateFormValuesForEdit(): void {
+    this.store
+      .select(selectUserSectionData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        if (
+          data &&
+          data.childObj &&
+          typeof data.childObj === 'object' &&
+          this.mobilePhoneNumberPasswordInfoFormGroup
+        ) {
+          this.isEditableUserInfo.set(true);
+          this.mobilePhoneNumberPasswordInfoFormGroup.removeControl('password');
+          this.mobilePhoneNumberPasswordInfoFormGroup.patchValue(data.childObj);
+        }
+      });
   }
 
   protected checkInputValidator(
