@@ -21,7 +21,7 @@ import {
   IdentificationForeignCitizenInfoInterface,
 } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
-import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 
 @Component({
   selector: 'health-identification-foreign-citizen-info-card',

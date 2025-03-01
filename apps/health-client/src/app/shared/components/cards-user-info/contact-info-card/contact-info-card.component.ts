@@ -17,7 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { selectUser } from 'src/app/store/user';
-import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 
 @Component({
   selector: 'health-contact-info-card',

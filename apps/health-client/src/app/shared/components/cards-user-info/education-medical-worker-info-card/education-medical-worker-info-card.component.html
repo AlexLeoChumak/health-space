@@ -3,7 +3,9 @@
 <ion-card>
   <ion-card-header>
     <ion-toolbar>
-      <ion-card-title>Медицинское образование</ion-card-title>
+      <ion-card-title class="section-title"
+        >Медицинское образование</ion-card-title
+      >
 
       <ion-buttons slot="end">
         <ion-button
@@ -22,8 +24,13 @@
       @for (field of educationMedicalWorkerFields; track field.key) { @if
       (userEducationInfo?.[field.key]) {
       <ion-item>
-        <ion-label position="stacked">{{ field.label }}</ion-label>
-        <ion-text>{{ userEducationInfo?.[field.key] }}</ion-text>
+        <ion-label class="custom-label" position="stacked">{{
+          field.label
+        }}</ion-label>
+        <ion-text
+          class="custom-text"
+          >{{ userEducationInfo?.[field.key] }}</ion-text
+        >
       </ion-item>
       } }
     </ion-list>

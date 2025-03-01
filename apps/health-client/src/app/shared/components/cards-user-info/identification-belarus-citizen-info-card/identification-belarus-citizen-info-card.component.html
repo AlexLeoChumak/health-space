@@ -3,7 +3,7 @@
 <ion-card>
   <ion-card-header>
     <ion-toolbar>
-      <ion-card-title
+      <ion-card-title class="section-title"
         >Идентификационная информация гражданина Беларуси</ion-card-title
       >
       <ion-buttons slot="end">
@@ -22,8 +22,13 @@
     <ion-list lines="full">
       @for (field of identificationFields; track field.key) {
       <ion-item>
-        <ion-label position="stacked">{{ field.label }}</ion-label>
-        <ion-text>{{ userIdentificationInfo?.[field.key] }}</ion-text>
+        <ion-label class="custom-label" position="stacked">{{
+          field.label
+        }}</ion-label>
+        <ion-text
+          class="custom-text"
+          >{{ userIdentificationInfo?.[field.key] }}</ion-text
+        >
       </ion-item>
       }
     </ion-list>

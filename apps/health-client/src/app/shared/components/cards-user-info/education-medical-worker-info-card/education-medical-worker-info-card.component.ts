@@ -26,7 +26,7 @@ import {
   FieldInterface,
 } from 'src/app/shared/models';
 import { selectUser } from 'src/app/store/user';
-import { NavigationService } from 'src/app/features/user-profile/service/navigation/navigation.service';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 
 @Component({
   selector: 'health-education-medical-worker-info-card',

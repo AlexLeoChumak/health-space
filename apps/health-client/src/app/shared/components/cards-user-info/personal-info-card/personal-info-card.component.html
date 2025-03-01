@@ -3,7 +3,9 @@
 <ion-card>
   <ion-card-header>
     <ion-toolbar>
-      <ion-card-title>Персональная информация</ion-card-title>
+      <ion-card-title class="section-title"
+        >Персональная информация</ion-card-title
+      >
       <ion-buttons slot="end">
         <ion-button
           (click)="editUserInfo('personal-info')"
@@ -23,8 +25,8 @@
         <ion-avatar slot="start">
           <ion-img [src]="urlUserPhoto()" alt="user-photo" />
         </ion-avatar>
-        <ion-label>
-          <ion-text>
+        <ion-label class="custom-label">
+          <ion-text class="custom-text">
             {{ userRole() === 'patient' ? 'Пациент' : 'Доктор' }}
           </ion-text>
           <ion-title class="ion-no-padding">
@@ -36,13 +38,17 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Дата рождения</ion-label>
-        <ion-text>{{ userPersonalInfo?.dateOfBirth }}</ion-text>
+        <ion-label class="custom-label" position="stacked"
+          >Дата рождения</ion-label
+        >
+        <ion-text class="custom-text">{{
+          userPersonalInfo?.dateOfBirth
+        }}</ion-text>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Пол</ion-label>
-        <ion-text>{{ userPersonalInfo?.gender }}</ion-text>
+        <ion-label class="custom-label" position="stacked">Пол</ion-label>
+        <ion-text class="custom-text">{{ userPersonalInfo?.gender }}</ion-text>
       </ion-item>
     </ion-list>
   </ion-card-content>

@@ -3,7 +3,7 @@
 <ion-card>
   <ion-card-header>
     <ion-toolbar>
-      <ion-card-title>Место работы</ion-card-title>
+      <ion-card-title class="section-title">Место работы</ion-card-title>
       <ion-buttons slot="end">
         <ion-button
           (click)="editUserInfo('place-work-info')"
@@ -21,8 +21,13 @@
       @for (field of placeWorkFields; track field.key) { @if
       (userPlaceWorkInfo?.[field.key]) {
       <ion-item>
-        <ion-label position="stacked">{{ field.label }}</ion-label>
-        <ion-text>{{ userPlaceWorkInfo?.[field.key] }}</ion-text>
+        <ion-label class="custom-label" position="stacked">{{
+          field.label
+        }}</ion-label>
+        <ion-text
+          class="custom-text"
+          >{{ userPlaceWorkInfo?.[field.key] }}</ion-text
+        >
       </ion-item>
       } }
     </ion-list>

@@ -1,10 +1,12 @@
 <!-- Создаем переменную шаблона -->
-@let userData = user();
+@let userData = user()?.contactInfo;
 
 <ion-card>
   <ion-card-header>
     <ion-toolbar>
-      <ion-card-title>Контактная информация</ion-card-title>
+      <ion-card-title class="section-title"
+        >Контактная информация</ion-card-title
+      >
       <ion-buttons slot="end">
         <ion-button
           (click)="editUserInfo('contactInfo')"
@@ -20,18 +22,16 @@
   <ion-card-content>
     <ion-list lines="full">
       <ion-item>
-        <ion-label position="stacked">Мобильный номер телефона</ion-label>
-        <ion-text>{{
-          userData?.mobilePhoneNumberPasswordInfo?.mobilePhoneNumber
-        }}</ion-text>
+        <ion-label class="custom-label" position="stacked"
+          >Домашний номер телефона</ion-label
+        >
+        <ion-text class="custom-text">{{ userData?.homePhoneNumber }}</ion-text>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Домашний номер телефона</ion-label>
-        <ion-text>{{ userData?.contactInfo?.homePhoneNumber }}</ion-text>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Электронная почта</ion-label>
-        <ion-text>{{ userData?.contactInfo?.email }}</ion-text>
+        <ion-label class="custom-label" position="stacked"
+          >Электронная почта</ion-label
+        >
+        <ion-text class="custom-text">{{ userData?.email }}</ion-text>
       </ion-item>
     </ion-list>
   </ion-card-content>
