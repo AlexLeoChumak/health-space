@@ -1,3 +1,5 @@
+@let sectionName = section();
+
 <ion-content>
   <div class="container">
     <ion-card>
@@ -19,8 +21,9 @@
       </ion-card-header>
 
       <ion-card-content class="ion-text-center">
+        @if (sectionName) {
         <form [formGroup]="editProfileForm" (ngSubmit)="onSubmitEditedForm()">
-          @switch (section()) { @case ('address-registration-info') {
+          @switch (sectionName) { @case ('address-registration-info') {
           <health-address-info-form
             (formReady)="addFormGroup('addressRegistrationInfo', $event)"
           ></health-address-info-form>
@@ -53,6 +56,10 @@
               addFormGroup('identificationForeignCitizenInfo', $event)
             "
           ></health-identification-foreign-citizen-info-form>
+          } @case ('mobile-phone-number-password-info') {
+          <health-mobile-phone-number-password-info-form
+            (formReady)="addFormGroup('mobilePhoneNumberPasswordInfo', $event)"
+          ></health-mobile-phone-number-password-info-form>
           } @case ('personal-info') {
           <health-personal-info-form
             (formReady)="addFormGroup('personalInfo', $event)"
@@ -62,12 +69,14 @@
             (formReady)="addFormGroup('placeWorkInfo', $event)"
           ></health-place-work-info-form>
           } }
-
           <ion-button type="submit" class="ion-margin-vertical">
             <ion-icon slot="start" name="save"></ion-icon>
             Сохранить
           </ion-button>
         </form>
+        } @else {
+        <health-change-password-form></health-change-password-form>
+        }
       </ion-card-content>
     </ion-card>
   </div>

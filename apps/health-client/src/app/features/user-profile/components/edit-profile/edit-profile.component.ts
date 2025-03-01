@@ -30,9 +30,11 @@ import {
   EducationMedicalWorkerInfoFormComponent,
   IdentificationBelarusCitizenInfoFormComponent,
   IdentificationForeignCitizenInfoFormComponent,
+  MobilePhoneNumberPasswordInfoFormComponent,
   PersonalInfoFormComponent,
   PlaceWorkInfoFormComponent,
 } from 'src/app/shared/components';
+import { ChangePasswordFormComponent } from 'src/app/features/user-profile/components/change-password-form/change-password-form.component';
 
 @Component({
   selector: 'health-edit-profile',
@@ -59,6 +61,8 @@ import {
     PlaceWorkInfoFormComponent,
     IdentificationBelarusCitizenInfoFormComponent,
     IdentificationForeignCitizenInfoFormComponent,
+    MobilePhoneNumberPasswordInfoFormComponent,
+    ChangePasswordFormComponent,
   ],
 })
 export class EditProfileComponent implements OnInit {
