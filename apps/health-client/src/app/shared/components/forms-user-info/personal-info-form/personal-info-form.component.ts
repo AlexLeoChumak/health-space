@@ -31,6 +31,8 @@ import {
   IonImg,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
 
 import {
   ActionButtonComponent,
@@ -47,8 +49,6 @@ import {
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Store } from '@ngrx/store';
 import { selectUserSectionData } from 'src/app/store/user';
 
 @Component({
@@ -80,17 +80,19 @@ import { selectUserSectionData } from 'src/app/store/user';
 export class PersonalInfoFormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   private readonly store = inject(Store);
-
   protected readonly formReady = output<FormGroup>();
   protected personalInfoFormGroup!: FormGroup;
-  protected readonly isDatepickerOpen = signal<boolean>(false);
-  protected readonly isImageType = signal<boolean>(true);
+  protected readonly isDatepickerOpen = signal(false);
+  protected readonly isImageType = signal(true);
   protected readonly photoPreviewUrl = signal<string | ArrayBuffer | null>(
     null
   );
   private readonly destroyRef = inject(DestroyRef);
+  protected isEditableUserInfo = signal(false);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
+  private readonly dateOfBirthPattern: string =
+    '^([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря) [0-9]{4} г.$';
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -104,9 +106,7 @@ export class PersonalInfoFormComponent implements OnInit {
       middleName: new FormControl(null),
       dateOfBirth: new FormControl(null, [
         Validators.required,
-        Validators.pattern(
-          '^([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря) [0-9]{4} г.$'
-        ),
+        Validators.pattern(this.dateOfBirthPattern),
       ]),
       gender: new FormControl(null, [Validators.required]),
       photo: new FormControl(null, [Validators.required]),
@@ -126,6 +126,7 @@ export class PersonalInfoFormComponent implements OnInit {
           typeof data.childObj === 'object' &&
           this.personalInfoFormGroup
         ) {
+          this.isEditableUserInfo.set(true);
           this.personalInfoFormGroup.patchValue(data.childObj);
         }
       });

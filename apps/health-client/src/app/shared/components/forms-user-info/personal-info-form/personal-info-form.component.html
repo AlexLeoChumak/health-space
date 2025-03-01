@@ -111,8 +111,7 @@
 
   @if (isDatepickerOpen()) {
   <health-datepicker (dateChange)="onDateChange($event)"></health-datepicker>
-  }
-
+  } @if(!isEditableUserInfo) {
   <ion-item>
     <ion-label position="floating" class="required-to-fill"
       >Фотография</ion-label
@@ -128,11 +127,11 @@
       class="ion-margin-top"
       (click)="onClickFileInput(fileInput)"
       [configProps]="{
-        label: 'выбрать фото',
-        isFormButton: false,
-        isDisabled: false,
-        routerLink: null,
-    }"
+          label: 'выбрать фото',
+          isFormButton: false,
+          isDisabled: false,
+          routerLink: null,
+      }"
     ></health-action-button>
 
     @if (photoPreviewUrl()) {
@@ -157,4 +156,5 @@
     </health-error-notification>
     }
   </ion-item>
+  }
 </ion-item-group>
