@@ -5,13 +5,19 @@
   <ion-card-header>
     <ion-toolbar>
       @switch (addressType) { @case ('addressRegistrationInfo') {
-      <ion-card-title>{{ 'Адрес регистрации' }}</ion-card-title>
+      <ion-card-title class="section-title">{{
+        'Адрес регистрации'
+      }}</ion-card-title>
       } @case ('addressResidenceInfo') {
-      <ion-card-title>{{ 'Адрес проживания' }}</ion-card-title>
+      <ion-card-title class="section-title">{{
+        'Адрес проживания'
+      }}</ion-card-title>
       } @case ('addressMedicalInstitutionInfo') {
-      <ion-card-title>{{ 'Адрес места работы' }}</ion-card-title>
+      <ion-card-title class="section-title">{{
+        'Адрес места работы'
+      }}</ion-card-title>
       } @default {
-      <ion-card-title>{{ 'Адрес' }}</ion-card-title>
+      <ion-card-title class="section-title">{{ 'Адрес' }}</ion-card-title>
       }}
       <ion-buttons slot="end">
         <ion-button
@@ -31,8 +37,13 @@
       @for (field of addressFields; track field.key) { @if
       (userAddressInfo?.[field.key]) {
       <ion-item>
-        <ion-label position="stacked">{{ field.label }}</ion-label>
-        <ion-text>{{ userAddressInfo?.[field.key] }}</ion-text>
+        <ion-label class="custom-label" position="stacked">{{
+          field.label
+        }}</ion-label>
+        <ion-text
+          class="custom-text"
+          >{{ userAddressInfo?.[field.key] }}</ion-text
+        >
       </ion-item>
       } }
     </ion-list>
