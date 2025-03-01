@@ -5,3 +5,4 @@ export * from './identification-belarus-citizen-info-card/identification-belarus
 export * from './identification-foreign-citizen-info-card/identification-foreign-citizen-info-card.component';
 export * from './personal-info-card/personal-info-card.component';
 export * from './place-work-info-card/place-work-info-card.component';
+export * from './mobile-phone-number-password-info-card/mobile-phone-number-password-info-card.component';
