@@ -16,6 +16,7 @@ import {
   PlaceWorkInfoCardComponent,
   IdentificationBelarusCitizenInfoCardComponent,
   IdentificationForeignCitizenInfoCardComponent,
+  MobilePhoneNumberPasswordInfoCardComponent,
 } from 'src/app/shared/components';
 import { getUserRole } from 'src/app/shared/utilities';
 import { logout } from 'src/app/store/app';
@@ -39,6 +40,7 @@ import { FooterComponent } from 'src/app/features/footer';
     FooterComponent,
     IdentificationBelarusCitizenInfoCardComponent,
     IdentificationForeignCitizenInfoCardComponent,
+    MobilePhoneNumberPasswordInfoCardComponent,
   ],
 })
 export class UserProfileComponent {
