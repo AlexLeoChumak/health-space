@@ -1,3 +1,5 @@
+@let userData = user();
+
 <ion-content>
   <div class="container">
     <health-personal-info-card></health-personal-info-card>
@@ -6,9 +8,11 @@
 
     <health-contact-info-card></health-contact-info-card>
 
+    @if(userData?.identificationBelarusCitizenInfo) {
     <health-identification-belarus-citizen-info-card></health-identification-belarus-citizen-info-card>
-
+    } @if(userData?.identificationForeignCitizenInfo) {
     <health-identification-foreign-citizen-info-card></health-identification-foreign-citizen-info-card>
+    }
 
     <health-address-info-card addressTypeProps="addressRegistrationInfo">
     </health-address-info-card>
