@@ -111,7 +111,7 @@
 
   @if (isDatepickerOpen()) {
   <health-datepicker (dateChange)="onDateChange($event)"></health-datepicker>
-  } @if(!isEditableUserInfo) {
+  }
   <ion-item>
     <ion-label position="floating" class="required-to-fill"
       >Фотография</ion-label
@@ -156,5 +156,4 @@
     </health-error-notification>
     }
   </ion-item>
-  }
 </ion-item-group>

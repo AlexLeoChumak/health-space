@@ -5,7 +5,6 @@ import {
   inject,
   OnInit,
   output,
-  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -58,7 +57,6 @@ export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
   public readonly formReady = output<FormGroup>();
   public mobilePhoneNumberPasswordInfoFormGroup!: FormGroup;
   private readonly destroyRef = inject(DestroyRef);
-  protected isEditableUserInfo = signal(false);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
 
@@ -96,8 +94,6 @@ export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
           typeof data.childObj === 'object' &&
           this.mobilePhoneNumberPasswordInfoFormGroup
         ) {
-          this.isEditableUserInfo.set(true);
-          this.mobilePhoneNumberPasswordInfoFormGroup.removeControl('password');
           this.mobilePhoneNumberPasswordInfoFormGroup.patchValue(data.childObj);
         }
       });

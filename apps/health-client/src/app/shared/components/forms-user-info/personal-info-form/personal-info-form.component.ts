@@ -88,7 +88,6 @@ export class PersonalInfoFormComponent implements OnInit {
     null
   );
   private readonly destroyRef = inject(DestroyRef);
-  protected isEditableUserInfo = signal(false);
   protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
     FORM_VALIDATION_ERROR_MESSAGES;
   private readonly dateOfBirthPattern: string =
@@ -126,7 +125,6 @@ export class PersonalInfoFormComponent implements OnInit {
           typeof data.childObj === 'object' &&
           this.personalInfoFormGroup
         ) {
-          this.isEditableUserInfo.set(true);
           this.personalInfoFormGroup.patchValue(data.childObj);
         }
       });
