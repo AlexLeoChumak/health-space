@@ -14,7 +14,7 @@ import {
   PatientInterface,
   DoctorInterface,
 } from 'src/app/shared/models';
-import { UserPhotoService } from 'src/app/shared/services';
+import { CloudStorageService } from 'src/app/shared/services';
 import { getUserRole } from 'src/app/shared/utilities';
 
 @Injectable({
@@ -22,7 +22,7 @@ import { getUserRole } from 'src/app/shared/utilities';
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
-  private readonly userPhotoService = inject(UserPhotoService);
+  private readonly cloudStorageService = inject(CloudStorageService);
 
   registration(
     userData:
@@ -58,7 +58,7 @@ export class AuthService {
       >(fullUrl, requestData)
       .pipe(
         switchMap((response) => {
-          return this.userPhotoService.uploadUserPhoto(
+          return this.cloudStorageService.uploadUserPhoto(
             response,
             photo,
             userData
