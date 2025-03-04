@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, EMPTY, map, mergeMap, of, switchMap } from 'rxjs';
-import { BackblazeService } from 'src/app/shared/services/backblaze/backblaze.service';
+import { CloudStorageService } from 'src/app/shared/services';
 import { NestedObjectService } from 'src/app/shared/services/nested-object/nested-object.service';
 import {
   loadUser,
@@ -13,7 +13,10 @@ import {
 } from 'src/app/store/user';
 
 export const getUrlUserPhotoEffect = createEffect(
-  (actions$ = inject(Actions), backblazeService = inject(BackblazeService)) =>
+  (
+    actions$ = inject(Actions),
+    cloudStorageService = inject(CloudStorageService)
+  ) =>
     actions$.pipe(
       ofType(loadUser),
       switchMap((action) => {
@@ -23,17 +26,11 @@ export const getUrlUserPhotoEffect = createEffect(
           return EMPTY;
         }
 
-        return backblazeService
-          .authorize()
+        return cloudStorageService
+          .getPrivatePhotoUrl(fileName)
           .pipe(
-            switchMap(() =>
-              backblazeService
-                .getPrivatePhotoUrl(fileName)
-                .pipe(
-                  map((response) =>
-                    setUrlUserPhotoSuccess({ urlUserPhoto: response.data })
-                  )
-                )
+            map((response) =>
+              setUrlUserPhotoSuccess({ urlUserPhoto: response.data })
             )
           );
       })
