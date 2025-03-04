@@ -48,9 +48,13 @@ export const setUserSectionDataEffect = createEffect(
       store.pipe(select(selectUser)),
     ]).pipe(
       mergeMap(([action, user]) => {
+        if (!user) {
+          return EMPTY;
+        }
+
         const userSectionData =
           NestedObjectService.findParentAndKeyByIdRecursive(
-            user,
+            user as unknown as Record<string, unknown>,
             action.idUserSection
           );
 
