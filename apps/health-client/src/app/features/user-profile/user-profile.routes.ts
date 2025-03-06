@@ -19,11 +19,11 @@ export const userProfileRoutes: Routes = [
           ),
         children: [
           {
-            path: 'change-password',
+            path: 'update-password',
             loadComponent: () =>
               import(
-                './components/change-password-form/change-password-form.component'
-              ).then((m) => m.ChangePasswordFormComponent),
+                './components/update-password-form/update-password-form.component'
+              ).then((m) => m.UpdatePasswordFormComponent),
           },
         ],
       },
