@@ -3,3 +3,8 @@ export interface UpdatePasswordInterface {
   newPasswordConfirmation: string;
   oldPassword: string;
 }
+
+export interface UpdatePasswordFormInterface extends UpdatePasswordInterface {
+  userId: string;
+  userRole: 'doctor' | 'patient';
+}
