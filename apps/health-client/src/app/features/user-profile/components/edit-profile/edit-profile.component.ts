@@ -34,7 +34,7 @@ import {
   PersonalInfoFormComponent,
   PlaceWorkInfoFormComponent,
 } from 'src/app/shared/components';
-import { ChangePasswordFormComponent } from 'src/app/features/user-profile/components/change-password-form/change-password-form.component';
+import { UpdatePasswordFormComponent } from 'src/app/features/user-profile/components/update-password-form/update-password-form.component';
 
 @Component({
   selector: 'health-edit-profile',
@@ -62,15 +62,15 @@ import { ChangePasswordFormComponent } from 'src/app/features/user-profile/compo
     IdentificationBelarusCitizenInfoFormComponent,
     IdentificationForeignCitizenInfoFormComponent,
     MobilePhoneNumberPasswordInfoFormComponent,
-    ChangePasswordFormComponent,
+    UpdatePasswordFormComponent,
   ],
 })
 export class EditProfileComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  protected readonly editProfileForm = new FormGroup({});
   private readonly destroyRef = inject(DestroyRef);
+  protected readonly editProfileForm = new FormGroup({});
 
   readonly section = toSignal(
     this.route.queryParams.pipe(map((params) => params['section'] || null))
