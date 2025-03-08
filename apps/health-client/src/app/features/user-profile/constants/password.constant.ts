@@ -1,8 +1,8 @@
 export interface PasswordConstantInterface {
-  passwordsNoMatch: string;
+  NO_MATCH: string;
 }
 
 export const PASSWORD_CONSTANT: PasswordConstantInterface = {
-  passwordsNoMatch:
+  NO_MATCH:
     'Новый пароль и его подтверждение не совпадают. Проверьте их и попробуйте еще раз.',
 };
