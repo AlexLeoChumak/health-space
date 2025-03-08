@@ -4,6 +4,7 @@ import {
   DestroyRef,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -18,20 +19,18 @@ import {
   IonLabel,
   IonInput,
   IonNote,
-  IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 
-import { ErrorNotificationComponent } from 'src/app/shared/components';
+import {
+  ActionButtonComponent,
+  ErrorNotificationComponent,
+} from 'src/app/shared/components';
 import {
   checkInputValidatorUtility,
   getUserRole,
 } from 'src/app/shared/utilities';
-import {
-  FormValidationErrorMessagesInterface,
-  FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/shared/constants';
 import {
   PASSWORD_CONSTANT,
   UpdatePasswordFormInterface,
@@ -41,6 +40,17 @@ import { selectUser } from 'src/app/store/user';
 import { ToastService } from 'src/app/shared/services';
 import { UpdatePasswordService } from 'src/app/features/user-profile/service/update-password/update-password.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { setLoading } from 'src/app/store/app';
+
+import { catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  FORM_VALIDATION_CONSTANT,
+  SHARED_CONSTANT,
+} from 'src/app/shared/constants';
+
+type PasswordType = 'oldPassword' | 'newPassword' | 'newPasswordConfirmation';
 
 @Component({
   selector: 'health-update-password-form',
@@ -50,7 +60,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonIcon,
-    IonButton,
     CommonModule,
     ReactiveFormsModule,
     IonNote,
@@ -59,17 +68,24 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     IonItemGroup,
     IonItem,
     ErrorNotificationComponent,
+    ActionButtonComponent,
   ],
 })
 export class UpdatePasswordFormComponent implements OnInit {
+  private readonly router = inject(Router);
   private readonly updatePasswordService = inject(UpdatePasswordService);
   private readonly toastService = inject(ToastService);
   private readonly store = inject(Store);
   private readonly user = this.store.selectSignal(selectUser);
+  protected readonly isSubmittingForm = signal(false);
   public updatePasswordInfoFormGroup!: FormGroup;
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
+  protected isPasswordVisible = signal({
+    oldPassword: false,
+    newPassword: false,
+    newPasswordConfirmation: false,
+  });
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -96,6 +112,7 @@ export class UpdatePasswordFormComponent implements OnInit {
 
   protected onSubmitUpdatePassword(): void {
     if (this.updatePasswordInfoFormGroup.invalid) return;
+    this.isSubmittingForm.set(true);
 
     const updatePasswords: UpdatePasswordInterface =
       this.updatePasswordInfoFormGroup.value;
@@ -103,31 +120,63 @@ export class UpdatePasswordFormComponent implements OnInit {
     if (
       updatePasswords.newPassword !== updatePasswords.newPasswordConfirmation
     ) {
-      this.toastService.presentToast(PASSWORD_CONSTANT.passwordsNoMatch);
+      this.toastService.presentToast(PASSWORD_CONSTANT.NO_MATCH);
+      this.isSubmittingForm.set(false);
       return;
     }
 
+    this.store.dispatch(setLoading({ isLoading: true }));
+
     const user = this.user();
 
-    if (user) {
-      const userId = user.id;
-      const userRole = getUserRole(user);
-
-      if (userId && userRole) {
-        const updateData: UpdatePasswordFormInterface = {
-          ...updatePasswords,
-          userId,
-          userRole,
-        };
-
-        this.updatePasswordService
-          .updatePassword(updateData)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((response) => {
-            this.toastService.presentToast(response.data);
-          });
-      }
+    if (!user) {
+      this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
+      this.isSubmittingForm.set(false);
+      this.store.dispatch(setLoading({ isLoading: false }));
+      return;
     }
+
+    const userId = user.id;
+    const userRole = getUserRole(user);
+
+    if (!userId || !userRole) {
+      this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
+      this.isSubmittingForm.set(false);
+      this.store.dispatch(setLoading({ isLoading: false }));
+      return;
+    }
+
+    const updateData: UpdatePasswordFormInterface = {
+      ...updatePasswords,
+      userId,
+      userRole,
+    };
+
+    this.updatePasswordService
+      .updatePassword(updateData)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.toastService.presentToast(error.error.message);
+          this.store.dispatch(setLoading({ isLoading: false }));
+          this.isSubmittingForm.set(false);
+          return throwError(() => error);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((success) => {
+        this.router.navigate(['/user-profile']);
+        this.toastService.presentToast(success.data);
+        this.store.dispatch(setLoading({ isLoading: false }));
+        this.updatePasswordInfoFormGroup.reset();
+        this.isSubmittingForm.set(false);
+      });
+  }
+
+  togglePasswordVisibility(field: PasswordType): void {
+    this.isPasswordVisible.update((state) => ({
+      ...state,
+      [field]: !state[field],
+    }));
   }
 
   protected checkInputValidator(
