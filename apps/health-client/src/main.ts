@@ -24,6 +24,8 @@ import {
   save,
   trashBin,
   arrowBack,
+  eyeOff,
+  eye,
 } from 'ionicons/icons';
 
 import * as RegistrationEffects from 'src/app/store/registration/registration.effects';
@@ -46,6 +48,8 @@ addIcons({
   pencil,
   save,
   arrowBack,
+  eyeOff,
+  eye,
 });
 
 bootstrapApplication(AppComponent, {
