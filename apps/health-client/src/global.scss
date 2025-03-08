@@ -141,6 +141,10 @@ ion-content {
   );
 }
 
+ion-item {
+  user-select: none;
+}
+
 .container {
   max-width: #{vars.$container-max-width}; // 1440px;
   width: #{vars.$container-width}; // 100%;
@@ -197,4 +201,8 @@ ion-card-header {
 
 .custom-label {
   font-size: 20px !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
