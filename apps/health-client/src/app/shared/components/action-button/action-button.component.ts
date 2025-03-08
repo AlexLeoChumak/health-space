@@ -20,7 +20,8 @@ export type LabelButtonType =
   | 'личный кабинет'
   | 'выйти'
   | 'редактировать'
-  | 'изменить пароль';
+  | 'изменить пароль'
+  | 'сохранить';
 
 interface ActionButtonConfigInterface {
   label: LabelButtonType;
