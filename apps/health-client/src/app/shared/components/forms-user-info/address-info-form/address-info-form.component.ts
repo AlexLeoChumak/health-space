@@ -29,10 +29,7 @@ import {
 import { Store } from '@ngrx/store';
 
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
-import {
-  FormValidationErrorMessagesInterface,
-  FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/shared/constants';
+import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import { NumericInputRestrictionDirective } from 'src/app/shared/directives';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { selectUserSectionData } from 'src/app/store/user';
@@ -70,8 +67,7 @@ export class AddressInfoFormComponent implements OnInit {
   public addressInfoFormGroup!: FormGroup;
   private readonly destroyRef = inject(DestroyRef);
   protected addressTypeFromEditProfilePage = signal('');
-  protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
   public readonly regions: string[] = [
     'Брестская область',
     'Витебская область',

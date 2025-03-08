@@ -33,7 +33,6 @@ import {
 } from '@ionic/angular/standalone';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-
 import {
   ActionButtonComponent,
   LabelButtonType,
@@ -41,15 +40,12 @@ import {
 import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import {
-  FormValidationErrorMessagesInterface,
-  FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/shared/constants';
-import {
   getDatepickerButtonLabelUtility,
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
 import { selectUserSectionData } from 'src/app/store/user';
+import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
   selector: 'health-personal-info-form',
@@ -88,8 +84,7 @@ export class PersonalInfoFormComponent implements OnInit {
     null
   );
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
   private readonly dateOfBirthPattern: string =
     '^([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря) [0-9]{4} г.$';
 

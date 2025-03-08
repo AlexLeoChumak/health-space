@@ -20,14 +20,10 @@ import {
   IonInput,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
-
-import {
-  FormValidationErrorMessagesInterface,
-  FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/shared/constants';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { selectUserSectionData } from 'src/app/store/user';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
+import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
   selector: 'health-education-medical-worker-info-form',
@@ -49,8 +45,7 @@ export class EducationMedicalWorkerInfoFormComponent implements OnInit {
   public readonly formReady = output<FormGroup>();
   public educationMedicalWorkerInfoFormGroup!: FormGroup;
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
 
   public ngOnInit(): void {
     this.initializeForm();

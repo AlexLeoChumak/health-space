@@ -24,10 +24,7 @@ import {
 import { Store } from '@ngrx/store';
 
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
-import {
-  FormValidationErrorMessagesInterface,
-  FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/shared/constants';
+import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import { PhonePrefixFormatterDirective } from 'src/app/shared/directives';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { selectUserSectionData } from 'src/app/store/user';
@@ -55,8 +52,7 @@ export class ContactInfoFormComponent implements OnInit {
   public readonly formReady = output<FormGroup>();
   public contactInfoFormGroup!: FormGroup;
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
 
   public ngOnInit(): void {
     this.initializeForm();

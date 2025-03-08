@@ -30,10 +30,7 @@ import {
 } from 'src/app/shared/components/action-button/action-button.component';
 import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
-import {
-  FormValidationErrorMessagesInterface,
-  FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/shared/constants';
+import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import {
   getDatepickerButtonLabelUtility,
   formattingDateToLocalStringUtility,
@@ -66,8 +63,7 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
   protected identificationBelarusCitizenInfoFormGroup!: FormGroup;
   protected readonly isDatepickerOpen = signal<boolean>(false);
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
 
   public ngOnInit(): void {
     this.initializeForm();

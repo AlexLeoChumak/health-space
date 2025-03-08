@@ -30,7 +30,7 @@ addressTypeFromEditProfile = addressTypeFromEditProfilePage();
 
     @if(checkInputValidator(addressInfoFormGroup, 'region', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -46,7 +46,7 @@ addressTypeFromEditProfile = addressTypeFromEditProfilePage();
 
     @if(checkInputValidator(addressInfoFormGroup, 'district', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -64,7 +64,7 @@ addressTypeFromEditProfile = addressTypeFromEditProfilePage();
 
     @if(checkInputValidator(addressInfoFormGroup, 'city', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -80,7 +80,7 @@ addressTypeFromEditProfile = addressTypeFromEditProfilePage();
 
     @if(checkInputValidator(addressInfoFormGroup, 'street', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -98,19 +98,19 @@ addressTypeFromEditProfile = addressTypeFromEditProfilePage();
 
     @if(checkInputValidator(addressInfoFormGroup, 'house', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     } @if(checkInputValidator(addressInfoFormGroup, 'house', 'min')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.min"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.MIN"
     ></health-error-notification>
     } @if(checkInputValidator(addressInfoFormGroup, 'house', 'max')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.max"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.MAX"
     ></health-error-notification>
     } @if(checkInputValidator(addressInfoFormGroup, 'house', 'pattern')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.pattern"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.PATTERN"
     ></health-error-notification>
     }
   </ion-item>
@@ -130,15 +130,15 @@ addressTypeFromEditProfile = addressTypeFromEditProfilePage();
 
     @if(checkInputValidator(addressInfoFormGroup, 'housing', 'min')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.min"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.MIN"
     ></health-error-notification>
     } @if(checkInputValidator(addressInfoFormGroup, 'housing', 'max')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.max"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.MAX"
     ></health-error-notification>
     } @if(checkInputValidator(addressInfoFormGroup, 'housing', 'pattern')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.pattern"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.PATTERN"
     ></health-error-notification>
     }
   </ion-item>
@@ -161,15 +161,15 @@ addressTypeFromEditProfile = addressTypeFromEditProfilePage();
 
     @if(checkInputValidator(addressInfoFormGroup, 'apartment', 'min')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.min"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.MIN"
     ></health-error-notification>
     } @if(checkInputValidator(addressInfoFormGroup, 'apartment', 'max')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.max"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.MAX"
     ></health-error-notification>
     } @if(checkInputValidator(addressInfoFormGroup, 'housing', 'pattern')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.pattern"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.PATTERN"
     ></health-error-notification>
     }
   </ion-item>

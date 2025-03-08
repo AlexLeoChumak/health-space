@@ -13,7 +13,7 @@
 
     @if (checkInputValidator(personalInfoFormGroup, 'lastName', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -30,7 +30,7 @@
 
     @if (checkInputValidator(personalInfoFormGroup, 'firstName', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -89,12 +89,12 @@
     @if (checkInputValidator(personalInfoFormGroup, 'dateOfBirth', 'required'))
     {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     } @if(checkInputValidator(personalInfoFormGroup, 'dateOfBirth', 'pattern'))
     {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.pattern"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.PATTERN"
     ></health-error-notification>
     }
 
@@ -147,11 +147,11 @@
     </figure>
     } @if (checkInputValidator(personalInfoFormGroup, 'photo', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     } @if (!isImageType()) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.image"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.IMAGE"
     >
     </health-error-notification>
     }

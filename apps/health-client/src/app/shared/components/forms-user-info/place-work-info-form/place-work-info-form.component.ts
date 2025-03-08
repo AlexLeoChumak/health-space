@@ -19,13 +19,12 @@ import {
   IonLabel,
   IonInput,
 } from '@ionic/angular/standalone';
-
-import { FORM_VALIDATION_ERROR_MESSAGES } from 'src/app/shared/constants';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { selectUserSectionData } from 'src/app/store/user';
+import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
   selector: 'health-place-work-info-form',
@@ -48,8 +47,7 @@ export class PlaceWorkInfoFormComponent implements OnInit {
   protected readonly formReady = output<FormGroup>();
   protected placeWorkInfoFormGroup!: FormGroup;
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly formValidationErrorMessages =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
 
   public ngOnInit(): void {
     this.initializeForm();

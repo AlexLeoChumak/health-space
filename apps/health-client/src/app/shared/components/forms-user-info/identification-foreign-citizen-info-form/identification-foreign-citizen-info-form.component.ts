@@ -20,16 +20,12 @@ import {
   IonLabel,
   IonInput,
 } from '@ionic/angular/standalone';
-
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
-import {
-  FormValidationErrorMessagesInterface,
-  FORM_VALIDATION_ERROR_MESSAGES,
-} from 'src/app/shared/constants';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { selectUserSectionData } from 'src/app/store/user';
+import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
   selector: 'health-identification-foreign-citizen-info-form',
@@ -52,8 +48,7 @@ export class IdentificationForeignCitizenInfoFormComponent implements OnInit {
   protected readonly formReady = output<FormGroup>();
   protected identificationForeignCitizenInfoFormGroup!: FormGroup;
   private readonly destroyRef = inject(DestroyRef);
-  protected readonly formValidationErrorMessages: FormValidationErrorMessagesInterface =
-    FORM_VALIDATION_ERROR_MESSAGES;
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
 
   public ngOnInit(): void {
     this.initializeForm();

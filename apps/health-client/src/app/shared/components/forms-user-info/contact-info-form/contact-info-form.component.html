@@ -14,11 +14,11 @@
 
     @if (checkInputValidator(contactInfoFormGroup, 'email', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     } @if (checkInputValidator(contactInfoFormGroup, 'email', 'email')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.email"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.EMAIL"
     ></health-error-notification>
     }
   </ion-item>

@@ -19,20 +19,20 @@
     @if (checkInputValidator(identificationBelarusCitizenInfoFormGroup,
     'personalIdentificationNumber', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     } @if (checkInputValidator(identificationBelarusCitizenInfoFormGroup,
     'personalIdentificationNumber', 'minlength')) {
     <health-error-notification
       [errorNotificationProps]="
-        formValidationErrorMessages.numberCharactersIdentificationNumber
+        FORM_VALIDATION_CONSTANT.NUMBER_CHARACTERS_IDENTIFICATION_NUMBER
       "
     ></health-error-notification>
     } @if (checkInputValidator(identificationBelarusCitizenInfoFormGroup,
     'personalIdentificationNumber', 'maxlength')) {
     <health-error-notification
       [errorNotificationProps]="
-        formValidationErrorMessages.numberCharactersIdentificationNumber
+        FORM_VALIDATION_CONSTANT.NUMBER_CHARACTERS_IDENTIFICATION_NUMBER
       "
     ></health-error-notification>
     }
@@ -53,7 +53,7 @@
     @if (checkInputValidator(identificationBelarusCitizenInfoFormGroup,
     'passportSeriesNumber', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -72,7 +72,7 @@
     @if (checkInputValidator(identificationBelarusCitizenInfoFormGroup,
     'passportIssuingAuthority', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -95,13 +95,13 @@
     @if (checkInputValidator(identificationBelarusCitizenInfoFormGroup,
     'passportIssueDate', 'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
     @if(checkInputValidator(identificationBelarusCitizenInfoFormGroup,'passportIssueDate',
     'pattern')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.pattern"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.PATTERN"
     ></health-error-notification>
     }
 

@@ -15,7 +15,7 @@
     @if (checkInputValidator(placeWorkInfoFormGroup, 'nameMedicalInstitution',
     'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -34,7 +34,7 @@
     @if (checkInputValidator(placeWorkInfoFormGroup, 'department', 'required'))
     {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
@@ -53,7 +53,7 @@
     @if (checkInputValidator(placeWorkInfoFormGroup, 'currentSpecialization',
     'required')) {
     <health-error-notification
-      [errorNotificationProps]="formValidationErrorMessages.required"
+      [errorNotificationProps]="FORM_VALIDATION_CONSTANT.REQUIRED"
     ></health-error-notification>
     }
   </ion-item>
