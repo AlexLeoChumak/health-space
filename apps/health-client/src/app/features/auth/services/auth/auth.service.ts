@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { environment } from 'src/environments/environment';
 import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface'; ////////////
@@ -14,17 +15,28 @@ import {
   PatientInterface,
   DoctorInterface,
 } from 'src/app/shared/models';
-import { CloudStorageService } from 'src/app/shared/services';
+import {
+  CloudStorageService,
+  LocalStorageService,
+} from 'src/app/shared/services';
 import { getUserRole } from 'src/app/shared/utilities';
+import { selectAccessToken } from 'src/app/store/app';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private readonly store = inject(Store);
+  private readonly authToken = this.store.selectSignal(selectAccessToken);
   private readonly cloudStorageService = inject(CloudStorageService);
+  private readonly localStorageService = inject(LocalStorageService);
 
-  registration(
+  public getToken(): string | null {
+    return this.authToken() || this.localStorageService.getItem('accessToken');
+  }
+
+  public registration(
     userData:
       | PatientRegistrationRequestInterface
       | DoctorRegistrationRequestInterface
