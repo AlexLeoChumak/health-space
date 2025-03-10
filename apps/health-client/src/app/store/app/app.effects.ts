@@ -1,13 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, of, catchError, tap } from 'rxjs';
-
 import { AuthService } from 'src/app/features/auth';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
-import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
+import { loadUser, clearUser } from 'src/app/store/user';
 import {
   appInitialize,
   appInitialized,
@@ -16,13 +14,11 @@ import {
   loginSuccess,
   logout,
 } from 'src/app/store/app';
-import { loadUser, clearUser } from 'src/app/store/user';
 
 export const restoreSessionEffect = createEffect(
   (
     actions$ = inject(Actions),
     authService = inject(AuthService),
-    toastService = inject(ToastService),
     localStorageService = inject(LocalStorageService)
   ) =>
     actions$.pipe(
@@ -53,8 +49,7 @@ export const restoreSessionEffect = createEffect(
                 loadUser({ user: userLoginResponse.user }),
                 appInitialized(),
               ]),
-              catchError((error: HttpErrorResponse) => {
-                toastService.presentToast(error.error.message);
+              catchError(() => {
                 return of(logout(), appInitialized());
               })
             );
