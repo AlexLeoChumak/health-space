@@ -32,13 +32,12 @@ import {
   getUserRole,
 } from 'src/app/shared/utilities';
 import {
-  PASSWORD_CONSTANT,
+  UPDATE_INFO_CONSTANT,
   UpdatePasswordFormInterface,
   UpdatePasswordInterface,
 } from 'src/app/features/user-profile';
 import { selectUser } from 'src/app/store/user';
 import { ToastService } from 'src/app/shared/services';
-import { UpdatePasswordService } from 'src/app/features/user-profile/service/update-password/update-password.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { setLoading } from 'src/app/store/app';
 
@@ -49,6 +48,7 @@ import {
   FORM_VALIDATION_CONSTANT,
   SHARED_CONSTANT,
 } from 'src/app/shared/constants';
+import { UpdateUserProfileService } from 'src/app/features/user-profile/service/update-user-profile/update-user-profile.service';
 
 type PasswordType = 'oldPassword' | 'newPassword' | 'newPasswordConfirmation';
 
@@ -73,7 +73,7 @@ type PasswordType = 'oldPassword' | 'newPassword' | 'newPasswordConfirmation';
 })
 export class UpdatePasswordFormComponent implements OnInit {
   private readonly router = inject(Router);
-  private readonly updatePasswordService = inject(UpdatePasswordService);
+  private readonly updateUserProfileService = inject(UpdateUserProfileService);
   private readonly toastService = inject(ToastService);
   private readonly store = inject(Store);
   private readonly user = this.store.selectSignal(selectUser);
@@ -120,7 +120,7 @@ export class UpdatePasswordFormComponent implements OnInit {
     if (
       updatePasswords.newPassword !== updatePasswords.newPasswordConfirmation
     ) {
-      this.toastService.presentToast(PASSWORD_CONSTANT.NO_MATCH);
+      this.toastService.presentToast(UPDATE_INFO_CONSTANT.PASSWORDS_NO_MATCH);
       this.isSubmittingForm.set(false);
       return;
     }
@@ -152,7 +152,7 @@ export class UpdatePasswordFormComponent implements OnInit {
       userRole,
     };
 
-    this.updatePasswordService
+    this.updateUserProfileService
       .updatePassword(updateData)
       .pipe(
         catchError((error: HttpErrorResponse) => {
