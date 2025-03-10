@@ -1,3 +1,5 @@
+import { UserRoleType } from 'src/app/features/user-profile';
+
 export interface UpdatePasswordInterface {
   newPassword: string;
   newPasswordConfirmation: string;
@@ -6,5 +8,5 @@ export interface UpdatePasswordInterface {
 
 export interface UpdatePasswordFormInterface extends UpdatePasswordInterface {
   userId: string;
-  userRole: 'doctor' | 'patient';
+  userRole: UserRoleType;
 }
