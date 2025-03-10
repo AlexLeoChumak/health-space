@@ -3,4 +3,7 @@ export * from './components/user-profile/user-profile.component';
 export * from './components/edit-profile/edit-profile.component';
 export * from './components/update-password-form/update-password-form.component';
 export * from './models/update-password.interface';
-export * from './constants/password.constant';
+export * from './models/update-user-info-group.interface';
+export * from './models/user-role.type';
+export * from './models/update-user-info-group.type';
+export * from './constants/update-info.constant';
