@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  effect,
   inject,
   OnInit,
   signal,
@@ -30,7 +31,9 @@ import {
   selectIsLoading,
   login,
   selectIsAuthenticated,
+  selectError,
 } from 'src/app/store/app';
+import { ToastService } from 'src/app/shared/services';
 
 @Component({
   selector: 'health-login',
@@ -54,11 +57,27 @@ import {
 })
 export class LoginComponent implements OnInit {
   private readonly store = inject(Store<AppState>);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly toastService = inject(ToastService);
   public loginForm!: FormGroup;
   protected readonly isDoctor = signal<boolean>(false);
   protected readonly isSubmittingForm =
     this.store.selectSignal(selectIsLoading);
+  protected readonly loginError = this.store.selectSignal(selectError);
+  private readonly destroyRef = inject(DestroyRef);
+
+  constructor() {
+    this.registerEffects();
+  }
+
+  private registerEffects(): void {
+    effect(() => {
+      const error = this.loginError();
+
+      if (error) {
+        this.toastService.presentToast(error);
+      }
+    });
+  }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -72,7 +91,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) return;
 
     const loginData: LoginRequestInterface = this.loginForm.value;
-
     this.store.dispatch(login({ loginData, isDoctor: this.isDoctor() }));
 
     this.store
@@ -90,7 +108,7 @@ export class LoginComponent implements OnInit {
   }
 
   protected addFormGroup(formGroup: FormGroup): void {
-    // Проходим по всем контролям в дочерней форме и добавляем их в родительскую
+    // Прохожу по всем контролам в дочерней форме и добавляю их в родительскую
     Object.keys(formGroup.controls).forEach((controlName) => {
       const control = formGroup.get(controlName);
       if (control) {
