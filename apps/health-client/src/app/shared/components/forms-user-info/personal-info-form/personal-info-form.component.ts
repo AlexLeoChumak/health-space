@@ -121,6 +121,7 @@ export class PersonalInfoFormComponent implements OnInit {
           this.personalInfoFormGroup
         ) {
           this.personalInfoFormGroup.patchValue(data.childObj);
+          this.personalInfoFormGroup.get('photo')?.reset();
         }
       });
   }
