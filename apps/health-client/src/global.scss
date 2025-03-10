@@ -38,16 +38,30 @@
 /* Внутренний импорт из файла variables.scss */
 @use 'theme/variables' as vars;
 
+// @font-face {
+//   font-family: #{vars.$font-family-base};
+//   src: url('./theme/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+//   font-weight: #{vars.$font-weight-normal};
+//   font-style: #{vars.$font-style-normal};
+// }
+
+// @font-face {
+//   font-family: #{vars.$font-family-base};
+//   src: url('./theme/fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
+//   font-weight: #{vars.$font-weight-bold};
+//   font-style: #{vars.$font-style-normal};
+// }
+
 @font-face {
   font-family: #{vars.$font-family-base};
-  src: url('./theme/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+  src: url('./theme/fonts/comfortaa/Comfortaa-Regular.ttf') format('truetype');
   font-weight: #{vars.$font-weight-normal};
   font-style: #{vars.$font-style-normal};
 }
 
 @font-face {
   font-family: #{vars.$font-family-base};
-  src: url('./theme/fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
+  src: url('./theme/fonts/comfortaa/Comfortaa-Bold.ttf') format('truetype');
   font-weight: #{vars.$font-weight-bold};
   font-style: #{vars.$font-style-normal};
 }
@@ -127,7 +141,7 @@
   /* CSS переменные для переопределения нативных CSS значений Ionic */
   /* Размеры */
   --ion-margin: 25px;
-  --ion-size-preview-photo: 250px;
+  --ion-size-preview-photo: 300px;
   --ion-border-radius-preview-photo: 10px;
 }
 
@@ -205,4 +219,11 @@ ion-card-header {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.custom-avatar {
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--ion-color-medium-tint);
+  box-shadow: 0px 0px 7px var(--ion-color-medium);
 }
