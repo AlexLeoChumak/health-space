@@ -4,12 +4,13 @@ import {
   DestroyRef,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
   IonCard,
@@ -21,10 +22,12 @@ import {
   IonIcon,
   IonToolbar,
   IonButtons,
+  IonItem,
 } from '@ionic/angular/standalone';
 
-import { setIdUserSection } from 'src/app/store/user';
+import { selectUser, setIdUserSection } from 'src/app/store/user';
 import {
+  ActionButtonComponent,
   AddressInfoFormComponent,
   ContactInfoFormComponent,
   EducationMedicalWorkerInfoFormComponent,
@@ -35,6 +38,17 @@ import {
   PlaceWorkInfoFormComponent,
 } from 'src/app/shared/components';
 import { UpdatePasswordFormComponent } from 'src/app/features/user-profile/components/update-password-form/update-password-form.component';
+import { setLoading } from 'src/app/store/app';
+import { SHARED_CONSTANT } from 'src/app/shared/constants';
+import { ToastService } from 'src/app/shared/services';
+import { getUserRole } from 'src/app/shared/utilities';
+import { UpdateUserProfileService } from 'src/app/features/user-profile/service/update-user-profile/update-user-profile.service';
+import {
+  UPDATE_INFO_CONSTANT,
+  UpdateUserInfoGroupInterface,
+  UpdateUserInfoGroupType,
+} from 'src/app/features/user-profile';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'health-edit-profile',
@@ -43,6 +57,7 @@ import { UpdatePasswordFormComponent } from 'src/app/features/user-profile/compo
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonItem,
     IonButtons,
     IonToolbar,
     ReactiveFormsModule,
@@ -63,14 +78,19 @@ import { UpdatePasswordFormComponent } from 'src/app/features/user-profile/compo
     IdentificationForeignCitizenInfoFormComponent,
     MobilePhoneNumberPasswordInfoFormComponent,
     UpdatePasswordFormComponent,
+    ActionButtonComponent,
   ],
 })
 export class EditProfileComponent implements OnInit {
   private readonly store = inject(Store);
+  private readonly user = this.store.selectSignal(selectUser);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly updateUserProfileService = inject(UpdateUserProfileService);
+  private readonly toastService = inject(ToastService);
   protected readonly editProfileForm = new FormGroup({});
+  protected readonly isSubmittingForm = signal(false);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly section = toSignal(
     this.route.queryParams.pipe(map((params) => params['section'] || null))
@@ -99,14 +119,86 @@ export class EditProfileComponent implements OnInit {
     this.editProfileForm.addControl(formGroupName, formGroup);
   }
 
-  protected onSubmitEditedForm(): void {
-    if (this.editProfileForm.valid) {
-      const updatedData = this.editProfileForm.value;
-      console.log('Данные для сохранения:', updatedData);
-      // Здесь можно отправить данные на сервер для сохранения
-    } else {
-      console.log('Форма содержит ошибки');
+  protected onSubmitUpdateFormGroup(): void {
+    if (this.editProfileForm.invalid) return;
+
+    this.isSubmittingForm.set(true);
+    this.store.dispatch(setLoading({ isLoading: true }));
+
+    const validKeys: string[] = [
+      'personalInfo',
+      'contactInfo',
+      'mobilePhoneNumberPasswordInfo',
+      'identificationBelarusCitizenInfo',
+      'identificationForeignCitizenInfo',
+      'addressRegistrationInfo',
+      'addressResidenceInfo',
+      'addressMedicalInstitutionInfo',
+      'educationMedicalWorkerInfo',
+      'placeWorkInfo',
+    ];
+
+    const rawValue = this.editProfileForm.getRawValue();
+    const keys = Object.keys(rawValue);
+
+    if (keys.length !== 1) {
+      this.toastService.presentToast(UPDATE_INFO_CONSTANT.EDIT_INFO_ERROR);
+      this.isSubmittingForm.set(false);
+      this.store.dispatch(setLoading({ isLoading: false }));
+      return;
     }
+
+    const keyNameInfoGroup = keys[0];
+
+    if (!validKeys.includes(keyNameInfoGroup)) {
+      this.toastService.presentToast(UPDATE_INFO_CONSTANT.EDIT_INFO_ERROR);
+      this.isSubmittingForm.set(false);
+      this.store.dispatch(setLoading({ isLoading: false }));
+      return;
+    }
+    const updateInfoGroup: UpdateUserInfoGroupType =
+      rawValue as UpdateUserInfoGroupType;
+    const user = this.user();
+
+    if (!user) {
+      this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
+      this.isSubmittingForm.set(false);
+      this.store.dispatch(setLoading({ isLoading: false }));
+      return;
+    }
+
+    const userId = user.id;
+    const userRole = getUserRole(user);
+
+    if (!userId || !userRole) {
+      this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
+      this.isSubmittingForm.set(false);
+      this.store.dispatch(setLoading({ isLoading: false }));
+      return;
+    }
+
+    const updateData: UpdateUserInfoGroupInterface = {
+      updateInfoGroup,
+      userId,
+      userRole,
+    };
+
+    this.updateUserProfileService
+      .updateInfoGroup(updateData)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.toastService.presentToast(error.error.message);
+          this.store.dispatch(setLoading({ isLoading: false }));
+          this.isSubmittingForm.set(false);
+          return throwError(() => error);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((success) => {
+        this.store.dispatch(setLoading({ isLoading: false }));
+        this.toastService.presentToast(success.data);
+        this.isSubmittingForm.set(false);
+      });
   }
 
   protected goToUserProfilePage(): void {
