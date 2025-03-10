@@ -22,7 +22,10 @@
 
       <ion-card-content class="ion-text-center">
         @if (sectionName) {
-        <form [formGroup]="editProfileForm" (ngSubmit)="onSubmitEditedForm()">
+        <form
+          [formGroup]="editProfileForm"
+          (ngSubmit)="onSubmitUpdateFormGroup()"
+        >
           @switch (sectionName) { @case ('address-registration-info') {
           <health-address-info-form
             (formReady)="addFormGroup('addressRegistrationInfo', $event)"
@@ -59,6 +62,7 @@
           } @case ('mobile-phone-number-password-info') {
           <health-mobile-phone-number-password-info-form
             (formReady)="addFormGroup('mobilePhoneNumberPasswordInfo', $event)"
+            [editableInfoProps]="true"
           ></health-mobile-phone-number-password-info-form>
           } @case ('personal-info') {
           <health-personal-info-form
@@ -69,10 +73,16 @@
             (formReady)="addFormGroup('placeWorkInfo', $event)"
           ></health-place-work-info-form>
           } }
-          <ion-button type="submit" class="ion-margin-vertical">
-            <ion-icon slot="start" name="save"></ion-icon>
-            Сохранить
-          </ion-button>
+          <ion-item lines="none" class="ion-margin-top">
+            <health-action-button
+              [configProps]="{
+              isFormButton: true,
+              label: 'сохранить',
+              isDisabled: editProfileForm.invalid || isSubmittingForm(),
+              routerLink: null,
+            }"
+            ></health-action-button>
+          </ion-item>
         </form>
         } @else {
         <health-update-password-form></health-update-password-form>
