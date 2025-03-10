@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   inject,
+  input,
   OnInit,
   output,
 } from '@angular/core';
@@ -49,6 +50,7 @@ import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
   ],
 })
 export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
+  public readonly editableInfoProps = input.required();
   private readonly store = inject(Store);
   public readonly formReady = output<FormGroup>();
   public mobilePhoneNumberPasswordInfoFormGroup!: FormGroup;
@@ -64,16 +66,25 @@ export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
     const mobilePhoneNumberMinLength = 17;
     const passwordMinLength = 8;
 
-    this.mobilePhoneNumberPasswordInfoFormGroup = new FormGroup({
-      mobilePhoneNumber: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(mobilePhoneNumberMinLength),
-      ]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(passwordMinLength),
-      ]),
-    });
+    if (!this.editableInfoProps()) {
+      this.mobilePhoneNumberPasswordInfoFormGroup = new FormGroup({
+        mobilePhoneNumber: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(mobilePhoneNumberMinLength),
+        ]),
+        password: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(passwordMinLength),
+        ]),
+      });
+    } else {
+      this.mobilePhoneNumberPasswordInfoFormGroup = new FormGroup({
+        mobilePhoneNumber: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(mobilePhoneNumberMinLength),
+        ]),
+      });
+    }
 
     this.formReady.emit(this.mobilePhoneNumberPasswordInfoFormGroup);
   }
