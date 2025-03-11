@@ -5,4 +5,3 @@ export * from './components/registration-base/registration-base.component';
 export * from './components/registration-doctor/registration-doctor.component';
 export * from './components/registration-patient/registration-patient.component';
 export * from './models/registration-response.interface';
-export * from './services/auth/auth.service';
