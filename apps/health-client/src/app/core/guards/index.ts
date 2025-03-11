@@ -1,1 +1,1 @@
-export * from './auth/auth.guard';
+export * from './block-re-authentication/block-re-authentication.guard';
