@@ -25,7 +25,7 @@ import {
   IonItem,
 } from '@ionic/angular/standalone';
 
-import { selectUser, setIdUserSection } from 'src/app/store/user';
+import { loadUser, selectUser, setIdUserSection } from 'src/app/store/user';
 import {
   ActionButtonComponent,
   AddressInfoFormComponent,
@@ -196,6 +196,7 @@ export class EditProfileComponent implements OnInit {
       )
       .subscribe((success) => {
         this.store.dispatch(setLoading({ isLoading: false }));
+        this.store.dispatch(loadUser());
         this.toastService.presentToast(success.data);
         this.isSubmittingForm.set(false);
       });
