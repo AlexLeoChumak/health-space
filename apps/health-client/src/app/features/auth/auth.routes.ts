@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { authGuard } from 'src/app/core/guards/auth/auth.guard';
+import { blockReAuthenticationGuard } from 'src/app/core/guards';
 
 export const authRoutes: Routes = [
   {
     path: 'auth',
-    canActivate: [authGuard], // Защищаем все маршруты внутри 'auth'
-    canActivateChild: [authGuard],
+    canActivate: [blockReAuthenticationGuard],
+    canActivateChild: [blockReAuthenticationGuard],
     children: [
       {
         path: 'login',
