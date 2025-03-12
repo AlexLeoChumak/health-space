@@ -3,6 +3,8 @@ import { createReducer, on } from '@ngrx/store';
 import {
   clearUser,
   loadUser,
+  loadUserFailure,
+  loadUserSuccess,
   setIdUserSection,
   setUrlUserPhotoSuccess,
   setUserSectionData,
@@ -12,11 +14,20 @@ import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
 
 export const userReducer = createReducer(
   initialUserState,
-  on(loadUser, (state, { user }) => ({
+  on(loadUser, (state) => ({
+    ...state,
+    error: null,
+  })),
+  on(loadUserSuccess, (state, { user }) => ({
     ...state,
     user,
     role: getUserRole(user),
   })),
+  on(loadUserFailure, (state, { message }) => ({
+    ...state,
+    error: message,
+  })),
+
   on(setUrlUserPhotoSuccess, (state, { urlUserPhoto }) => ({
     ...state,
     urlUserPhoto,
