@@ -1,3 +1,5 @@
+@let photoPreview = photoPreviewUrl();
+
 <ion-item-group [formGroup]="personalInfoFormGroup">
   <ion-item class="section-title">Персональная информация</ion-item>
 
@@ -134,10 +136,10 @@
       }"
     ></health-action-button>
 
-    @if (photoPreviewUrl()) {
+    @if (photoPreview) {
     <figure class="photo-preview-url">
       <ion-thumbnail>
-        <ion-img [src]="photoPreviewUrl()" alt="user-photo"></ion-img>
+        <ion-img [src]="photoPreview" alt="user-photo"></ion-img>
       </ion-thumbnail>
       <figcaption>
         <ion-button color="danger" (click)="removePhoto()">
@@ -154,6 +156,10 @@
       [errorNotificationProps]="FORM_VALIDATION_CONSTANT.IMAGE"
     >
     </health-error-notification>
+    } @if (!photoPreview && editableInfoProps()) {
+    <ion-avatar class="custom-avatar">
+      <ion-img [src]="urlUserPhoto()" alt="user-photo" />
+    </ion-avatar>
     }
   </ion-item>
 </ion-item-group>
