@@ -14,6 +14,7 @@
           <ion-list>
             <health-personal-info-form
               (formReady)="addFormGroup('personalInfo', $event)"
+              [editableInfoProps]="false"
             ></health-personal-info-form>
 
             <ion-item>
