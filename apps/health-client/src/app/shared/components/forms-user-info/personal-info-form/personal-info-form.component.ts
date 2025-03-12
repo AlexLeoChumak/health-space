@@ -4,6 +4,7 @@ import {
   DestroyRef,
   ElementRef,
   inject,
+  input,
   OnInit,
   output,
   signal,
@@ -30,6 +31,7 @@ import {
   IonThumbnail,
   IonImg,
   IonIcon,
+  IonAvatar,
 } from '@ionic/angular/standalone';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
@@ -44,7 +46,7 @@ import {
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUrlUserPhoto, selectUserSectionData } from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
@@ -54,6 +56,7 @@ import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonAvatar,
     IonIcon,
     CommonModule,
     FormsModule,
@@ -75,7 +78,9 @@ import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 })
 export class PersonalInfoFormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  public readonly editableInfoProps = input.required();
   private readonly store = inject(Store);
+  protected readonly urlUserPhoto = this.store.selectSignal(selectUrlUserPhoto);
   protected readonly formReady = output<FormGroup>();
   protected personalInfoFormGroup!: FormGroup;
   protected readonly isDatepickerOpen = signal(false);
@@ -121,7 +126,6 @@ export class PersonalInfoFormComponent implements OnInit {
           this.personalInfoFormGroup
         ) {
           this.personalInfoFormGroup.patchValue(data.childObj);
-          this.personalInfoFormGroup.get('photo')?.reset();
         }
       });
   }
