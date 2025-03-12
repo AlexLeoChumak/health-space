@@ -1,16 +1,58 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, EMPTY, map, mergeMap, of, switchMap } from 'rxjs';
+import {
+  catchError,
+  combineLatest,
+  EMPTY,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+} from 'rxjs';
+import { UpdateUserProfileService } from 'src/app/features/user-profile/service/update-user-profile/update-user-profile.service';
+import {
+  DoctorInterface,
+  GlobalApiSuccessResponseInterface,
+  PatientInterface,
+} from 'src/app/shared/models';
 import { CloudStorageService } from 'src/app/shared/services';
 import { NestedObjectService } from 'src/app/shared/services/nested-object/nested-object.service';
 import {
   loadUser,
+  loadUserFailure,
+  loadUserSuccess,
   selectUser,
   setIdUserSection,
   setUrlUserPhotoSuccess,
   setUserSectionData,
 } from 'src/app/store/user';
+
+export const getUserInfo = createEffect(
+  (
+    actions$ = inject(Actions),
+    updateUserProfileService = inject(UpdateUserProfileService)
+  ) =>
+    actions$.pipe(
+      ofType(loadUser),
+      mergeMap(() => {
+        return updateUserProfileService.getUserInfo().pipe(
+          map(
+            (
+              userData: GlobalApiSuccessResponseInterface<
+                PatientInterface | DoctorInterface
+              >
+            ) => {
+              const user = userData.data;
+              return loadUserSuccess({ user });
+            }
+          ),
+          catchError((message) => of(loadUserFailure({ message })))
+        );
+      })
+    ),
+  { functional: true }
+);
 
 export const getUrlUserPhotoEffect = createEffect(
   (
@@ -18,7 +60,7 @@ export const getUrlUserPhotoEffect = createEffect(
     cloudStorageService = inject(CloudStorageService)
   ) =>
     actions$.pipe(
-      ofType(loadUser),
+      ofType(loadUserSuccess),
       switchMap((action) => {
         const fileName = action?.user.personalInfo.photo;
 
