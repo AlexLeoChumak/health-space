@@ -4,7 +4,7 @@ import { map, Observable, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { environment } from 'src/environments/environment';
-import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface'; ////////////
+import { RegistrationApiResponseInterface } from 'src/app/features/auth/models/registration-response.interface';
 import {
   PatientRegistrationRequestInterface,
   DoctorRegistrationRequestInterface,
@@ -60,7 +60,7 @@ export class AuthService {
       ...userData,
       user: {
         ...userData.user,
-        personalInfo: personalInfo,
+        personalInfo,
       },
     };
 
