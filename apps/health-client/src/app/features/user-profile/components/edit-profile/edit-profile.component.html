@@ -67,6 +67,7 @@
           } @case ('personal-info') {
           <health-personal-info-form
             (formReady)="addFormGroup('personalInfo', $event)"
+            [editableInfoProps]="true"
           ></health-personal-info-form>
           } @case ('place-work-info') {
           <health-place-work-info-form
