@@ -3,7 +3,11 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UpdateUserInfoGroupInterface } from 'src/app/features/user-profile';
 import { UpdatePasswordFormInterface } from 'src/app/features/user-profile/models/update-password.interface';
-import { GlobalApiSuccessResponseInterface } from 'src/app/shared/models';
+import {
+  DoctorInterface,
+  GlobalApiSuccessResponseInterface,
+  PatientInterface,
+} from 'src/app/shared/models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,6 +15,15 @@ import { environment } from 'src/environments/environment';
 })
 export class UpdateUserProfileService {
   private readonly http = inject(HttpClient);
+
+  public getUserInfo(): Observable<
+    GlobalApiSuccessResponseInterface<PatientInterface | DoctorInterface>
+  > {
+    const getUserInfoUrl = `${environment.apiBaseUrl}/user-profile/get-info`;
+    return this.http.get<
+      GlobalApiSuccessResponseInterface<PatientInterface | DoctorInterface>
+    >(getUserInfoUrl);
+  }
 
   public updatePassword(
     updateData: UpdatePasswordFormInterface
