@@ -2,10 +2,10 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, of, catchError, tap } from 'rxjs';
-import { AuthService } from 'src/app/features/auth';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
 import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
-import { loadUser, clearUser } from 'src/app/store/user';
+import { clearUser, loadUserSuccess } from 'src/app/store/user';
+import { AuthService } from 'src/app/features/auth/services/auth/auth.service';
 import {
   appInitialize,
   appInitialized,
@@ -33,7 +33,7 @@ export const restoreSessionEffect = createEffect(
         return authService.validateToken(token).pipe(
           switchMap((user) => [
             loginSuccess({ accessToken: token }),
-            loadUser({ user }),
+            loadUserSuccess({ user }),
             appInitialized(),
           ]),
           catchError(() => {
@@ -46,7 +46,7 @@ export const restoreSessionEffect = createEffect(
               ),
               switchMap((userLoginResponse) => [
                 loginSuccess({ accessToken: userLoginResponse.accessToken }),
-                loadUser({ user: userLoginResponse.user }),
+                loadUserSuccess({ user: userLoginResponse.user }),
                 appInitialized(),
               ]),
               catchError(() => {
@@ -82,7 +82,7 @@ export const loginEffect = createEffect(
           }),
           switchMap((response) => [
             loginSuccess({ accessToken: response.data.accessToken }),
-            loadUser({ user: response.data.user }),
+            loadUserSuccess({ user: response.data.user }),
           ]),
           catchError((error) =>
             of(loginFailure({ message: error?.error?.message }))
