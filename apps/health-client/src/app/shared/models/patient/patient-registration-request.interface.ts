@@ -4,7 +4,7 @@ import { PatientInterface } from 'src/app/shared/models/patient/patient.interfac
 export interface PatientRegistrationRequestInterface {
   user: PatientInterface & {
     mobilePhoneNumberPasswordInfo: PatientInterface['mobilePhoneNumberPasswordInfo'] & {
-      password: string; // Добавляем поле password
+      password: string;
     };
   };
 }
