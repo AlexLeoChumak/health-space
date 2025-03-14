@@ -1,4 +1,4 @@
-import { UserRoleType } from 'src/app/features/user-profile';
+import { UserRoleType } from 'src/app/shared/models';
 
 export interface UpdatePasswordInterface {
   newPassword: string;
