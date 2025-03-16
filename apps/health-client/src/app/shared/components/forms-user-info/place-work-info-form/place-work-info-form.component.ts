@@ -71,11 +71,11 @@ export class PlaceWorkInfoFormComponent implements OnInit {
       .subscribe((data) => {
         if (
           data &&
-          data.childObj &&
-          typeof data.childObj === 'object' &&
+          data.userInfoGroup &&
+          typeof data.userInfoGroup === 'object' &&
           this.placeWorkInfoFormGroup
         ) {
-          this.placeWorkInfoFormGroup.patchValue(data.childObj);
+          this.placeWorkInfoFormGroup.patchValue(data.userInfoGroup);
         }
       });
   }

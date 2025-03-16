@@ -113,12 +113,12 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
       .subscribe((data) => {
         if (
           data &&
-          data.childObj &&
-          typeof data.childObj === 'object' &&
+          data.userInfoGroup &&
+          typeof data.userInfoGroup === 'object' &&
           this.identificationBelarusCitizenInfoFormGroup
         ) {
           this.identificationBelarusCitizenInfoFormGroup.patchValue(
-            data.childObj
+            data.userInfoGroup
           );
         }
       });

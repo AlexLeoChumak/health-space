@@ -96,11 +96,13 @@ export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
       .subscribe((data) => {
         if (
           data &&
-          data.childObj &&
-          typeof data.childObj === 'object' &&
+          data.userInfoGroup &&
+          typeof data.userInfoGroup === 'object' &&
           this.mobilePhoneNumberPasswordInfoFormGroup
         ) {
-          this.mobilePhoneNumberPasswordInfoFormGroup.patchValue(data.childObj);
+          this.mobilePhoneNumberPasswordInfoFormGroup.patchValue(
+            data.userInfoGroup
+          );
         }
       });
   }

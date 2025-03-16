@@ -117,17 +117,17 @@ export class AddressInfoFormComponent implements OnInit {
       .select(selectUserSectionData)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
-        if (data?.childName) {
-          this.addressTypeFromEditProfilePage.set(data.childName);
+        if (data?.userInfoGroupName) {
+          this.addressTypeFromEditProfilePage.set(data.userInfoGroupName);
         }
 
         if (
           data &&
-          data.childObj &&
-          typeof data.childObj === 'object' &&
+          data.userInfoGroupName &&
+          typeof data.userInfoGroupName === 'object' &&
           this.addressInfoFormGroup
         ) {
-          this.addressInfoFormGroup.patchValue(data.childObj);
+          this.addressInfoFormGroup.patchValue(data.userInfoGroupName);
         }
       });
   }

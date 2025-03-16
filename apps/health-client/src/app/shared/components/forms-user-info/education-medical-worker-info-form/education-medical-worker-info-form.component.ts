@@ -77,11 +77,13 @@ export class EducationMedicalWorkerInfoFormComponent implements OnInit {
       .subscribe((data) => {
         if (
           data &&
-          data.childObj &&
-          typeof data.childObj === 'object' &&
+          data.userInfoGroup &&
+          typeof data.userInfoGroup === 'object' &&
           this.educationMedicalWorkerInfoFormGroup
         ) {
-          this.educationMedicalWorkerInfoFormGroup.patchValue(data.childObj);
+          this.educationMedicalWorkerInfoFormGroup.patchValue(
+            data.userInfoGroup
+          );
         }
       });
   }

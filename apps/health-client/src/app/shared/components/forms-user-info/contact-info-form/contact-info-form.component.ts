@@ -75,11 +75,11 @@ export class ContactInfoFormComponent implements OnInit {
       .subscribe((data) => {
         if (
           data &&
-          data.childObj &&
-          typeof data.childObj === 'object' &&
+          data.userInfoGroup &&
+          typeof data.userInfoGroup === 'object' &&
           this.contactInfoFormGroup
         ) {
-          this.contactInfoFormGroup.patchValue(data.childObj);
+          this.contactInfoFormGroup.patchValue(data.userInfoGroup);
         }
       });
   }
