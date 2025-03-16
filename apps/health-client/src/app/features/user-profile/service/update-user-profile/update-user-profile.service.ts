@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UpdateUserInfoGroupInterface } from 'src/app/features/user-profile';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { UpdatePasswordFormInterface } from 'src/app/features/user-profile/models/update-password.interface';
 import {
   DoctorInterface,
   GlobalApiSuccessResponseInterface,
   PatientInterface,
+  UpdateUserInfoGroupInterface,
 } from 'src/app/shared/models';
+import { CloudStorageService } from 'src/app/shared/services';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,6 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UpdateUserProfileService {
   private readonly http = inject(HttpClient);
+  private readonly cloudStorageService = inject(CloudStorageService);
 
   public getUserInfo(): Observable<
     GlobalApiSuccessResponseInterface<PatientInterface | DoctorInterface>
@@ -40,10 +42,39 @@ export class UpdateUserProfileService {
     updateData: UpdateUserInfoGroupInterface
   ): Observable<GlobalApiSuccessResponseInterface<string>> {
     const updateInfoUrl = `${environment.apiBaseUrl}/user-profile/update-info-group`;
+    const isPersonalInfo = 'personalInfo' in updateData.updateInfoGroup;
 
-    return this.http.put<GlobalApiSuccessResponseInterface<string>>(
-      updateInfoUrl,
-      updateData
+    return (
+      isPersonalInfo
+        ? this.cloudStorageService
+            .updateUserPhoto(updateData)
+            ?.pipe(map(() => null)) ?? of(null)
+        : of(null)
+    ).pipe(
+      switchMap(() => {
+        let updateDataWithUpdatedUserPhoto;
+
+        if (isPersonalInfo) {
+          const updateInfoGroup = updateData.updateInfoGroup as {
+            personalInfo: { photo: File };
+          };
+
+          const newNameUserPhoto = updateInfoGroup.personalInfo.photo.name;
+
+          updateDataWithUpdatedUserPhoto = structuredClone(updateData);
+
+          (
+            updateDataWithUpdatedUserPhoto.updateInfoGroup as {
+              personalInfo: { photo: string };
+            }
+          ).personalInfo.photo = newNameUserPhoto;
+        }
+
+        return this.http.put<GlobalApiSuccessResponseInterface<string>>(
+          updateInfoUrl,
+          isPersonalInfo ? updateDataWithUpdatedUserPhoto : updateData
+        );
+      })
     );
   }
 }
