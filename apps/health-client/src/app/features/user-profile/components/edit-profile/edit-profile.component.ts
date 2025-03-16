@@ -43,12 +43,12 @@ import { SHARED_CONSTANT } from 'src/app/shared/constants';
 import { ToastService } from 'src/app/shared/services';
 import { getUserRole } from 'src/app/shared/utilities';
 import { UpdateUserProfileService } from 'src/app/features/user-profile/service/update-user-profile/update-user-profile.service';
+import { UPDATE_INFO_CONSTANT } from 'src/app/features/user-profile';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
-  UPDATE_INFO_CONSTANT,
   UpdateUserInfoGroupInterface,
   UpdateUserInfoGroupType,
-} from 'src/app/features/user-profile';
-import { HttpErrorResponse } from '@angular/common/http';
+} from 'src/app/shared/models';
 
 @Component({
   selector: 'health-edit-profile',
