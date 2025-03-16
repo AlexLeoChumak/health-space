@@ -1,4 +1,4 @@
-import { ChildObjChildNameInterface } from 'src/app/shared/models';
+import { UserInfoGroupInterface } from 'src/app/shared/models';
 import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
 import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
 
@@ -7,7 +7,7 @@ export interface UserState {
   role: 'patient' | 'doctor' | null;
   urlUserPhoto: string;
   idUserSection: string | null;
-  userSectionData: ChildObjChildNameInterface | null;
+  userSectionData: UserInfoGroupInterface | null;
 }
 
 export const initialUserState: UserState = {
