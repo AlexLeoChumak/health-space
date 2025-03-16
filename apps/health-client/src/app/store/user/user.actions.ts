@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  ChildObjChildNameInterface,
+  UserInfoGroupInterface,
   ErrorMessageInterface,
 } from 'src/app/shared/models';
 import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
@@ -30,7 +30,7 @@ export const setIdUserSection = createAction(
 
 export const setUserSectionData = createAction(
   '[User] Set User Section Data',
-  props<{ userSectionData: ChildObjChildNameInterface }>()
+  props<{ userSectionData: UserInfoGroupInterface }>()
 );
 
 export const clearUser = createAction('[User] Clear User');
