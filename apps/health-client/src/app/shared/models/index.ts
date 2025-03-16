@@ -10,7 +10,7 @@ export * from './global-api-failure-response.interface';
 export * from './global-api-success-response.interface';
 export * from './login-request.interface';
 export * from './update-result.interface';
-export * from './child-obj-child-name.interface';
+export * from './user-info-group.interface';
 export * from './update-user-info-group.interface';
 export * from './update-user-info-group.type';
 export * from './user-role.type';
