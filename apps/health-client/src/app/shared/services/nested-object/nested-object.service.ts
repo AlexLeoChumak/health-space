@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
-import { ChildObjChildNameInterface } from 'src/app/shared/models';
+import { UserInfoGroupInterface } from 'src/app/shared/models';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class NestedObjectService {
     targetId: string | null,
     parent: Record<string, unknown> | null = null,
     parentKey: string | null = null
-  ): ChildObjChildNameInterface | null {
+  ): UserInfoGroupInterface | null {
     if (!targetId || typeof obj !== 'object' || obj === null) return null;
 
     for (const key of Object.keys(obj)) {
@@ -24,7 +24,10 @@ export class NestedObjectService {
         'id' in child &&
         child.id === targetId
       ) {
-        return { childObj: child as Record<string, unknown>, childName: key };
+        return {
+          userInfoGroup: child as Record<string, unknown>,
+          userInfoGroupName: key,
+        };
       }
 
       // Рекурсивно ищем в дочерних объектах
