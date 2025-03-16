@@ -31,7 +31,7 @@ import {
   IonThumbnail,
   IonImg,
   IonIcon,
-  IonAvatar,
+  IonText,
 } from '@ionic/angular/standalone';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
@@ -56,7 +56,7 @@ import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonAvatar,
+    IonText,
     IonIcon,
     CommonModule,
     FormsModule,
@@ -85,11 +85,11 @@ export class PersonalInfoFormComponent implements OnInit {
   protected personalInfoFormGroup!: FormGroup;
   protected readonly isDatepickerOpen = signal(false);
   protected readonly isImageType = signal(true);
+  private readonly destroyRef = inject(DestroyRef);
+  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
   protected readonly photoPreviewUrl = signal<string | ArrayBuffer | null>(
     null
   );
-  private readonly destroyRef = inject(DestroyRef);
-  protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
   private readonly dateOfBirthPattern: string =
     '^([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря) [0-9]{4} г.$';
 
@@ -121,11 +121,11 @@ export class PersonalInfoFormComponent implements OnInit {
       .subscribe((data) => {
         if (
           data &&
-          data.childObj &&
-          typeof data.childObj === 'object' &&
+          data.userInfoGroup &&
+          typeof data.userInfoGroup === 'object' &&
           this.personalInfoFormGroup
         ) {
-          this.personalInfoFormGroup.patchValue(data.childObj);
+          this.personalInfoFormGroup.patchValue(data.userInfoGroup);
         }
       });
   }
