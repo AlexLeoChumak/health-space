@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { RegistrationApiResponseInterface } from 'src/app/features/auth';
 import { getUserRole } from 'src/app/shared/utilities';
 import { environment } from 'src/environments/environment';
@@ -9,7 +9,9 @@ import {
   PatientRegistrationRequestInterface,
   DoctorRegistrationRequestInterface,
   UpdateResultInterface,
+  UpdateUserInfoGroupInterface,
 } from 'src/app/shared/models';
+import { SHARED_CONSTANT } from 'src/app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +19,9 @@ import {
 export class CloudStorageService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiBaseUrl}/user-profile`;
+  private readonly uploadPhotoUrl = 'upload-photo';
 
-  getPrivatePhotoUrl(
+  public getPrivatePhotoUrl(
     fileName: string
   ): Observable<GlobalApiSuccessResponseInterface<string>> {
     const { bucketId, bucketName } = environment.bucketInfo;
@@ -32,8 +35,8 @@ export class CloudStorageService {
     );
   }
 
-  uploadUserPhoto(
-    response: GlobalApiSuccessResponseInterface<RegistrationApiResponseInterface>,
+  public uploadUserPhoto(
+    dataWithUserId: GlobalApiSuccessResponseInterface<RegistrationApiResponseInterface>,
     photo: string | File | null,
     userData:
       | PatientRegistrationRequestInterface
@@ -41,13 +44,12 @@ export class CloudStorageService {
   ): Observable<
     GlobalApiSuccessResponseInterface<RegistrationApiResponseInterface>
   > {
-    const userId = response?.data?.userId;
-    const uploadPhotoBaseUrl = 'upload-photo';
+    const userId = dataWithUserId?.data?.userId;
 
     if (userId && photo && photo instanceof File) {
       const uploadPhotoFullUrl = `${this.apiUrl}/${getUserRole(
         userData.user
-      )}/${userId}/${uploadPhotoBaseUrl}`;
+      )}/${userId}/${this.uploadPhotoUrl}`;
 
       const formData = new FormData();
       formData.append('photo', photo);
@@ -57,9 +59,41 @@ export class CloudStorageService {
           uploadPhotoFullUrl,
           formData
         )
-        .pipe(map(() => response));
+        .pipe(map(() => dataWithUserId));
     }
 
-    return of(response);
+    return of(dataWithUserId);
+  }
+
+  public updateUserPhoto(
+    updateData: UpdateUserInfoGroupInterface
+  ): Observable<
+    GlobalApiSuccessResponseInterface<UpdateResultInterface>
+  > | null {
+    const updateGroup = updateData.updateInfoGroup;
+
+    if (
+      'personalInfo' in updateGroup &&
+      updateGroup.personalInfo?.photo instanceof File
+    ) {
+      const photo = updateGroup.personalInfo.photo;
+
+      const uploadPhotoFullUrl = `${this.apiUrl}/${updateData.userRole}/${updateData.userId}/${this.uploadPhotoUrl}`;
+      const formData = new FormData();
+      formData.append('photo', photo);
+
+      return this.http
+        .patch<GlobalApiSuccessResponseInterface<UpdateResultInterface>>(
+          uploadPhotoFullUrl,
+          formData
+        )
+        .pipe(
+          catchError(() =>
+            throwError(() => SHARED_CONSTANT.UPDATE_USER_PROFILE_IMAGE_ERROR)
+          )
+        );
+    }
+
+    return null;
   }
 }
