@@ -1,4 +1,5 @@
-@let photoPreview = photoPreviewUrl();
+@let photoPreview = photoPreviewUrl(); @let editableInfoPage =
+editableInfoProps();
 
 <ion-item-group [formGroup]="personalInfoFormGroup">
   <ion-item class="section-title">Персональная информация</ion-item>
@@ -129,7 +130,7 @@
       class="ion-margin-top"
       (click)="onClickFileInput(fileInput)"
       [configProps]="{
-          label: 'выбрать фото',
+          label: editableInfoPage ? 'выбрать другое фото' : 'выбрать фото',
           isFormButton: false,
           isDisabled: false,
           routerLink: null,
@@ -141,11 +142,16 @@
       <ion-thumbnail>
         <ion-img [src]="photoPreview" alt="user-photo"></ion-img>
       </ion-thumbnail>
+      @if (!photoPreview && editableInfoPage) {
+      <ion-text>Текущее фото</ion-text>
+      } @else {
+
       <figcaption>
         <ion-button color="danger" (click)="removePhoto()">
           <ion-icon name="trash-bin"></ion-icon>
         </ion-button>
       </figcaption>
+      }
     </figure>
     } @if (checkInputValidator(personalInfoFormGroup, 'photo', 'required')) {
     <health-error-notification
@@ -156,10 +162,13 @@
       [errorNotificationProps]="FORM_VALIDATION_CONSTANT.IMAGE"
     >
     </health-error-notification>
-    } @if (!photoPreview && editableInfoProps()) {
-    <ion-avatar class="custom-avatar">
-      <ion-img [src]="urlUserPhoto()" alt="user-photo" />
-    </ion-avatar>
+    } @if (!photoPreview && editableInfoPage) {
+    <figure class="photo-preview-url">
+      <ion-thumbnail>
+        <ion-img [src]="urlUserPhoto()" alt="user-photo"></ion-img>
+      </ion-thumbnail>
+      <ion-text>Текущее фото</ion-text>
+    </figure>
     }
   </ion-item>
 </ion-item-group>
