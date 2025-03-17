@@ -6,6 +6,8 @@ import {
   loadUserFailure,
   loadUserSuccess,
   setIdUserSection,
+  setUrlUserPhoto,
+  setUrlUserPhotoFailure,
   setUrlUserPhotoSuccess,
   setUserSectionData,
 } from 'src/app/store/user/user.actions';
@@ -16,7 +18,7 @@ export const userReducer = createReducer(
   initialUserState,
   on(loadUser, (state) => ({
     ...state,
-    error: null,
+    userError: null,
   })),
   on(loadUserSuccess, (state, { user }) => ({
     ...state,
@@ -25,13 +27,22 @@ export const userReducer = createReducer(
   })),
   on(loadUserFailure, (state, { message }) => ({
     ...state,
-    error: message,
+    userError: message,
   })),
 
+  on(setUrlUserPhoto, (state) => ({
+    ...state,
+    photoError: null,
+  })),
   on(setUrlUserPhotoSuccess, (state, { urlUserPhoto }) => ({
     ...state,
     urlUserPhoto,
   })),
+  on(setUrlUserPhotoFailure, (state, { message }) => ({
+    ...state,
+    photoError: message,
+  })),
+
   on(setIdUserSection, (state, { idUserSection }) => ({
     ...state,
     idUserSection,
