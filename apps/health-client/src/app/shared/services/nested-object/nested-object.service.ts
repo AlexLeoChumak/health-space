@@ -25,7 +25,7 @@ export class NestedObjectService {
         child.id === targetId
       ) {
         return {
-          userInfoGroup: child as Record<string, unknown>,
+          userInfoGroupData: child as Record<string, unknown>,
           userInfoGroupName: key,
         };
       }
