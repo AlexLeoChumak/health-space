@@ -21,12 +21,12 @@ export const selectUrlUserPhoto = createSelector(
   (state) => state.urlUserPhoto
 );
 
-export const selectIdUserSection = createSelector(
+export const selectIdUserInfoGroup = createSelector(
   selectUserFeature,
-  (state) => state.idUserSection
+  (state) => state.idUserInfoGroup
 );
 
-export const selectUserSectionData = createSelector(
+export const selectUserInfoGroup = createSelector(
   selectUserFeature,
-  (state) => state.userSectionData
+  (state) => state.userInfoGroup
 );

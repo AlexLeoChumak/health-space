@@ -5,11 +5,11 @@ import {
   loadUser,
   loadUserFailure,
   loadUserSuccess,
-  setIdUserSection,
+  setIdUserInfoGroup,
   setUrlUserPhoto,
   setUrlUserPhotoFailure,
   setUrlUserPhotoSuccess,
-  setUserSectionData,
+  setUserInfoGroup,
 } from 'src/app/store/user/user.actions';
 import { initialUserState } from 'src/app/store/user/user.state';
 import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
@@ -43,13 +43,13 @@ export const userReducer = createReducer(
     photoError: message,
   })),
 
-  on(setIdUserSection, (state, { idUserSection }) => ({
+  on(setIdUserInfoGroup, (state, { idUserInfoGroup }) => ({
     ...state,
-    idUserSection,
+    idUserInfoGroup,
   })),
-  on(setUserSectionData, (state, { userSectionData }) => ({
+  on(setUserInfoGroup, (state, { userInfoGroup }) => ({
     ...state,
-    userSectionData,
+    userInfoGroup,
   })),
   on(clearUser, () => initialUserState)
 );

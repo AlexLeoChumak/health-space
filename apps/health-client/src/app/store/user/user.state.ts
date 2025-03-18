@@ -6,8 +6,8 @@ export interface UserState {
   user: PatientInterface | DoctorInterface | null;
   role: UserRoleType | null;
   urlUserPhoto: string;
-  idUserSection: string | null;
-  userSectionData: UserInfoGroupInterface | null;
+  idUserInfoGroup: string | null;
+  userInfoGroup: UserInfoGroupInterface | null;
   userError: string | null;
   photoError: string | null;
 }
@@ -16,8 +16,8 @@ export const initialUserState: UserState = {
   user: null,
   role: null,
   urlUserPhoto: 'default-profile-image.png',
-  idUserSection: null,
-  userSectionData: null,
+  idUserInfoGroup: null,
+  userInfoGroup: null,
   userError: null,
   photoError: null,
 };
