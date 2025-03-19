@@ -23,7 +23,14 @@
       <ion-item lines="none">
         <!-- Аватар пользователя -->
         <ion-avatar class="custom-avatar" slot="start">
+          @if (!isLoading()) {
           <ion-img [src]="urlUserPhoto()" alt="user-photo" />
+          } @else {
+          <ion-skeleton-text
+            animated
+            style="width: 100%; height: 100%"
+          ></ion-skeleton-text>
+          }
         </ion-avatar>
         <ion-label class="custom-label">
           <ion-text class="custom-text">
