@@ -32,6 +32,7 @@ import {
   IonImg,
   IonIcon,
   IonText,
+  IonSkeletonText,
 } from '@ionic/angular/standalone';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
@@ -46,8 +47,9 @@ import {
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
-import { selectUrlUserPhoto, selectUserSectionData } from 'src/app/store/user';
+import { selectUrlUserPhoto, selectUserInfoGroup } from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
+import { selectIsLoading } from 'src/app/store/app';
 
 @Component({
   selector: 'health-personal-info-form',
@@ -56,6 +58,7 @@ import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    IonSkeletonText,
     IonText,
     IonIcon,
     CommonModule,
@@ -81,15 +84,17 @@ export class PersonalInfoFormComponent implements OnInit {
   public readonly editableInfoProps = input.required();
   private readonly store = inject(Store);
   protected readonly urlUserPhoto = this.store.selectSignal(selectUrlUserPhoto);
+  protected readonly isLoading = this.store.selectSignal(selectIsLoading);
   protected readonly formReady = output<FormGroup>();
   protected personalInfoFormGroup!: FormGroup;
   protected readonly isDatepickerOpen = signal(false);
   protected readonly isImageType = signal(true);
   private readonly destroyRef = inject(DestroyRef);
   protected readonly FORM_VALIDATION_CONSTANT = FORM_VALIDATION_CONSTANT;
-  protected readonly photoPreviewUrl = signal<string | ArrayBuffer | null>(
+  protected readonly userPhotoPreview = signal<string | ArrayBuffer | null>(
     null
   );
+  protected readonly isUserPhotoPreview = signal(false);
   private readonly dateOfBirthPattern: string =
     '^([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря) [0-9]{4} г.$';
 
@@ -116,16 +121,20 @@ export class PersonalInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (
           data &&
-          data.userInfoGroup &&
-          typeof data.userInfoGroup === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.personalInfoFormGroup
         ) {
-          this.personalInfoFormGroup.patchValue(data.userInfoGroup);
+          this.personalInfoFormGroup.patchValue(data.userInfoGroupData);
+
+          if (typeof this.userPhotoPreview() === 'string') {
+            this.isUserPhotoPreview.set(true);
+          }
         }
       });
   }
@@ -133,6 +142,7 @@ export class PersonalInfoFormComponent implements OnInit {
   protected onClickFileInput(fileInput: HTMLInputElement): void {
     fileInput.click();
     this.setErrorRequiredTrueForPhotoControl();
+    // this.isUserPhotoPreview.set(false);
   }
 
   private setErrorRequiredTrueForPhotoControl(): void {
@@ -156,6 +166,7 @@ export class PersonalInfoFormComponent implements OnInit {
   }
 
   protected onPhotoUpload(event: Event): void {
+    this.isUserPhotoPreview.set(false);
     const input = event.target as HTMLInputElement;
     const photoControl = this.personalInfoFormGroup.get('photo');
 
@@ -171,8 +182,9 @@ export class PersonalInfoFormComponent implements OnInit {
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.photoPreviewUrl.set(reader.result);
+        this.userPhotoPreview.set(reader.result);
       };
+
       reader.readAsDataURL(file);
 
       this.personalInfoFormGroup.patchValue({
@@ -186,7 +198,7 @@ export class PersonalInfoFormComponent implements OnInit {
   }
 
   protected removePhoto(): void {
-    this.photoPreviewUrl.set(null);
+    this.userPhotoPreview.set(null);
     this.personalInfoFormGroup.get('photo')?.reset();
     this.fileInput.nativeElement.value = '';
   }
