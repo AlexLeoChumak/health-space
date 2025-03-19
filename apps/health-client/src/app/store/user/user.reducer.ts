@@ -29,7 +29,6 @@ export const userReducer = createReducer(
     ...state,
     userError: message,
   })),
-
   on(setUrlUserPhoto, (state) => ({
     ...state,
     photoError: null,
@@ -42,7 +41,6 @@ export const userReducer = createReducer(
     ...state,
     photoError: message,
   })),
-
   on(setIdUserInfoGroup, (state, { idUserInfoGroup }) => ({
     ...state,
     idUserInfoGroup,
