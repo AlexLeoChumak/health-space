@@ -2,8 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { catchError, finalize, map, of, switchMap, tap } from 'rxjs';
+import { catchError, concat, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from 'src/app/features/auth/services/auth/auth.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import { setLoading } from 'src/app/store/app';
@@ -15,7 +14,6 @@ import {
 
 export const registrationEffect = createEffect(
   (
-    store = inject(Store),
     actions$ = inject(Actions),
     authService = inject(AuthService),
     router = inject(Router),
@@ -23,26 +21,32 @@ export const registrationEffect = createEffect(
   ) =>
     actions$.pipe(
       ofType(registration),
-      tap(() => store.dispatch(setLoading({ isLoading: true }))),
       switchMap(({ registrationData }) =>
-        authService.registration(registrationData).pipe(
-          tap((response) => {
-            toastService.presentToast(
-              `${response.message}${response.data.firstName}!`
-            );
-            router.navigate(['/auth/login']);
-          }),
-          map((response) => {
-            return registrationSuccess({
-              userId: response.data.userId,
-              firstName: response.data.firstName,
-            });
-          }),
-          catchError((error: HttpErrorResponse) => {
-            store.dispatch(setLoading({ isLoading: false }));
-            return of(registrationFailure({ message: error?.error?.message }));
-          }),
-          finalize(() => store.dispatch(setLoading({ isLoading: false })))
+        concat(
+          of(setLoading({ isLoading: true })),
+          authService.registration(registrationData).pipe(
+            tap((response) => {
+              toastService.presentToast(
+                `${response.message}${response.data.firstName}!`
+              );
+              router.navigate(['/auth/login']);
+            }),
+            map((response) =>
+              registrationSuccess({
+                userId: response.data.userId,
+                firstName: response.data.firstName,
+              })
+            ),
+            // После успешного результата диспатчим экшен успеха и сразу выключаем лоадер
+            switchMap(() => of(setLoading({ isLoading: false }))),
+            // При ошибке возвращаем экшен ошибки и выключаем лоадер
+            catchError((error: HttpErrorResponse) =>
+              of(
+                registrationFailure({ message: error?.error?.message }),
+                setLoading({ isLoading: false })
+              )
+            )
+          )
         )
       )
     ),
