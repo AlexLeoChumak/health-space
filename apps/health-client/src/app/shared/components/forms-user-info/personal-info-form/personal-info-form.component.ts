@@ -47,7 +47,11 @@ import {
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
-import { selectUrlUserPhoto, selectUserInfoGroup } from 'src/app/store/user';
+import {
+  selectUrlUserPhoto,
+  selectUser,
+  selectUserInfoGroup,
+} from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import { selectIsLoading } from 'src/app/store/app';
 
@@ -83,6 +87,7 @@ export class PersonalInfoFormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   public readonly editableInfoProps = input.required();
   private readonly store = inject(Store);
+  private readonly user = this.store.selectSignal(selectUser);
   protected readonly urlUserPhoto = this.store.selectSignal(selectUrlUserPhoto);
   protected readonly isLoading = this.store.selectSignal(selectIsLoading);
   protected readonly formReady = output<FormGroup>();
@@ -142,7 +147,6 @@ export class PersonalInfoFormComponent implements OnInit {
   protected onClickFileInput(fileInput: HTMLInputElement): void {
     fileInput.click();
     this.setErrorRequiredTrueForPhotoControl();
-    // this.isUserPhotoPreview.set(false);
   }
 
   private setErrorRequiredTrueForPhotoControl(): void {
@@ -199,8 +203,15 @@ export class PersonalInfoFormComponent implements OnInit {
 
   protected removePhoto(): void {
     this.userPhotoPreview.set(null);
-    this.personalInfoFormGroup.get('photo')?.reset();
     this.fileInput.nativeElement.value = '';
+
+    if (this.editableInfoProps()) {
+      this.personalInfoFormGroup.patchValue({
+        photo: this.user()?.personalInfo.photo,
+      });
+    } else {
+      this.personalInfoFormGroup.get('photo')?.reset();
+    }
   }
 
   protected toggleDatepicker(): void {
