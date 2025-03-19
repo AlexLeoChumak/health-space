@@ -4,7 +4,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, of, catchError, tap } from 'rxjs';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
 import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
-import { clearUser, loadUserSuccess } from 'src/app/store/user';
+import { clearUser, loadUser } from 'src/app/store/user';
 import { AuthService } from 'src/app/features/auth/services/auth/auth.service';
 import {
   appInitialize,
@@ -31,24 +31,29 @@ export const restoreSessionEffect = createEffect(
         }
 
         return authService.validateToken(token).pipe(
-          switchMap((user) => [
-            loginSuccess({ accessToken: token }),
-            loadUserSuccess({ user }),
-            appInitialized(),
-          ]),
+          switchMap(() =>
+            of(
+              loginSuccess({ accessToken: token }),
+              loadUser(),
+              appInitialized()
+            )
+          ),
           catchError(() => {
             return authService.refreshToken(token).pipe(
-              tap((userLoginResponse) =>
+              tap((userLoginResponse) => {
+                console.log('рефреш');
                 localStorageService.setItem(
                   'accessToken',
                   userLoginResponse.accessToken
+                );
+              }),
+              switchMap((userLoginResponse) =>
+                of(
+                  loginSuccess({ accessToken: userLoginResponse.accessToken }),
+                  loadUser(),
+                  appInitialized()
                 )
               ),
-              switchMap((userLoginResponse) => [
-                loginSuccess({ accessToken: userLoginResponse.accessToken }),
-                loadUserSuccess({ user: userLoginResponse.user }),
-                appInitialized(),
-              ]),
               catchError(() => {
                 return of(logout(), appInitialized());
               })
@@ -80,10 +85,12 @@ export const loginEffect = createEffect(
 
             router.navigate(['/user-profile']);
           }),
-          switchMap((response) => [
-            loginSuccess({ accessToken: response.data.accessToken }),
-            loadUserSuccess({ user: response.data.user }),
-          ]),
+          switchMap((response) =>
+            of(
+              loginSuccess({ accessToken: response.data.accessToken }),
+              loadUser()
+            )
+          ),
           catchError((error) =>
             of(loginFailure({ message: error?.error?.message }))
           )
