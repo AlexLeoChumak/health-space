@@ -39,7 +39,7 @@ import {
 import { UpdatePasswordFormComponent } from 'src/app/features/user-profile/components/update-password-form/update-password-form.component';
 import { SHARED_CONSTANT } from 'src/app/shared/constants';
 import { ToastService } from 'src/app/shared/services';
-import { getUserRole } from 'src/app/shared/utilities';
+import { deepEqual, getUserRole } from 'src/app/shared/utilities';
 import { UpdateUserProfileService } from 'src/app/features/user-profile/service/update-user-profile/update-user-profile.service';
 import { UPDATE_INFO_CONSTANT } from 'src/app/features/user-profile';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -122,54 +122,43 @@ export class EditProfileComponent implements OnInit {
   protected onSubmitUpdateFormGroup(): void {
     if (this.editProfileForm.invalid) return;
 
-    this.toggleLoader(true);
+    const rawValue = this.editProfileForm.value;
 
-    const validKeys: string[] = [
-      'personalInfo',
-      'contactInfo',
-      'mobilePhoneNumberPasswordInfo',
-      'identificationBelarusCitizenInfo',
-      'identificationForeignCitizenInfo',
-      'addressRegistrationInfo',
-      'addressResidenceInfo',
-      'addressMedicalInstitutionInfo',
-      'educationMedicalWorkerInfo',
-      'placeWorkInfo',
-    ];
-
-    const rawValue = this.editProfileForm.getRawValue();
-    const keys = Object.keys(rawValue);
-
+    const keys = Object.keys(rawValue) as (keyof typeof rawValue)[];
     if (keys.length !== 1) {
       this.toastService.presentToast(UPDATE_INFO_CONSTANT.EDIT_INFO_ERROR);
-      this.toggleLoader(false);
+      return;
+    }
+
+    const user = this.user();
+    if (!user) {
+      this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
       return;
     }
 
     const keyNameInfoGroup = keys[0];
 
-    if (!validKeys.includes(keyNameInfoGroup)) {
-      this.toastService.presentToast(UPDATE_INFO_CONSTANT.EDIT_INFO_ERROR);
-      this.toggleLoader(false);
+    const userInfoGroup = user[keyNameInfoGroup];
+    let userWithoutId;
+
+    if (userInfoGroup && typeof userInfoGroup === 'object')
+      userWithoutId = Object.fromEntries(
+        Object.entries(userInfoGroup).filter(([key]) => key !== 'id')
+      );
+
+    if (user && deepEqual(rawValue[keyNameInfoGroup], userWithoutId)) {
+      this.toastService.presentToast(SHARED_CONSTANT.UPDATE_INFO_SUCCESSFULLY);
       return;
     }
 
     const updateInfoGroup: UpdateUserInfoGroupType =
       rawValue as UpdateUserInfoGroupType;
-    const user = this.user();
-
-    if (!user) {
-      this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
-      this.toggleLoader(false);
-      return;
-    }
 
     const userId = user.id;
     const userRole = getUserRole(user);
 
     if (!userId || !userRole) {
       this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
-      this.toggleLoader(false);
       return;
     }
 
@@ -178,6 +167,8 @@ export class EditProfileComponent implements OnInit {
       userId,
       userRole,
     };
+
+    this.toggleLoader(true);
 
     this.updateUserProfileService
       .updateInfoGroup(updateData)
