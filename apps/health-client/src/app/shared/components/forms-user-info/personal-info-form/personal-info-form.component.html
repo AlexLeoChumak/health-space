@@ -141,7 +141,7 @@ editableInfoProps();
     <figure class="photo-preview-url">
       <ion-thumbnail>
         @if(!isLoading()) {
-        <ion-img [src]="photoPreview" alt="user-photo"></ion-img>
+        <ion-img [src]="photoPreview" alt="prewiev-user-photo"></ion-img>
         } @else {
         <ion-skeleton-text
           animated
@@ -175,7 +175,15 @@ editableInfoProps();
     } @if (!photoPreview && editableInfoPage) {
     <figure class="photo-preview-url">
       <ion-thumbnail>
+        @if (!isLoading()) {
+
         <ion-img [src]="urlUserPhoto()" alt="user-photo"></ion-img>
+        } @else {
+        <ion-skeleton-text
+          animated
+          style="width: 100%; height: 100%"
+        ></ion-skeleton-text>
+        }
       </ion-thumbnail>
       <ion-text class="ion-margin-horizontal">Текущее фото</ion-text>
     </figure>
