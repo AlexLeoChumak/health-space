@@ -6,9 +6,11 @@ import {
   combineLatest,
   concat,
   EMPTY,
+  endWith,
   map,
   mergeMap,
   of,
+  startWith,
   switchMap,
   withLatestFrom,
 } from 'rxjs';
@@ -32,6 +34,7 @@ import {
   setUrlUserPhotoSuccess,
   setUserInfoGroup,
 } from 'src/app/store/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const getUserInfo = createEffect(
   (
@@ -71,7 +74,6 @@ export const getUrlUserPhotoEffect = createEffect(
     actions$.pipe(
       ofType(setUrlUserPhoto),
       withLatestFrom(store.pipe(select(selectUser))),
-      // Игнорирую action, работаю только с user
       switchMap(([, user]) => {
         if (
           !user?.personalInfo?.photo ||
@@ -81,25 +83,20 @@ export const getUrlUserPhotoEffect = createEffect(
           return of(setLoading({ isLoading: false }));
         }
 
-        const fileName = user.personalInfo.photo;
-
-        return concat(
-          of(setLoading({ isLoading: true })),
-          cloudStorageService.getPrivatePhotoUrl(fileName).pipe(
+        return cloudStorageService
+          .getPrivatePhotoUrl(user.personalInfo.photo)
+          .pipe(
             map((response) =>
               setUrlUserPhotoSuccess({ urlUserPhoto: response.data })
             ),
-            catchError((error) =>
-              of(setUrlUserPhotoFailure({ message: error.message }))
-            )
-          ),
-          of(setLoading({ isLoading: false }))
-        );
+            startWith(setLoading({ isLoading: true })),
+            endWith(setLoading({ isLoading: false }))
+          );
       }),
-      catchError((error) =>
+      catchError((error: HttpErrorResponse) =>
         of(
-          setLoading({ isLoading: false }),
-          setUrlUserPhotoFailure({ message: error.message })
+          setUrlUserPhotoFailure({ message: error.message }),
+          setLoading({ isLoading: false })
         )
       )
     ),
