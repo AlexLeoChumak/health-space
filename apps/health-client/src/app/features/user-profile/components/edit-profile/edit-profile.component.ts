@@ -39,7 +39,7 @@ import {
 import { UpdatePasswordFormComponent } from 'src/app/features/user-profile/components/update-password-form/update-password-form.component';
 import { SHARED_CONSTANT } from 'src/app/shared/constants';
 import { ToastService } from 'src/app/shared/services';
-import { deepEqual, getUserRole } from 'src/app/shared/utilities';
+import { deepEqualUtil, getUserRole } from 'src/app/shared/utilities';
 import { UpdateUserProfileService } from 'src/app/features/user-profile/service/update-user-profile/update-user-profile.service';
 import { UPDATE_INFO_CONSTANT } from 'src/app/features/user-profile';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -146,7 +146,7 @@ export class EditProfileComponent implements OnInit {
         Object.entries(userInfoGroup).filter(([key]) => key !== 'id')
       );
 
-    if (user && deepEqual(rawValue[keyNameInfoGroup], userWithoutId)) {
+    if (user && deepEqualUtil(rawValue[keyNameInfoGroup], userWithoutId)) {
       this.toastService.presentToast(SHARED_CONSTANT.UPDATE_INFO_SUCCESSFULLY);
       return;
     }
