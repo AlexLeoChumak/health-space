@@ -1,16 +1,17 @@
 ion-thumbnail {
   --size: var(--ion-size-preview-photo);
-  margin: 0 18px 0 0;
 }
 
 .photo-preview-url {
   display: flex;
   margin: 0 0 16px 0;
-  padding: 3px;
-  ion-img {
-    border: 1px solid var(--ion-color-light-shade);
+
+  ion-img,
+  ion-skeleton-text {
+    border: 5px solid var(--ion-color-light-shade);
     border-radius: var(--ion-border-radius-preview-photo);
-    box-shadow: 0px 0px 7px var(--ion-color-light-shade);
+    box-shadow: 0px 0px 8px var(--ion-color-light-shade);
+    object-fit: cover;
   }
 }
 
