@@ -4,7 +4,6 @@ import {
   DestroyRef,
   inject,
   OnInit,
-  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +24,7 @@ import {
   IonItem,
 } from '@ionic/angular/standalone';
 
-import { loadUser, selectUser, setIdUserSection } from 'src/app/store/user';
+import { loadUser, selectUser, setIdUserInfoGroup } from 'src/app/store/user';
 import {
   ActionButtonComponent,
   AddressInfoFormComponent,
@@ -38,7 +37,6 @@ import {
   PlaceWorkInfoFormComponent,
 } from 'src/app/shared/components';
 import { UpdatePasswordFormComponent } from 'src/app/features/user-profile/components/update-password-form/update-password-form.component';
-import { setLoading } from 'src/app/store/app';
 import { SHARED_CONSTANT } from 'src/app/shared/constants';
 import { ToastService } from 'src/app/shared/services';
 import { getUserRole } from 'src/app/shared/utilities';
@@ -46,9 +44,11 @@ import { UpdateUserProfileService } from 'src/app/features/user-profile/service/
 import { UPDATE_INFO_CONSTANT } from 'src/app/features/user-profile';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
+  GlobalApiSuccessResponseInterface,
   UpdateUserInfoGroupInterface,
   UpdateUserInfoGroupType,
 } from 'src/app/shared/models';
+import { selectIsLoading, setLoading } from 'src/app/store/app';
 
 @Component({
   selector: 'health-edit-profile',
@@ -82,14 +82,14 @@ import {
   ],
 })
 export class EditProfileComponent implements OnInit {
-  private readonly store = inject(Store);
-  private readonly user = this.store.selectSignal(selectUser);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly store = inject(Store);
+  private readonly user = this.store.selectSignal(selectUser);
+  protected readonly isLoading = this.store.selectSignal(selectIsLoading);
   private readonly updateUserProfileService = inject(UpdateUserProfileService);
   private readonly toastService = inject(ToastService);
   protected readonly editProfileForm = new FormGroup({});
-  protected readonly isSubmittingForm = signal(false);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly section = toSignal(
@@ -106,8 +106,8 @@ export class EditProfileComponent implements OnInit {
         map((params) => params['section-id'] || null),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((idUserSection: string) => {
-        this.store.dispatch(setIdUserSection({ idUserSection }));
+      .subscribe((idUserInfoGroup: string) => {
+        this.store.dispatch(setIdUserInfoGroup({ idUserInfoGroup }));
       });
   }
 
@@ -122,8 +122,7 @@ export class EditProfileComponent implements OnInit {
   protected onSubmitUpdateFormGroup(): void {
     if (this.editProfileForm.invalid) return;
 
-    this.isSubmittingForm.set(true);
-    this.store.dispatch(setLoading({ isLoading: true }));
+    this.toggleLoader(true);
 
     const validKeys: string[] = [
       'personalInfo',
@@ -143,8 +142,7 @@ export class EditProfileComponent implements OnInit {
 
     if (keys.length !== 1) {
       this.toastService.presentToast(UPDATE_INFO_CONSTANT.EDIT_INFO_ERROR);
-      this.isSubmittingForm.set(false);
-      this.store.dispatch(setLoading({ isLoading: false }));
+      this.toggleLoader(false);
       return;
     }
 
@@ -152,18 +150,17 @@ export class EditProfileComponent implements OnInit {
 
     if (!validKeys.includes(keyNameInfoGroup)) {
       this.toastService.presentToast(UPDATE_INFO_CONSTANT.EDIT_INFO_ERROR);
-      this.isSubmittingForm.set(false);
-      this.store.dispatch(setLoading({ isLoading: false }));
+      this.toggleLoader(false);
       return;
     }
+
     const updateInfoGroup: UpdateUserInfoGroupType =
       rawValue as UpdateUserInfoGroupType;
     const user = this.user();
 
     if (!user) {
       this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
-      this.isSubmittingForm.set(false);
-      this.store.dispatch(setLoading({ isLoading: false }));
+      this.toggleLoader(false);
       return;
     }
 
@@ -172,8 +169,7 @@ export class EditProfileComponent implements OnInit {
 
     if (!userId || !userRole) {
       this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
-      this.isSubmittingForm.set(false);
-      this.store.dispatch(setLoading({ isLoading: false }));
+      this.toggleLoader(false);
       return;
     }
 
@@ -188,18 +184,24 @@ export class EditProfileComponent implements OnInit {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this.toastService.presentToast(error.error.message);
-          this.store.dispatch(setLoading({ isLoading: false }));
-          this.isSubmittingForm.set(false);
+          this.toggleLoader(false);
           return throwError(() => error);
         }),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((success) => {
-        this.store.dispatch(setLoading({ isLoading: false }));
-        this.store.dispatch(loadUser());
+      .subscribe((success: GlobalApiSuccessResponseInterface<string>) => {
         this.toastService.presentToast(success.data);
-        this.isSubmittingForm.set(false);
+        this.store.dispatch(loadUser());
+        this.toggleLoader(false);
       });
+  }
+
+  private toggleLoader(value: boolean): void {
+    if (value) {
+      this.store.dispatch(setLoading({ isLoading: value }));
+    } else {
+      this.store.dispatch(setLoading({ isLoading: value }));
+    }
   }
 
   protected goToUserProfilePage(): void {
