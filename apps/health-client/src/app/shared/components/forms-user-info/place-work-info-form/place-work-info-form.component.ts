@@ -23,7 +23,7 @@ import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUserInfoGroup } from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
@@ -66,16 +66,16 @@ export class PlaceWorkInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (
           data &&
-          data.userInfoGroup &&
-          typeof data.userInfoGroup === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.placeWorkInfoFormGroup
         ) {
-          this.placeWorkInfoFormGroup.patchValue(data.userInfoGroup);
+          this.placeWorkInfoFormGroup.patchValue(data.userInfoGroupData);
         }
       });
   }
