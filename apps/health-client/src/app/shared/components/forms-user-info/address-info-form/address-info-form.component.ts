@@ -32,7 +32,7 @@ import { ErrorNotificationComponent } from 'src/app/shared/components/error-noti
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import { NumericInputRestrictionDirective } from 'src/app/shared/directives';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUserInfoGroup } from 'src/app/store/user';
 
 type AddressPropsType =
   | 'Адрес регистрации'
@@ -114,7 +114,7 @@ export class AddressInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (data?.userInfoGroupName) {

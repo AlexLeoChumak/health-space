@@ -27,7 +27,7 @@ import { PhonePrefixFormatterDirective } from 'src/app/shared/directives';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUserInfoGroup } from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
@@ -91,17 +91,17 @@ export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (
           data &&
-          data.userInfoGroup &&
-          typeof data.userInfoGroup === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.mobilePhoneNumberPasswordInfoFormGroup
         ) {
           this.mobilePhoneNumberPasswordInfoFormGroup.patchValue(
-            data.userInfoGroup
+            data.userInfoGroupData
           );
         }
       });

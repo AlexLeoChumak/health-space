@@ -21,7 +21,7 @@ import {
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUserInfoGroup } from 'src/app/store/user';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
@@ -72,17 +72,17 @@ export class EducationMedicalWorkerInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (
           data &&
-          data.userInfoGroup &&
-          typeof data.userInfoGroup === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.educationMedicalWorkerInfoFormGroup
         ) {
           this.educationMedicalWorkerInfoFormGroup.patchValue(
-            data.userInfoGroup
+            data.userInfoGroupData
           );
         }
       });

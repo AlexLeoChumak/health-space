@@ -36,7 +36,7 @@ import {
   formattingDateToLocalStringUtility,
   checkInputValidatorUtility,
 } from 'src/app/shared/utilities';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUserInfoGroup } from 'src/app/store/user';
 
 @Component({
   selector: 'health-identification-belarus-citizen-info-form',
@@ -108,17 +108,17 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (
           data &&
-          data.userInfoGroup &&
-          typeof data.userInfoGroup === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.identificationBelarusCitizenInfoFormGroup
         ) {
           this.identificationBelarusCitizenInfoFormGroup.patchValue(
-            data.userInfoGroup
+            data.userInfoGroupData
           );
         }
       });

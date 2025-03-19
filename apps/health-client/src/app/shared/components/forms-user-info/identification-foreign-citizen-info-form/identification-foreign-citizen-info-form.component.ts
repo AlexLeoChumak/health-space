@@ -24,7 +24,7 @@ import { ErrorNotificationComponent } from 'src/app/shared/components/error-noti
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUserInfoGroup } from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
@@ -71,17 +71,17 @@ export class IdentificationForeignCitizenInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (
           data &&
-          data.userInfoGroup &&
-          typeof data.userInfoGroup === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.identificationForeignCitizenInfoFormGroup
         ) {
           this.identificationForeignCitizenInfoFormGroup.patchValue(
-            data.userInfoGroup
+            data.userInfoGroupData
           );
         }
       });

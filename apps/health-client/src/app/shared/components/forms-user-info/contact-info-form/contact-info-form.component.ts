@@ -27,7 +27,7 @@ import { ErrorNotificationComponent } from 'src/app/shared/components/error-noti
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import { PhonePrefixFormatterDirective } from 'src/app/shared/directives';
 import { checkInputValidatorUtility } from 'src/app/shared/utilities';
-import { selectUserSectionData } from 'src/app/store/user';
+import { selectUserInfoGroup } from 'src/app/store/user';
 
 @Component({
   selector: 'health-contact-info-form',
@@ -70,16 +70,16 @@ export class ContactInfoFormComponent implements OnInit {
 
   private updateFormValuesForEdit(): void {
     this.store
-      .select(selectUserSectionData)
+      .select(selectUserInfoGroup)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         if (
           data &&
-          data.userInfoGroup &&
-          typeof data.userInfoGroup === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.contactInfoFormGroup
         ) {
-          this.contactInfoFormGroup.patchValue(data.userInfoGroup);
+          this.contactInfoFormGroup.patchValue(data.userInfoGroupData);
         }
       });
   }
