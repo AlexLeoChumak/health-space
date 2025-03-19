@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
+import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
+import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
 import {
   UserInfoGroupInterface,
   ErrorMessageInterface,
 } from 'src/app/shared/models';
-import { DoctorInterface } from 'src/app/shared/models/doctor/doctor.interface';
-import { PatientInterface } from 'src/app/shared/models/patient/patient.interface';
 
 export const loadUser = createAction('[User] Load User');
 
@@ -18,19 +18,26 @@ export const loadUserFailure = createAction(
   props<ErrorMessageInterface>()
 );
 
+export const setUrlUserPhoto = createAction('[User] Set Url User Photo');
+
 export const setUrlUserPhotoSuccess = createAction(
   '[User] Set Url User Photo Success',
   props<{ urlUserPhoto: string }>()
 );
 
-export const setIdUserSection = createAction(
-  '[User] Set Id User Section',
-  props<{ idUserSection: string }>()
+export const setUrlUserPhotoFailure = createAction(
+  '[User] Set Url User Photo Failure',
+  props<ErrorMessageInterface>()
 );
 
-export const setUserSectionData = createAction(
-  '[User] Set User Section Data',
-  props<{ userSectionData: UserInfoGroupInterface }>()
+export const setIdUserInfoGroup = createAction(
+  '[User] Set Id User Info Group',
+  props<{ idUserInfoGroup: string }>()
+);
+
+export const setUserInfoGroup = createAction(
+  '[User] Set User Info Group',
+  props<{ userInfoGroup: UserInfoGroupInterface }>()
 );
 
 export const clearUser = createAction('[User] Clear User');
