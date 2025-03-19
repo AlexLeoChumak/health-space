@@ -1,4 +1,4 @@
 export interface UserInfoGroupInterface {
-  userInfoGroup: Record<string, unknown>;
+  userInfoGroupData: Record<string, unknown>;
   userInfoGroupName: string;
 }
