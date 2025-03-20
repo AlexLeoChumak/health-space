@@ -12,9 +12,9 @@ export const userProfileRoutes: Routes = [
           ),
       },
       {
-        path: 'edit',
+        path: 'update',
         loadComponent: () =>
-          import('./components/edit-profile/edit-profile.component').then(
+          import('./components/update-profile/update-profile.component').then(
             (m) => m.EditProfileComponent
           ),
         children: [
