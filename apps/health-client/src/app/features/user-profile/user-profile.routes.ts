@@ -15,11 +15,11 @@ export const userProfileRoutes: Routes = [
         path: 'update',
         loadComponent: () =>
           import('./components/update-profile/update-profile.component').then(
-            (m) => m.EditProfileComponent
+            (m) => m.UpdateProfileComponent
           ),
         children: [
           {
-            path: 'update-password',
+            path: 'password',
             loadComponent: () =>
               import(
                 './components/update-password-form/update-password-form.component'
