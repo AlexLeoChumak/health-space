@@ -4,9 +4,8 @@ import { ErrorMessageInterface } from 'src/app/shared/models/error-message.inter
 
 // Инициализация приложения
 export const appInitialize = createAction('[App] Initialize');
-export const appInitialized = createAction('[App] Initialized');
 
-// Загрузка
+// Лоадер
 export const setLoading = createAction(
   '[App] Set Loading',
   props<{ isLoading: boolean }>()
