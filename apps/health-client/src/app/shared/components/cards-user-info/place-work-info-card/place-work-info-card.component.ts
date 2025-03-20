@@ -68,12 +68,13 @@ export class PlaceWorkInfoCardComponent {
       { key: 'currentSpecialization', label: 'Текущая специализация' },
     ];
 
-  protected editUserInfo(section: string): void {
+  protected navigateToUpdatePage(section: string): void {
     const user = this.user();
 
     if (user && 'placeWorkInfo' in user) {
       const sectionId = user.placeWorkInfo?.id;
-      if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+      if (sectionId)
+        this.navigationService.navigateToUpdatePage(section, sectionId);
     }
   }
 }

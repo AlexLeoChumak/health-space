@@ -48,8 +48,9 @@ export class MobilePhoneNumberPasswordInfoCardComponent {
   private readonly store = inject(Store);
   protected readonly user = this.store.selectSignal(selectUser);
 
-  protected editUserInfo(section: string): void {
+  protected navigateToUpdatePage(section: string): void {
     const sectionId = this.user()?.mobilePhoneNumberPasswordInfo?.id;
-    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    if (sectionId)
+      this.navigationService.navigateToUpdatePage(section, sectionId);
   }
 }

@@ -89,12 +89,13 @@ export class EducationMedicalWorkerInfoCardComponent {
       },
     ];
 
-  protected editUserInfo(section: string): void {
+  protected navigateToUpdatePage(section: string): void {
     const user = this.user();
 
     if (user && 'educationMedicalWorkerInfo' in user) {
       const sectionId = user.educationMedicalWorkerInfo?.id;
-      if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+      if (sectionId)
+        this.navigationService.navigateToUpdatePage(section, sectionId);
     }
   }
 }

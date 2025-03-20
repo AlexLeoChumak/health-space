@@ -60,8 +60,9 @@ export class IdentificationBelarusCitizenInfoCardComponent {
       { key: 'passportIssuingAuthority', label: 'Орган, выдавший паспорт' },
     ];
 
-  protected editUserInfo(section: string): void {
+  protected navigateToUpdatePage(section: string): void {
     const sectionId = this.user()?.identificationBelarusCitizenInfo.id;
-    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    if (sectionId)
+      this.navigationService.navigateToUpdatePage(section, sectionId);
   }
 }

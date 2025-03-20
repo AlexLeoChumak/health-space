@@ -62,8 +62,9 @@ export class PersonalInfoCardComponent {
   protected readonly urlUserPhoto = this.store.selectSignal(selectUrlUserPhoto);
   protected readonly isLoading = this.store.selectSignal(selectIsLoading);
 
-  protected editUserInfo(section: string): void {
+  protected navigateToUpdatePage(section: string): void {
     const sectionId = this.user()?.personalInfo.id;
-    if (sectionId) this.navigationService.editUserInfo(section, sectionId);
+    if (sectionId)
+      this.navigationService.navigateToUpdatePage(section, sectionId);
   }
 }

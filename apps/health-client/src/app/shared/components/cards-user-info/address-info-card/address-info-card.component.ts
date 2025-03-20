@@ -82,7 +82,7 @@ export class AddressInfoCardComponent {
     { key: 'apartment', label: 'Квартира' },
   ];
 
-  protected editUserInfo(section: string): void {
+  protected navigateToUpdatePage(section: string): void {
     const userData = this.user();
 
     if (userData) {
@@ -100,7 +100,7 @@ export class AddressInfoCardComponent {
         ) {
           const sectionId = addressData.id;
           if (sectionId)
-            this.navigationService.editUserInfo(section, sectionId);
+            this.navigationService.navigateToUpdatePage(section, sectionId);
         }
       }
     }
