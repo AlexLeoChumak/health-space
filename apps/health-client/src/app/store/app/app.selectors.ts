@@ -3,11 +3,6 @@ import { AppState } from './app.state';
 
 export const selectAppState = createFeatureSelector<AppState>('app');
 
-export const selectIsAppInitialized = createSelector(
-  selectAppState,
-  (state) => state.isAppInitialized
-);
-
 export const selectIsLoading = createSelector(
   selectAppState,
   (state) => state.isLoading
