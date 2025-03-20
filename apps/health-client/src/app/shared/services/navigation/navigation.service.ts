@@ -8,11 +8,14 @@ import { StringConverterService } from 'src/app/shared/services';
 export class NavigationService {
   private readonly router = inject(Router);
 
-  public editUserInfo(section: string, sectionId: string): void {
-    const sectionKebabCase = StringConverterService.camelToKebab(section);
+  public navigateToUpdatePage(
+    nameInfoGroup: string,
+    idInfoGroup: string
+  ): void {
+    const sectionKebabCase = StringConverterService.camelToKebab(nameInfoGroup);
 
-    this.router.navigate(['/user-profile/edit'], {
-      queryParams: { section: sectionKebabCase, 'section-id': sectionId },
+    this.router.navigate(['/user-profile/update'], {
+      queryParams: { group: sectionKebabCase, 'group-id': idInfoGroup },
     });
   }
 }
