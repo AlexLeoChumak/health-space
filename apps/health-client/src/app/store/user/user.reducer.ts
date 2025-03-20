@@ -12,7 +12,7 @@ import {
   setUserInfoGroup,
 } from 'src/app/store/user/user.actions';
 import { initialUserState } from 'src/app/store/user/user.state';
-import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
+import { getUserRoleUtil } from 'src/app/shared/utils/get-user-role.util';
 
 export const userReducer = createReducer(
   initialUserState,
@@ -23,7 +23,7 @@ export const userReducer = createReducer(
   on(loadUserSuccess, (state, { user }) => ({
     ...state,
     user,
-    role: getUserRole(user),
+    role: getUserRoleUtil(user),
   })),
   on(loadUserFailure, (state, { message }) => ({
     ...state,

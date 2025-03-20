@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
+import { getUserRoleUtil } from 'src/app/shared/utils/get-user-role.util';
 import { UserState } from 'src/app/store/user/user.state';
 
 export const selectUserFeature = createFeatureSelector<UserState>('user');
@@ -11,7 +11,7 @@ export const selectUser = createSelector(
 
 export const selectUserRole = createSelector(selectUserFeature, (state) => {
   if (state.user) {
-    return getUserRole(state.user);
+    return getUserRoleUtil(state.user);
   }
   return null;
 });
