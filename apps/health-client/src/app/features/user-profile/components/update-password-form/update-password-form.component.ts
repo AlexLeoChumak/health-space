@@ -27,10 +27,7 @@ import {
   ActionButtonComponent,
   ErrorNotificationComponent,
 } from 'src/app/shared/components';
-import {
-  checkInputValidatorUtility,
-  getUserRole,
-} from 'src/app/shared/utilities';
+import { checkInputValidatorUtil, getUserRoleUtil } from 'src/app/shared/utils';
 import {
   UPDATE_INFO_CONSTANT,
   UpdatePasswordFormInterface,
@@ -137,7 +134,7 @@ export class UpdatePasswordFormComponent implements OnInit {
     }
 
     const userId = user.id;
-    const userRole = getUserRole(user);
+    const userRole = getUserRoleUtil(user);
 
     if (!userId || !userRole) {
       this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
@@ -184,6 +181,6 @@ export class UpdatePasswordFormComponent implements OnInit {
     controlName: string,
     validator: string
   ): boolean {
-    return checkInputValidatorUtility(formGroup, controlName, validator);
+    return checkInputValidatorUtil(formGroup, controlName, validator);
   }
 }
