@@ -1,37 +1,55 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject, OnInit, DestroyRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LoadingController } from '@ionic/angular';
-
+import { from, switchMap, tap, of, catchError } from 'rxjs';
 import { selectIsLoading } from 'src/app/store/app';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'health-loader',
   template: '',
   standalone: true,
 })
-export class LoaderComponent {
+export class LoaderComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly loadingCtrl = inject(LoadingController);
-  protected readonly isLoading = this.store.selectSignal(selectIsLoading);
+  private isLoading$ = this.store.select(selectIsLoading);
   private loaderInstance: HTMLIonLoadingElement | null = null;
+  private readonly destroyRef = inject(DestroyRef);
 
-  constructor() {
-    effect(() => {
-      if (this.isLoading() && !this.loaderInstance) {
-        this.loadingCtrl
-          .create({
-            message: 'Пожалуйста, подождите...',
-            spinner: 'crescent',
-          })
-          .then((loader) => {
-            this.loaderInstance = loader;
-            loader.present();
-          });
-      } else if (!this.isLoading() && this.loaderInstance) {
-        this.loaderInstance.dismiss().then(() => {
-          this.loaderInstance = null;
-        });
-      }
-    });
+  public ngOnInit(): void {
+    this.isLoading$
+      .pipe(
+        switchMap((isLoading) => {
+          if (isLoading) {
+            return from(
+              this.loadingCtrl.create({
+                spinner: 'crescent',
+              })
+            ).pipe(
+              tap((loader) => {
+                this.loaderInstance = loader;
+                loader.present();
+              })
+            );
+          } else if (this.loaderInstance) {
+            return from(this.loaderInstance.dismiss()).pipe(
+              tap(() => {
+                this.loaderInstance = null;
+              })
+            );
+          }
+          return of(null);
+        }),
+        catchError(() => {
+          return this.loaderInstance
+            ? from(this.loaderInstance.dismiss()).pipe(
+                tap(() => (this.loaderInstance = null))
+              )
+            : of(null);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe();
   }
 }
