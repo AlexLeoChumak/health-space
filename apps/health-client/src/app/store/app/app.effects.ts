@@ -3,12 +3,11 @@ import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, of, catchError, tap } from 'rxjs';
 import { LocalStorageService } from 'src/app/shared/services/local-storage/local-storage.service';
-import { getUserRole } from 'src/app/shared/utilities/get-user-role.utility';
+import { getUserRoleUtil } from 'src/app/shared/utils/get-user-role.util';
 import { clearUser, loadUser } from 'src/app/store/user';
 import { AuthService } from 'src/app/features/auth/services/auth/auth.service';
 import {
   appInitialize,
-  appInitialized,
   login,
   loginFailure,
   loginSuccess,
@@ -27,21 +26,14 @@ export const restoreSessionEffect = createEffect(
         const token = localStorageService.getItem('accessToken');
 
         if (!token) {
-          return of(logout(), appInitialized());
+          return of(logout());
         }
 
         return authService.validateToken(token).pipe(
-          switchMap(() =>
-            of(
-              loginSuccess({ accessToken: token }),
-              loadUser(),
-              appInitialized()
-            )
-          ),
+          switchMap(() => of(loginSuccess({ accessToken: token }), loadUser())),
           catchError(() => {
             return authService.refreshToken(token).pipe(
               tap((userLoginResponse) => {
-                console.log('рефреш');
                 localStorageService.setItem(
                   'accessToken',
                   userLoginResponse.accessToken
@@ -50,12 +42,11 @@ export const restoreSessionEffect = createEffect(
               switchMap((userLoginResponse) =>
                 of(
                   loginSuccess({ accessToken: userLoginResponse.accessToken }),
-                  loadUser(),
-                  appInitialized()
+                  loadUser()
                 )
               ),
               catchError(() => {
-                return of(logout(), appInitialized());
+                return of(logout());
               })
             );
           })
@@ -80,7 +71,7 @@ export const loginEffect = createEffect(
             const accessToken = response.data.accessToken;
             localStorageService.setItem('accessToken', accessToken);
 
-            const role = getUserRole(response.data.user);
+            const role = getUserRoleUtil(response.data.user);
             localStorageService.setItem('role', role);
 
             router.navigate(['/user-profile']);
