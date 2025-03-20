@@ -19,7 +19,7 @@ import {
   IonLabel,
   IonInput,
 } from '@ionic/angular/standalone';
-import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { checkInputValidatorUtil } from 'src/app/shared/utils';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
@@ -85,6 +85,6 @@ export class PlaceWorkInfoFormComponent implements OnInit {
     controlName: string,
     validator: string
   ): boolean {
-    return checkInputValidatorUtility(formGroup, controlName, validator);
+    return checkInputValidatorUtil(formGroup, controlName, validator);
   }
 }

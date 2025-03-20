@@ -32,10 +32,10 @@ import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepi
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import {
-  getDatepickerButtonLabelUtility,
-  formattingDateToLocalStringUtility,
-  checkInputValidatorUtility,
-} from 'src/app/shared/utilities';
+  getDatepickerButtonLabelUtil,
+  formattingDateToLocalStringUtil,
+  checkInputValidatorUtil,
+} from 'src/app/shared/utils';
 import { selectUserInfoGroup } from 'src/app/store/user';
 
 @Component({
@@ -95,11 +95,11 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
   }
 
   protected get datepickerButtonLabel(): LabelButtonType {
-    return getDatepickerButtonLabelUtility(this.isDatepickerOpen());
+    return getDatepickerButtonLabelUtil(this.isDatepickerOpen());
   }
 
   protected onDateChange(date: string): void {
-    const formattedPassportIssueDate = formattingDateToLocalStringUtility(date);
+    const formattedPassportIssueDate = formattingDateToLocalStringUtil(date);
 
     this.identificationBelarusCitizenInfoFormGroup.patchValue({
       passportIssueDate: formattedPassportIssueDate,
@@ -129,6 +129,6 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
     controlName: string,
     validator: string
   ): boolean {
-    return checkInputValidatorUtility(formGroup, controlName, validator);
+    return checkInputValidatorUtil(formGroup, controlName, validator);
   }
 }

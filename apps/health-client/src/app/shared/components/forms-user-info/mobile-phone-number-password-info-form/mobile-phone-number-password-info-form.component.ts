@@ -24,7 +24,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { PhonePrefixFormatterDirective } from 'src/app/shared/directives';
-import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { checkInputValidatorUtil } from 'src/app/shared/utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { selectUserInfoGroup } from 'src/app/store/user';
@@ -112,6 +112,6 @@ export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
     controlName: string,
     validator: string
   ): boolean {
-    return checkInputValidatorUtility(formGroup, controlName, validator);
+    return checkInputValidatorUtil(formGroup, controlName, validator);
   }
 }

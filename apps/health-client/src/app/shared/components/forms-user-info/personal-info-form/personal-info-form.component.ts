@@ -43,10 +43,10 @@ import {
 import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import {
-  getDatepickerButtonLabelUtility,
-  formattingDateToLocalStringUtility,
-  checkInputValidatorUtility,
-} from 'src/app/shared/utilities';
+  getDatepickerButtonLabelUtil,
+  formattingDateToLocalStringUtil,
+  checkInputValidatorUtil,
+} from 'src/app/shared/utils';
 import {
   selectUrlUserPhoto,
   selectUser,
@@ -219,11 +219,11 @@ export class PersonalInfoFormComponent implements OnInit {
   }
 
   protected get datepickerButtonLabel(): LabelButtonType {
-    return getDatepickerButtonLabelUtility(this.isDatepickerOpen());
+    return getDatepickerButtonLabelUtil(this.isDatepickerOpen());
   }
 
   protected onDateChange(date: string): void {
-    const formattedBirthDate = formattingDateToLocalStringUtility(date);
+    const formattedBirthDate = formattingDateToLocalStringUtil(date);
 
     this.personalInfoFormGroup.patchValue({
       dateOfBirth: formattedBirthDate,
@@ -235,6 +235,6 @@ export class PersonalInfoFormComponent implements OnInit {
     controlName: string,
     validator: string
   ): boolean {
-    return checkInputValidatorUtility(formGroup, controlName, validator);
+    return checkInputValidatorUtil(formGroup, controlName, validator);
   }
 }

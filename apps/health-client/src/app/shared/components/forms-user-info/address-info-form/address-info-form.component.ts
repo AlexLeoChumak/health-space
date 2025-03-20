@@ -31,7 +31,7 @@ import { Store } from '@ngrx/store';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 import { NumericInputRestrictionDirective } from 'src/app/shared/directives';
-import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { checkInputValidatorUtil } from 'src/app/shared/utils';
 import { selectUserInfoGroup } from 'src/app/store/user';
 
 type AddressPropsType =
@@ -123,11 +123,11 @@ export class AddressInfoFormComponent implements OnInit {
 
         if (
           data &&
-          data.userInfoGroupName &&
-          typeof data.userInfoGroupName === 'object' &&
+          data.userInfoGroupData &&
+          typeof data.userInfoGroupData === 'object' &&
           this.addressInfoFormGroup
         ) {
-          this.addressInfoFormGroup.patchValue(data.userInfoGroupName);
+          this.addressInfoFormGroup.patchValue(data.userInfoGroupData);
         }
       });
   }
@@ -137,6 +137,6 @@ export class AddressInfoFormComponent implements OnInit {
     controlName: string,
     validator: string
   ): boolean {
-    return checkInputValidatorUtility(formGroup, controlName, validator);
+    return checkInputValidatorUtil(formGroup, controlName, validator);
   }
 }

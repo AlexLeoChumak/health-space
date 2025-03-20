@@ -20,7 +20,7 @@ import {
   IonInput,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
-import { checkInputValidatorUtility } from 'src/app/shared/utilities';
+import { checkInputValidatorUtil } from 'src/app/shared/utils';
 import { selectUserInfoGroup } from 'src/app/store/user';
 import { ErrorNotificationComponent } from 'src/app/shared/components/error-notification/error-notification.component';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
@@ -93,6 +93,6 @@ export class EducationMedicalWorkerInfoFormComponent implements OnInit {
     controlName: string,
     validator: string
   ): boolean {
-    return checkInputValidatorUtility(formGroup, controlName, validator);
+    return checkInputValidatorUtil(formGroup, controlName, validator);
   }
 }
