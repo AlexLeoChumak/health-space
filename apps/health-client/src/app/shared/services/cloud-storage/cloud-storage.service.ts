@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { RegistrationApiResponseInterface } from 'src/app/features/auth';
-import { getUserRole } from 'src/app/shared/utilities';
+import { getUserRoleUtil } from 'src/app/shared/utils';
 import { environment } from 'src/environments/environment';
 import {
   GlobalApiSuccessResponseInterface,
@@ -47,7 +47,7 @@ export class CloudStorageService {
     const userId = dataWithUserId?.data?.userId;
 
     if (userId && photo && photo instanceof File) {
-      const uploadPhotoFullUrl = `${this.apiUrl}/${getUserRole(
+      const uploadPhotoFullUrl = `${this.apiUrl}/${getUserRoleUtil(
         userData.user
       )}/${userId}/${this.uploadPhotoUrl}`;
 
