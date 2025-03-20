@@ -19,7 +19,7 @@ import {
   CloudStorageService,
   LocalStorageService,
 } from 'src/app/shared/services';
-import { getUserRole } from 'src/app/shared/utilities';
+import { getUserRoleUtil } from 'src/app/shared/utils';
 import { selectAccessToken } from 'src/app/store/app';
 
 @Injectable({
@@ -46,7 +46,7 @@ export class AuthService {
     const registrationBaseUrl = 'auth/registration';
     const fullUrl = `${
       environment.apiBaseUrl
-    }/${registrationBaseUrl}/${getUserRole(userData.user)}`;
+    }/${registrationBaseUrl}/${getUserRoleUtil(userData.user)}`;
 
     let photo: string | File | null;
     let personalInfo;
