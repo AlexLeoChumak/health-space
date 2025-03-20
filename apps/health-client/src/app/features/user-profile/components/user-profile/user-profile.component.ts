@@ -18,7 +18,7 @@ import {
   IdentificationForeignCitizenInfoCardComponent,
   MobilePhoneNumberPasswordInfoCardComponent,
 } from 'src/app/shared/components';
-import { getUserRole } from 'src/app/shared/utilities';
+import { getUserRoleUtil } from 'src/app/shared/utils';
 import { logout } from 'src/app/store/app';
 import { selectUser } from 'src/app/store/user';
 import { FooterComponent } from 'src/app/features/footer';
@@ -48,7 +48,7 @@ export class UserProfileComponent {
   protected readonly user = this.store.selectSignal(selectUser);
   protected readonly userRole = computed(() => {
     const currentUser = this.user();
-    return currentUser ? getUserRole(currentUser) : null;
+    return currentUser ? getUserRoleUtil(currentUser) : null;
   });
 
   protected onLogout() {
