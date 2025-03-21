@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
+import { authGuard } from 'src/app/core/guards';
 
 export const userProfileRoutes: Routes = [
   {
     path: 'user-profile',
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
