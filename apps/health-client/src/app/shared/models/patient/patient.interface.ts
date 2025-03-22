@@ -51,6 +51,7 @@ export interface PersonalInfoInterface {
   middleName: string | null;
   gender: string;
   photo: string | File | null;
+  photoId: string | null;
 }
 
 // Интерфейс пациента, объединяющий все подинтерфейсы
