@@ -48,6 +48,7 @@ import {
   UpdateUserInfoGroupInterface,
   UpdateUserInfoGroupType,
 } from 'src/app/shared/models';
+import { CurrentUserPhotoDataInterface } from 'src/app/shared/models/current-user-photo-data.interface';
 
 @Component({
   selector: 'health-update-profile',
@@ -121,6 +122,7 @@ export class UpdateProfileComponent implements OnInit {
   protected onSubmitUpdateFormGroup(): void {
     if (this.editProfileForm.invalid) return;
 
+    const user = this.user();
     const rawValue = this.editProfileForm.value;
 
     const keys = Object.keys(rawValue) as (keyof typeof rawValue)[];
@@ -129,13 +131,12 @@ export class UpdateProfileComponent implements OnInit {
       return;
     }
 
-    const user = this.user();
+    const keyNameInfoGroup = keys[0];
+
     if (!user) {
       this.toastService.presentToast(SHARED_CONSTANT.USER_NOT_FOUND_ERROR);
       return;
     }
-
-    const keyNameInfoGroup = keys[0];
 
     const userInfoGroup = user[keyNameInfoGroup];
     let userWithoutId;
@@ -161,14 +162,29 @@ export class UpdateProfileComponent implements OnInit {
       return;
     }
 
+    let currentUserPhotoData: CurrentUserPhotoDataInterface = {
+      name: null,
+      id: null,
+    };
+
+    if (
+      keyNameInfoGroup === 'personalInfo' &&
+      typeof user.personalInfo.photo === 'string'
+    ) {
+      currentUserPhotoData = {
+        name: user.personalInfo.photo,
+        id: user.personalInfo.photoId,
+      };
+    }
+
     const updateData: UpdateUserInfoGroupInterface = {
       updateInfoGroup,
       userId,
       userRole,
+      currentUserPhotoData,
     };
 
     this.toggleLoader(true);
-
     this.updateUserProfileService
       .updateInfoGroup(updateData)
       .pipe(
