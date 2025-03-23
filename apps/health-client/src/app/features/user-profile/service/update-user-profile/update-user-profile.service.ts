@@ -59,7 +59,7 @@ export class UpdateUserProfileService {
             personalInfo: { photo: File };
           };
 
-          const newNameUserPhoto = updateInfoGroup.personalInfo.photo.name;
+          const newFileNameUserPhoto = updateInfoGroup.personalInfo.photo.name;
 
           updateDataWithUpdatedUserPhoto = structuredClone(updateData);
 
@@ -67,7 +67,7 @@ export class UpdateUserProfileService {
             updateDataWithUpdatedUserPhoto.updateInfoGroup as {
               personalInfo: { photo: string };
             }
-          ).personalInfo.photo = newNameUserPhoto;
+          ).personalInfo.photo = newFileNameUserPhoto;
         }
 
         return this.http.put<GlobalApiSuccessResponseInterface<string>>(
