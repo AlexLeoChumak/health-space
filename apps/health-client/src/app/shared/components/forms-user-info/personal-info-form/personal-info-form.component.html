@@ -141,7 +141,10 @@ editableInfoProps();
     <figure class="photo-preview-url">
       <ion-thumbnail>
         @if(!isLoading()) {
-        <ion-img [src]="photoPreview" alt="prewiev-user-photo"></ion-img>
+        <ion-img
+          [src]="photoPreview || 'default-profile-image.png'"
+          alt="prewiev-user-photo"
+        ></ion-img>
         } @else {
         <ion-skeleton-text
           animated

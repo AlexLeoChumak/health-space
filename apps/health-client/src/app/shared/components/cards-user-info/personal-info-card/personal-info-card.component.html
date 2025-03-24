@@ -24,7 +24,10 @@
         <!-- Аватар пользователя -->
         <ion-avatar class="custom-avatar" slot="start">
           @if (!isLoading()) {
-          <ion-img [src]="urlUserPhoto()" alt="user-photo" />
+          <ion-img
+            [src]="urlUserPhoto() || 'default-profile-image.png'"
+            alt="user-photo"
+          />
           } @else {
           <ion-skeleton-text
             animated
