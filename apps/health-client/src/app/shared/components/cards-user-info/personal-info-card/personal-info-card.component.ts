@@ -19,7 +19,6 @@ import {
   IonSkeletonText,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
-
 import {
   selectUser,
   selectUserRole,
