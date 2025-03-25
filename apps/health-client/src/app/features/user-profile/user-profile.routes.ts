@@ -15,6 +15,23 @@ export const userProfileRoutes: Routes = [
           ),
       },
       {
+        path: 'settings',
+        loadComponent: () =>
+          import('./components/setting-profile/setting-profile.component').then(
+            (m) => m.SettingProfileComponent
+          ),
+        children: [
+          {
+            path: 'remove-profile',
+            loadComponent: () =>
+              import(
+                './components/remove-profile/remove-profile.component'
+              ).then((m) => m.RemoveProfileComponent),
+          },
+        ],
+      },
+
+      {
         path: 'update',
         loadComponent: () =>
           import('./components/update-profile/update-profile.component').then(
