@@ -26,6 +26,8 @@ import {
   arrowBack,
   eyeOff,
   eye,
+  logOutOutline,
+  personOutline,
 } from 'ionicons/icons';
 
 import * as RegistrationEffects from 'src/app/store/registration/registration.effects';
@@ -50,6 +52,8 @@ addIcons({
   arrowBack,
   eyeOff,
   eye,
+  logOutOutline,
+  personOutline,
 });
 
 bootstrapApplication(AppComponent, {
