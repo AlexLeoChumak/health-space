@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonButton,
   IonIcon,
   IonPopover,
   IonList,
   IonItem,
+  IonLabel,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
-
 import { logout, selectIsAuthenticated } from 'src/app/store/app';
 
 @Component({
@@ -17,7 +17,15 @@ import { logout, selectIsAuthenticated } from 'src/app/store/app';
   styleUrl: './burger-menu.component.scss',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonItem, IonList, IonPopover, IonIcon, IonButton, CommonModule],
+  imports: [
+    IonButton,
+    IonLabel,
+    IonItem,
+    IonList,
+    IonPopover,
+    IonIcon,
+    CommonModule,
+  ],
 })
 export class BurgerMenuComponent {
   private readonly store = inject(Store);
