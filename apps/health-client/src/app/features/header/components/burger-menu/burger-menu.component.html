@@ -14,10 +14,23 @@
   <ng-template>
     <ion-list>
       @if (isAuth()) {
-      <ion-item button>Что то можно сделать ещё</ion-item>
-      <ion-item button (click)="onLogout()">Выйти</ion-item>
+      <ion-item button (click)="navigateToUserProfile()" lines="full">
+        <ion-icon name="person" slot="start"></ion-icon>
+        Профиль
+      </ion-item>
+      <ion-item button (click)="navigateToUserSettings()" lines="full">
+        <ion-icon name="settings" slot="start"></ion-icon>
+        Настройки профиля
+      </ion-item>
+      <ion-item button (click)="onLogout()" lines="full">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Выйти
+      </ion-item>
       } @else {
-      <ion-item button>Что то можно сделать</ion-item>
+      <ion-item button>
+        <ion-icon name="settings" slot="start"></ion-icon>
+        Настройки
+      </ion-item>
       }
     </ion-list>
   </ng-template>
