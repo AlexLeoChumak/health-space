@@ -27,7 +27,10 @@ import {
   eyeOff,
   eye,
   logOutOutline,
-  personOutline,
+  settings,
+  personCircle,
+  settingsOutline,
+  trashOutline,
 } from 'ionicons/icons';
 
 import * as RegistrationEffects from 'src/app/store/registration/registration.effects';
@@ -53,7 +56,10 @@ addIcons({
   eyeOff,
   eye,
   logOutOutline,
-  personOutline,
+  settings,
+  personCircle,
+  settingsOutline,
+  trashOutline,
 });
 
 bootstrapApplication(AppComponent, {
@@ -74,5 +80,6 @@ bootstrapApplication(AppComponent, {
 
 // nx g @nx/angular:service shared/services/backblaze/backblaze --project=health-client
 // nx g @nx/angular:component apps/health-client/src/app/shared/components/cards-user-info/address-info-card/address-info-card
+// nx g @nx/angular:component apps/health-client/src/app/features/user-profile/components/general-setting-user-profile/general-setting-user-profile
 
 // import { LetDirective } from '@ngrx/component'; для ngrxLet и ngrxPush
