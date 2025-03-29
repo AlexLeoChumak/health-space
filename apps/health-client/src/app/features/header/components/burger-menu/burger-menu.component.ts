@@ -5,10 +5,10 @@ import {
   IonPopover,
   IonList,
   IonItem,
-  IonLabel,
   IonButton,
 } from '@ionic/angular/standalone';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { logout, selectIsAuthenticated } from 'src/app/store/app';
 
 @Component({
@@ -17,32 +17,35 @@ import { logout, selectIsAuthenticated } from 'src/app/store/app';
   styleUrl: './burger-menu.component.scss',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonButton,
-    IonLabel,
-    IonItem,
-    IonList,
-    IonPopover,
-    IonIcon,
-    CommonModule,
-  ],
+  imports: [IonButton, IonItem, IonList, IonPopover, IonIcon, CommonModule],
 })
 export class BurgerMenuComponent {
   private readonly store = inject(Store);
+  private readonly router = inject(Router);
   protected readonly isAuth = this.store.selectSignal(selectIsAuthenticated);
   protected isPopoverOpen = false;
-  protected popoverEvent!: Event;
+  protected popoverEvent!: Event | null;
 
-  openPopover(event: Event) {
+  protected openPopover(event: Event): void {
     this.popoverEvent = event;
     this.isPopoverOpen = true;
   }
 
-  closePopover() {
+  protected closePopover(): void {
     this.isPopoverOpen = false;
   }
 
-  protected onLogout() {
+  protected navigateToUserProfile(): void {
+    this.router.navigate(['/user-profile']);
+    this.closePopover();
+  }
+
+  protected navigateToUserSettings(): void {
+    this.router.navigate(['/user-profile/settings/general']);
+    this.closePopover();
+  }
+
+  protected onLogout(): void {
     this.store.dispatch(logout());
     this.closePopover();
   }
