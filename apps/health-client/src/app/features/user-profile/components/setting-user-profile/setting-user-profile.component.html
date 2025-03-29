@@ -1,0 +1,43 @@
+<ion-content>
+  <ion-split-pane class="container" contentId="main-content">
+    <!-- Левая боковая панель -->
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Настройки профиля</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="sidebar-user-profile-settings">
+        <ion-list class="ion-no-padding">
+          <ion-item
+            routerLink="/user-profile/settings/general"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            lines="full"
+            button
+          >
+            <ion-icon name="settings-outline" slot="start"></ion-icon>
+            Общие
+          </ion-item>
+
+          <ion-item
+            routerLink="/user-profile/settings/remove-profile"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            lines="full"
+            button
+          >
+            <ion-icon name="trash-outline" slot="start"></ion-icon>
+            Удалить профиль
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <!-- Основной контент справа -->
+    <div class="ion-page" id="main-content">
+      <ion-router-outlet></ion-router-outlet>
+    </div>
+  </ion-split-pane>
+</ion-content>
