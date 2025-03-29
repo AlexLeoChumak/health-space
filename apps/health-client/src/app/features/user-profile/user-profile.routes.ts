@@ -17,16 +17,28 @@ export const userProfileRoutes: Routes = [
       {
         path: 'settings',
         loadComponent: () =>
-          import('./components/setting-profile/setting-profile.component').then(
-            (m) => m.SettingProfileComponent
-          ),
+          import(
+            './components/setting-user-profile/setting-user-profile.component'
+          ).then((m) => m.SettingUserProfileComponent),
         children: [
+          {
+            path: '',
+            redirectTo: 'general',
+            pathMatch: 'full',
+          },
+          {
+            path: 'general',
+            loadComponent: () =>
+              import(
+                './components/general-setting-user-profile/general-setting-user-profile.component'
+              ).then((m) => m.GeneralSettingUserProfileComponent),
+          },
           {
             path: 'remove-profile',
             loadComponent: () =>
               import(
-                './components/remove-profile/remove-profile.component'
-              ).then((m) => m.RemoveProfileComponent),
+                './components/remove-user-profile/remove-user-profile.component'
+              ).then((m) => m.RemoveUserProfileComponent),
           },
         ],
       },
@@ -34,9 +46,9 @@ export const userProfileRoutes: Routes = [
       {
         path: 'update',
         loadComponent: () =>
-          import('./components/update-profile/update-profile.component').then(
-            (m) => m.UpdateProfileComponent
-          ),
+          import(
+            './components/update-user-profile/update-user-profile.component'
+          ).then((m) => m.UpdateProfileComponent),
         children: [
           {
             path: 'password',
