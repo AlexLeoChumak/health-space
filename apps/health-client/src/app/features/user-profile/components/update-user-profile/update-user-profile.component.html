@@ -1,0 +1,88 @@
+@let sectionName = section();
+
+<ion-content>
+  <div class="container">
+    <ion-card>
+      <ion-card-header class="ion-text-center">
+        <ion-card-title class="section-title"
+          >Редактирование профиля</ion-card-title
+        >
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-card-header>
+
+      <ion-card-content class="ion-text-center">
+        @if (sectionName) {
+        <form
+          [formGroup]="editProfileForm"
+          (ngSubmit)="onSubmitUpdateFormGroup()"
+        >
+          @switch (sectionName) { @case ('address-registration-info') {
+          <health-address-info-form
+            (formReady)="addFormGroup('addressRegistrationInfo', $event)"
+          ></health-address-info-form>
+          } @case ('address-residence-info') {
+          <health-address-info-form
+            (formReady)="addFormGroup('addressResidenceInfo', $event)"
+          ></health-address-info-form>
+          } @case ('address-medical-institution-info') {
+          <health-address-info-form
+            (formReady)="addFormGroup('addressMedicalInstitutionInfo', $event)"
+          ></health-address-info-form>
+          } @case ('contact-info') {
+          <health-contact-info-form
+            (formReady)="addFormGroup('contactInfo', $event)"
+          ></health-contact-info-form>
+          } @case ('education-medical-worker-info') {
+          <health-education-medical-worker-info-form
+            (formReady)="addFormGroup('educationMedicalWorkerInfo', $event)"
+          ></health-education-medical-worker-info-form>
+          } @case ('identification-belarus-citizen-info') {
+          <health-identification-belarus-citizen-info-form
+            (formReady)="
+              addFormGroup('identificationBelarusCitizenInfo', $event)
+            "
+          >
+          </health-identification-belarus-citizen-info-form>
+          } @case ('identification-foreign-citizen-info') {
+          <health-identification-foreign-citizen-info-form
+            (formReady)="
+              addFormGroup('identificationForeignCitizenInfo', $event)
+            "
+          ></health-identification-foreign-citizen-info-form>
+          } @case ('mobile-phone-number-password-info') {
+          <health-mobile-phone-number-password-info-form
+            (formReady)="addFormGroup('mobilePhoneNumberPasswordInfo', $event)"
+            [editableInfoProps]="true"
+          ></health-mobile-phone-number-password-info-form>
+          } @case ('personal-info') {
+          <health-personal-info-form
+            (formReady)="addFormGroup('personalInfo', $event)"
+            [editableInfoProps]="true"
+          ></health-personal-info-form>
+          } @case ('place-work-info') {
+          <health-place-work-info-form
+            (formReady)="addFormGroup('placeWorkInfo', $event)"
+          ></health-place-work-info-form>
+          } }
+          <ion-item lines="none" class="ion-margin-top">
+            <health-action-button
+              [configProps]="{
+              isFormButton: true,
+              label: 'сохранить',
+              isDisabled: editProfileForm.invalid || isLoading(),
+              routerLink: null,
+            }"
+            ></health-action-button>
+          </ion-item>
+        </form>
+        } @else {
+        <health-update-password-form></health-update-password-form>
+        }
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
