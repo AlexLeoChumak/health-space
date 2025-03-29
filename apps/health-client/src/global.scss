@@ -227,3 +227,7 @@ ion-card-header {
   border: 2px solid var(--ion-color-medium-tint);
   box-shadow: 0px 0px 7px var(--ion-color-medium);
 }
+
+.active-link {
+  --background: #{vars.$secondary-color};
+}
