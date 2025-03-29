@@ -15,17 +15,29 @@
           </a>
 
           @if (isAuthenticated()) {
-          <a routerLink="/user-profile" routerLinkActive="active-link">
+          <a
+            routerLink="/user-profile"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             <ion-icon name="person"></ion-icon>
             Профиль
           </a>
           } @else {
-          <a routerLink="/auth/registration" routerLinkActive="active-link">
+          <a
+            routerLink="/auth/registration"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             <ion-icon name="person-add"></ion-icon>
             Регистрация
           </a>
 
-          <a routerLink="/auth/login" routerLinkActive="active-link">
+          <a
+            routerLink="/auth/login"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             <ion-icon name="log-in"></ion-icon>
             Вход
           </a>
