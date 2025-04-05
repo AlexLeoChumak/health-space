@@ -199,10 +199,10 @@ health-error-notification {
   padding: 0 10px;
 }
 
-a {
-  text-decoration: none;
-  padding: 0 10px;
-}
+// a {
+//   text-decoration: none;
+//   padding: 0 10px;
+// }
 
 ion-card-header {
   padding: 16px 16px 0;
@@ -230,4 +230,53 @@ ion-card-header {
 
 .active-link {
   --background: #{vars.$secondary-color};
+}
+
+.custom-router-link_button_v1 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  padding: 9px 16px;
+  gap: 8px;
+  background: var(--ion-color-light);
+  color: var(--ion-color-dark-shade);
+  border-radius: 5px;
+  box-shadow: 0px 3px 10px var(--ion-color-medium-shade);
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  &:hover {
+    background: var(--ion-color-light-shade);
+  }
+  &:active {
+    background: var(--ion-color-shade);
+  }
+  &.active-link {
+    background: var(--ion-color-dark-shade);
+    color: var(--ion-color-light);
+  }
+}
+
+.custom-router-link_button_v2 {
+  display: inline-flex;
+  width: 230px;
+  margin: 0 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 16px;
+  gap: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px 1px 5px var(--ion-color-medium-shade);
+  transition: background 0.2s, box-shadow 0.2s;
+  background: var(--ion-color-light-shade);
+  color: var(--ion-color-dark);
+  &:hover {
+    background: var(--ion-color-dark-shade);
+    color: var(--ion-color-light);
+  }
+  &:active {
+    background: var(--ion-color-dark-shade);
+    color: var(--ion-color-light);
+  }
 }
