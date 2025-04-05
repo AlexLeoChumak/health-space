@@ -8,30 +8,27 @@
       </ion-card-header>
 
       <ion-card-content class="ion-text-center">
-        <health-action-button
-          class="ion-margin"
-          [configProps]="{
-                isFormButton: false,
-                label: 'пациент',
-                isDisabled: false,
-                routerLink: '/auth/registration/patient',
-              }"
-        ></health-action-button>
+        <ion-router-link
+          routerLink="/auth/registration/patient"
+          class="custom-router-link_button_v2"
+        >
+          ПАЦИЕНТ
+        </ion-router-link>
 
-        <health-action-button
-          class="ion-margin"
-          [configProps]="{
-                isFormButton: false,
-                label: 'медработник',
-                isDisabled: false,
-                routerLink: '/auth/registration/doctor',
-              }"
-        ></health-action-button>
+        <ion-router-link
+          routerLink="/auth/registration/doctor"
+          class="custom-router-link_button_v2"
+        >
+          МЕДРАБОТНИК
+        </ion-router-link>
 
         <div class="ion-margin-top">
-          <a routerLink="../login" class="no-underline">
+          <ion-router-link
+            routerLink="/auth/login"
+            class="no-underline cursor-pointer"
+          >
             Уже зарегистрированы? Войти...
-          </a>
+          </ion-router-link>
         </div>
       </ion-card-content>
     </ion-card>
