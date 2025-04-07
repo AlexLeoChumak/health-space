@@ -5,42 +5,49 @@
 
       <div class="flex">
         <div>
-          <a
+          <ion-router-link
             routerLink="/home"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{ exact: true }"
+            class="custom-router-link_button_v1"
           >
             <ion-icon name="home"></ion-icon>
-            Главная
-          </a>
+            ГЛАВНАЯ
+          </ion-router-link>
 
           @if (isAuthenticated()) {
-          <a
+
+          <ion-router-link
             routerLink="/user-profile"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{ exact: true }"
+            class="custom-router-link_button_v1"
           >
             <ion-icon name="person"></ion-icon>
-            Профиль
-          </a>
-          } @else {
-          <a
-            routerLink="/auth/registration"
-            routerLinkActive="active-link"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <ion-icon name="person-add"></ion-icon>
-            Регистрация
-          </a>
+            ПРОФИЛЬ
+          </ion-router-link>
 
-          <a
+          } @else {
+
+          <ion-router-link
             routerLink="/auth/login"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{ exact: true }"
+            class="custom-router-link_button_v1"
           >
             <ion-icon name="log-in"></ion-icon>
-            Вход
-          </a>
+            ВХОД
+          </ion-router-link>
+
+          <ion-router-link
+            routerLink="/auth/registration"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="custom-router-link_button_v1"
+          >
+            <ion-icon name="person-add"></ion-icon>
+            РЕГИСТРАЦИЯ
+          </ion-router-link>
           }
         </div>
 
