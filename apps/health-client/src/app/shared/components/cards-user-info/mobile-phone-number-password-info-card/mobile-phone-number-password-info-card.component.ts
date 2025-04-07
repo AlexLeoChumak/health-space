@@ -14,11 +14,12 @@ import {
   IonButtons,
   IonIcon,
   IonToolbar,
+  IonRouterLink,
 } from '@ionic/angular/standalone';
 
 import { selectUser } from 'src/app/store/user';
 import { NavigationService } from 'src/app/shared/services';
-import { ActionButtonComponent } from 'src/app/shared/components/action-button/action-button.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'health-mobile-phone-number-password-info-card',
@@ -27,8 +28,10 @@ import { ActionButtonComponent } from 'src/app/shared/components/action-button/a
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonToolbar,
     CommonModule,
+    RouterModule,
+    IonRouterLink,
+    IonToolbar,
     IonIcon,
     IonButtons,
     IonCardTitle,
@@ -40,7 +43,6 @@ import { ActionButtonComponent } from 'src/app/shared/components/action-button/a
     IonList,
     IonCardHeader,
     IonCard,
-    ActionButtonComponent,
   ],
 })
 export class MobilePhoneNumberPasswordInfoCardComponent {
