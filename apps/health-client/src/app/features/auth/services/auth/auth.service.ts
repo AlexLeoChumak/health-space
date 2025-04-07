@@ -14,6 +14,7 @@ import {
   DoctorLoginResponseInterface,
   PatientInterface,
   DoctorInterface,
+  UserRoleType,
 } from 'src/app/shared/models';
 import {
   CloudStorageService,
@@ -21,6 +22,7 @@ import {
 } from 'src/app/shared/services';
 import { getUserRoleUtil } from 'src/app/shared/utils';
 import { selectAccessToken } from 'src/app/store/app';
+import { VerifyPasswordInterface } from 'src/app/features/user-profile';
 
 @Injectable({
   providedIn: 'root',
@@ -130,5 +132,23 @@ export class AuthService {
         accessToken,
       })
       .pipe(map((response) => response.data));
+  }
+
+  public verifyPassword(
+    password: string,
+    userId: string,
+    userType: UserRoleType
+  ): Observable<boolean> {
+    const verifyPasswordUrl = `${environment.apiBaseUrl}/auth/verify-password`;
+
+    const verifyPasswordUserIdUserType: VerifyPasswordInterface = {
+      password,
+      userId,
+      userType,
+    };
+    return this.http.post<boolean>(
+      verifyPasswordUrl,
+      verifyPasswordUserIdUserType
+    );
   }
 }
