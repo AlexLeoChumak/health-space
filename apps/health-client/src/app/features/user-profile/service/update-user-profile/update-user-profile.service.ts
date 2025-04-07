@@ -7,6 +7,7 @@ import {
   GlobalApiSuccessResponseInterface,
   PatientInterface,
   UpdateUserInfoGroupInterface,
+  UserRoleType,
 } from 'src/app/shared/models';
 import { CloudStorageService } from 'src/app/shared/services';
 import { environment } from 'src/environments/environment';
@@ -75,6 +76,16 @@ export class UpdateUserProfileService {
           isPersonalInfo ? updateDataWithUpdatedUserPhoto : updateData
         );
       })
+    );
+  }
+
+  public removeUser(
+    userType: UserRoleType,
+    userId: string
+  ): Observable<GlobalApiSuccessResponseInterface<string>> {
+    const removeUserUrl = `${environment.apiBaseUrl}/user-profile/remove/${userType}/${userId}`;
+    return this.http.delete<GlobalApiSuccessResponseInterface<string>>(
+      removeUserUrl
     );
   }
 }
