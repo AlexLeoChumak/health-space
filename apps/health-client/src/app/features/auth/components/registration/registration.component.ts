@@ -9,8 +9,6 @@ import {
   IonCardTitle,
 } from '@ionic/angular/standalone';
 
-import { ActionButtonComponent } from 'src/app/shared/components';
-
 @Component({
   selector: 'health-registration',
   templateUrl: './registration.component.html',
@@ -25,7 +23,6 @@ import { ActionButtonComponent } from 'src/app/shared/components';
     CommonModule,
     RouterModule,
     IonContent,
-    ActionButtonComponent,
   ],
 })
 export class RegistrationComponent {}
