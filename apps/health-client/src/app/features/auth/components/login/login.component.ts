@@ -36,24 +36,23 @@ import {
 import { ToastService } from 'src/app/shared/services';
 
 @Component({
-  selector: 'health-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonCardContent,
-    IonCard,
-    IonList,
-    RouterModule,
-    IonCheckbox,
-    IonLabel,
-    ReactiveFormsModule,
-    IonContent,
-    IonItem,
-    ActionButtonComponent,
-    MobilePhoneNumberPasswordInfoFormComponent,
-  ],
+    selector: 'health-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonCardContent,
+        IonCard,
+        IonList,
+        RouterModule,
+        IonCheckbox,
+        IonLabel,
+        ReactiveFormsModule,
+        IonContent,
+        IonItem,
+        ActionButtonComponent,
+        MobilePhoneNumberPasswordInfoFormComponent,
+    ]
 })
 export class LoginComponent implements OnInit {
   private readonly store = inject(Store<AppState>);

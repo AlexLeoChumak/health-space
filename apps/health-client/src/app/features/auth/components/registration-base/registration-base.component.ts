@@ -34,10 +34,10 @@ export abstract class RegistrationBaseComponent {
 
   protected toggleCheckboxCopyRegistrationAddress(): void {
     this.isRegistrationAndResidenceAddressesMatch.update(
-      (prevValue) => !prevValue
+      (prevValue) => !prevValue,
     );
     this.copyRegistrationAddressToResidenceAddress(
-      this.isRegistrationAndResidenceAddressesMatch()
+      this.isRegistrationAndResidenceAddressesMatch(),
     );
   }
 
@@ -63,13 +63,13 @@ export abstract class RegistrationBaseComponent {
   }
 
   private copyRegistrationAddressToResidenceAddress(
-    isRegistrationAndResidenceAddressesMatch: boolean
+    isRegistrationAndResidenceAddressesMatch: boolean,
   ): void {
     if (isRegistrationAndResidenceAddressesMatch) {
       this.registrationForm
         .get('user.addressResidenceInfo')
         ?.patchValue(
-          this.registrationForm.get('user.addressRegistrationInfo')?.value
+          this.registrationForm.get('user.addressRegistrationInfo')?.value,
         );
     } else {
       this.registrationForm.get('user.addressResidenceInfo')?.reset();

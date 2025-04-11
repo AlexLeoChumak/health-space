@@ -30,22 +30,21 @@ import { checkInputValidatorUtil } from 'src/app/shared/utils';
 import { selectUserInfoGroup } from 'src/app/store/user';
 
 @Component({
-  selector: 'health-contact-info-form',
-  templateUrl: './contact-info-form.component.html',
-  styleUrls: ['./contact-info-form.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonItemGroup,
-    IonItem,
-    IonLabel,
-    IonInput,
-    ErrorNotificationComponent,
-    PhonePrefixFormatterDirective,
-  ],
+    selector: 'health-contact-info-form',
+    templateUrl: './contact-info-form.component.html',
+    styleUrls: ['./contact-info-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        IonItemGroup,
+        IonItem,
+        IonLabel,
+        IonInput,
+        ErrorNotificationComponent,
+        PhonePrefixFormatterDirective,
+    ]
 })
 export class ContactInfoFormComponent implements OnInit {
   private readonly store = inject(Store);

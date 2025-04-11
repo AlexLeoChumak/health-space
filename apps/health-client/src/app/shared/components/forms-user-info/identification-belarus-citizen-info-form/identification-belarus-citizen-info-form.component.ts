@@ -39,23 +39,22 @@ import {
 import { selectUserInfoGroup } from 'src/app/store/user';
 
 @Component({
-  selector: 'health-identification-belarus-citizen-info-form',
-  templateUrl: './identification-belarus-citizen-info-form.component.html',
-  styleUrls: ['./identification-belarus-citizen-info-form.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    IonItemGroup,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonNote,
-    DatepickerComponent,
-    ActionButtonComponent,
-    ErrorNotificationComponent,
-  ],
+    selector: 'health-identification-belarus-citizen-info-form',
+    templateUrl: './identification-belarus-citizen-info-form.component.html',
+    styleUrls: ['./identification-belarus-citizen-info-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        IonItemGroup,
+        IonItem,
+        IonLabel,
+        IonInput,
+        IonNote,
+        DatepickerComponent,
+        ActionButtonComponent,
+        ErrorNotificationComponent,
+    ]
 })
 export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
   private readonly store = inject(Store);

@@ -24,24 +24,23 @@ import { selectUser } from 'src/app/store/user';
 import { FooterComponent } from 'src/app/features/footer';
 
 @Component({
-  selector: 'health-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    IonContent,
-    AddressInfoCardComponent,
-    PersonalInfoCardComponent,
-    ContactInfoCardComponent,
-    EducationMedicalWorkerInfoCardComponent,
-    PlaceWorkInfoCardComponent,
-    FooterComponent,
-    IdentificationBelarusCitizenInfoCardComponent,
-    IdentificationForeignCitizenInfoCardComponent,
-    MobilePhoneNumberPasswordInfoCardComponent,
-  ],
+    selector: 'health-user-profile',
+    templateUrl: './user-profile.component.html',
+    styleUrl: './user-profile.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        IonContent,
+        AddressInfoCardComponent,
+        PersonalInfoCardComponent,
+        ContactInfoCardComponent,
+        EducationMedicalWorkerInfoCardComponent,
+        PlaceWorkInfoCardComponent,
+        FooterComponent,
+        IdentificationBelarusCitizenInfoCardComponent,
+        IdentificationForeignCitizenInfoCardComponent,
+        MobilePhoneNumberPasswordInfoCardComponent,
+    ]
 })
 export class UserProfileComponent {
   private readonly store = inject(Store);

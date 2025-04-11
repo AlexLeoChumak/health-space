@@ -31,23 +31,22 @@ import { selectUserInfoGroup } from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
-  selector: 'health-mobile-phone-number-password-info-form',
-  templateUrl: './mobile-phone-number-password-info-form.component.html',
-  styleUrls: ['./mobile-phone-number-password-info-form.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonItemGroup,
-    IonNote,
-    IonItem,
-    IonLabel,
-    IonInput,
-    ErrorNotificationComponent,
-    PhonePrefixFormatterDirective,
-  ],
+    selector: 'health-mobile-phone-number-password-info-form',
+    templateUrl: './mobile-phone-number-password-info-form.component.html',
+    styleUrls: ['./mobile-phone-number-password-info-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        IonItemGroup,
+        IonNote,
+        IonItem,
+        IonLabel,
+        IonInput,
+        ErrorNotificationComponent,
+        PhonePrefixFormatterDirective,
+    ]
 })
 export class MobilePhoneNumberPasswordInfoFormComponent implements OnInit {
   public readonly editableInfoProps = input.required();

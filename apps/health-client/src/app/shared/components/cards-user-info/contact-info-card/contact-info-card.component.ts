@@ -20,26 +20,25 @@ import { selectUser } from 'src/app/store/user';
 import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 
 @Component({
-  selector: 'health-contact-info-card',
-  templateUrl: './contact-info-card.component.html',
-  styleUrl: './contact-info-card.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonIcon,
-    IonButton,
-    IonButtons,
-    IonToolbar,
-    IonText,
-    IonLabel,
-    IonItem,
-    IonList,
-    IonCardContent,
-    IonCardTitle,
-    IonCardHeader,
-    IonCard,
-    CommonModule,
-  ],
+    selector: 'health-contact-info-card',
+    templateUrl: './contact-info-card.component.html',
+    styleUrl: './contact-info-card.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonIcon,
+        IonButton,
+        IonButtons,
+        IonToolbar,
+        IonText,
+        IonLabel,
+        IonItem,
+        IonList,
+        IonCardContent,
+        IonCardTitle,
+        IonCardHeader,
+        IonCard,
+        CommonModule,
+    ]
 })
 export class ContactInfoCardComponent {
   private readonly navigationService = inject(NavigationService);

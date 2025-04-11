@@ -29,26 +29,25 @@ import { selectUser } from 'src/app/store/user';
 import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 
 @Component({
-  selector: 'health-education-medical-worker-info-card',
-  templateUrl: './education-medical-worker-info-card.component.html',
-  styleUrl: './education-medical-worker-info-card.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonIcon,
-    IonButton,
-    IonButtons,
-    IonToolbar,
-    IonCardTitle,
-    IonItem,
-    IonList,
-    IonCardContent,
-    IonLabel,
-    IonCardHeader,
-    IonText,
-    IonCard,
-    CommonModule,
-  ],
+    selector: 'health-education-medical-worker-info-card',
+    templateUrl: './education-medical-worker-info-card.component.html',
+    styleUrl: './education-medical-worker-info-card.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonIcon,
+        IonButton,
+        IonButtons,
+        IonToolbar,
+        IonCardTitle,
+        IonItem,
+        IonList,
+        IonCardContent,
+        IonLabel,
+        IonCardHeader,
+        IonText,
+        IonCard,
+        CommonModule,
+    ]
 })
 export class EducationMedicalWorkerInfoCardComponent {
   private readonly navigationService = inject(NavigationService);

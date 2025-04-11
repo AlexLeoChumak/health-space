@@ -12,12 +12,11 @@ import { Router } from '@angular/router';
 import { logout, selectIsAuthenticated } from 'src/app/store/app';
 
 @Component({
-  selector: 'health-burger-menu',
-  templateUrl: './burger-menu.component.html',
-  styleUrl: './burger-menu.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonButton, IonItem, IonList, IonPopover, IonIcon, CommonModule],
+    selector: 'health-burger-menu',
+    templateUrl: './burger-menu.component.html',
+    styleUrl: './burger-menu.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IonButton, IonItem, IonList, IonPopover, IonIcon, CommonModule]
 })
 export class BurgerMenuComponent {
   private readonly store = inject(Store);

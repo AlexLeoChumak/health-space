@@ -24,26 +24,25 @@ import { selectUser } from 'src/app/store/user';
 import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 
 @Component({
-  selector: 'health-identification-foreign-citizen-info-card',
-  templateUrl: './identification-foreign-citizen-info-card.component.html',
-  styleUrl: './identification-foreign-citizen-info-card.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonToolbar,
-    IonCard,
-    CommonModule,
-    IonIcon,
-    IonButton,
-    IonButtons,
-    IonCardTitle,
-    IonCardContent,
-    IonItem,
-    IonCardHeader,
-    IonText,
-    IonLabel,
-    IonList,
-  ],
+    selector: 'health-identification-foreign-citizen-info-card',
+    templateUrl: './identification-foreign-citizen-info-card.component.html',
+    styleUrl: './identification-foreign-citizen-info-card.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonToolbar,
+        IonCard,
+        CommonModule,
+        IonIcon,
+        IonButton,
+        IonButtons,
+        IonCardTitle,
+        IonCardContent,
+        IonItem,
+        IonCardHeader,
+        IonText,
+        IonLabel,
+        IonList,
+    ]
 })
 export class IdentificationForeignCitizenInfoCardComponent {
   private readonly navigationService = inject(NavigationService);

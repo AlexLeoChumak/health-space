@@ -13,19 +13,18 @@ import { LoaderComponent } from 'src/app/shared/components';
 import { appInitialize } from 'src/app/store/app';
 
 @Component({
-  selector: 'health-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonContent,
-    CommonModule,
-    IonApp,
-    IonRouterOutlet,
-    HeaderComponent,
-    LoaderComponent,
-  ],
+    selector: 'health-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonContent,
+        CommonModule,
+        IonApp,
+        IonRouterOutlet,
+        HeaderComponent,
+        LoaderComponent,
+    ]
 })
 export class AppComponent implements OnInit {
   private readonly store = inject(Store);

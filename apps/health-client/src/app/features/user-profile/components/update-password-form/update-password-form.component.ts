@@ -53,7 +53,6 @@ type PasswordType = 'oldPassword' | 'newPassword' | 'newPasswordConfirmation';
   selector: 'health-update-password-form',
   templateUrl: './update-password-form.component.html',
   styleUrl: './update-password-form.component.scss',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonIcon,
@@ -158,7 +157,7 @@ export class UpdatePasswordFormComponent implements OnInit {
           this.isSubmittingForm.set(false);
           return throwError(() => error);
         }),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((success) => {
         this.router.navigate(['/user-profile']);
@@ -179,7 +178,7 @@ export class UpdatePasswordFormComponent implements OnInit {
   protected checkInputValidator(
     formGroup: FormGroup,
     controlName: string,
-    validator: string
+    validator: string,
   ): boolean {
     return checkInputValidatorUtil(formGroup, controlName, validator);
   }

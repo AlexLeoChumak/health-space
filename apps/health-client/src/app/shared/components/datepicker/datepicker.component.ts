@@ -3,12 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { IonDatetime } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'health-datepicker',
-  templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonDatetime, FormsModule],
+    selector: 'health-datepicker',
+    templateUrl: './datepicker.component.html',
+    styleUrls: ['./datepicker.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IonDatetime, FormsModule]
 })
 export class DatepickerComponent {
   dateChange = output<string>();

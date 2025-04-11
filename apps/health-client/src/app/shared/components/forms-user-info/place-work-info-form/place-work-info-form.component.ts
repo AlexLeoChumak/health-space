@@ -27,20 +27,19 @@ import { selectUserInfoGroup } from 'src/app/store/user';
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
-  selector: 'health-place-work-info-form',
-  templateUrl: './place-work-info-form.component.html',
-  styleUrls: ['./place-work-info-form.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    IonItemGroup,
-    IonItem,
-    IonLabel,
-    IonInput,
-    ErrorNotificationComponent,
-  ],
+    selector: 'health-place-work-info-form',
+    templateUrl: './place-work-info-form.component.html',
+    styleUrls: ['./place-work-info-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        IonItemGroup,
+        IonItem,
+        IonLabel,
+        IonInput,
+        ErrorNotificationComponent,
+    ]
 })
 export class PlaceWorkInfoFormComponent implements OnInit {
   private readonly store = inject(Store);

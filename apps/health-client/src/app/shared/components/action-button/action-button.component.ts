@@ -33,12 +33,11 @@ interface ActionButtonConfigInterface {
 }
 
 @Component({
-  selector: 'health-action-button',
-  templateUrl: './action-button.component.html',
-  styleUrls: ['./action-button.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterModule, IonButton],
+    selector: 'health-action-button',
+    templateUrl: './action-button.component.html',
+    styleUrls: ['./action-button.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [RouterModule, IonButton]
 })
 export class ActionButtonComponent {
   public readonly configProps = input<ActionButtonConfigInterface>({

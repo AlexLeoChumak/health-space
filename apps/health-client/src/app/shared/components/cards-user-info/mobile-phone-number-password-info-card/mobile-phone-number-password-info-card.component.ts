@@ -22,28 +22,27 @@ import { NavigationService } from 'src/app/shared/services';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'health-mobile-phone-number-password-info-card',
-  templateUrl: './mobile-phone-number-password-info-card.component.html',
-  styleUrl: './mobile-phone-number-password-info-card.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    RouterModule,
-    IonRouterLink,
-    IonToolbar,
-    IonIcon,
-    IonButtons,
-    IonCardTitle,
-    IonCardContent,
-    IonButton,
-    IonText,
-    IonItem,
-    IonLabel,
-    IonList,
-    IonCardHeader,
-    IonCard,
-  ],
+    selector: 'health-mobile-phone-number-password-info-card',
+    templateUrl: './mobile-phone-number-password-info-card.component.html',
+    styleUrl: './mobile-phone-number-password-info-card.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        RouterModule,
+        IonRouterLink,
+        IonToolbar,
+        IonIcon,
+        IonButtons,
+        IonCardTitle,
+        IonCardContent,
+        IonButton,
+        IonText,
+        IonItem,
+        IonLabel,
+        IonList,
+        IonCardHeader,
+        IonCard,
+    ]
 })
 export class MobilePhoneNumberPasswordInfoCardComponent {
   private readonly navigationService = inject(NavigationService);

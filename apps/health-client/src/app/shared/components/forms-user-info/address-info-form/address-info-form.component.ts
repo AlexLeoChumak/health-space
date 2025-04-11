@@ -40,25 +40,24 @@ type AddressPropsType =
   | 'Адрес места работы';
 
 @Component({
-  selector: 'health-address-info-form',
-  templateUrl: './address-info-form.component.html',
-  styleUrls: ['./address-info-form.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonItemGroup,
-    IonNote,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonSelect,
-    IonSelectOption,
-    ErrorNotificationComponent,
-    NumericInputRestrictionDirective,
-  ],
+    selector: 'health-address-info-form',
+    templateUrl: './address-info-form.component.html',
+    styleUrls: ['./address-info-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        IonItemGroup,
+        IonNote,
+        IonItem,
+        IonLabel,
+        IonInput,
+        IonSelect,
+        IonSelectOption,
+        ErrorNotificationComponent,
+        NumericInputRestrictionDirective,
+    ]
 })
 export class AddressInfoFormComponent implements OnInit {
   private readonly store = inject(Store);

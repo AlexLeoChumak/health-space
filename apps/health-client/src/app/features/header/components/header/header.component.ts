@@ -7,12 +7,11 @@ import { selectIsAuthenticated } from 'src/app/store/app';
 import { BurgerMenuComponent } from 'src/app/features/header/components/burger-menu/burger-menu.component';
 
 @Component({
-  selector: 'health-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonIcon, RouterModule, IonHeader, IonToolbar, BurgerMenuComponent],
+    selector: 'health-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IonIcon, RouterModule, IonHeader, IonToolbar, BurgerMenuComponent]
 })
 export class HeaderComponent {
   private readonly store = inject(Store);

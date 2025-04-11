@@ -26,19 +26,18 @@ import { ErrorNotificationComponent } from 'src/app/shared/components/error-noti
 import { FORM_VALIDATION_CONSTANT } from 'src/app/shared/constants';
 
 @Component({
-  selector: 'health-education-medical-worker-info-form',
-  templateUrl: './education-medical-worker-info-form.component.html',
-  styleUrls: ['./education-medical-worker-info-form.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ReactiveFormsModule,
-    IonItemGroup,
-    IonItem,
-    IonLabel,
-    IonInput,
-    ErrorNotificationComponent,
-  ],
+    selector: 'health-education-medical-worker-info-form',
+    templateUrl: './education-medical-worker-info-form.component.html',
+    styleUrls: ['./education-medical-worker-info-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        ReactiveFormsModule,
+        IonItemGroup,
+        IonItem,
+        IonLabel,
+        IonInput,
+        ErrorNotificationComponent,
+    ]
 })
 export class EducationMedicalWorkerInfoFormComponent implements OnInit {
   private readonly store = inject(Store);

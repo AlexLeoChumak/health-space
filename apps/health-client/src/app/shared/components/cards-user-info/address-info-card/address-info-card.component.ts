@@ -31,26 +31,25 @@ type DoctorAddressProps = PatientAddressProps | 'addressMedicalInstitutionInfo';
 type AddressPropsType = PatientAddressProps | DoctorAddressProps;
 
 @Component({
-  selector: 'health-address-info-card',
-  templateUrl: './address-info-card.component.html',
-  styleUrl: './address-info-card.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonIcon,
-    IonButton,
-    IonButtons,
-    IonToolbar,
-    IonList,
-    IonCardContent,
-    IonCardTitle,
-    IonCardHeader,
-    IonCard,
-    IonText,
-    IonLabel,
-    IonItem,
-    CommonModule,
-  ],
+    selector: 'health-address-info-card',
+    templateUrl: './address-info-card.component.html',
+    styleUrl: './address-info-card.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonIcon,
+        IonButton,
+        IonButtons,
+        IonToolbar,
+        IonList,
+        IonCardContent,
+        IonCardTitle,
+        IonCardHeader,
+        IonCard,
+        IonText,
+        IonLabel,
+        IonItem,
+        CommonModule,
+    ]
 })
 export class AddressInfoCardComponent {
   public readonly addressTypeProps = input.required<AddressPropsType>();

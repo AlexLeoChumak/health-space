@@ -20,12 +20,11 @@ import { GlobalApiSuccessResponseInterface } from 'src/app/shared/models';
 import { logout } from 'src/app/store/app';
 
 @Component({
-  selector: 'health-remove-user-profile',
-  templateUrl: './remove-user-profile.component.html',
-  styleUrl: './remove-user-profile.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonLabel, IonContent, IonItem, CommonModule, ActionButtonComponent],
+    selector: 'health-remove-user-profile',
+    templateUrl: './remove-user-profile.component.html',
+    styleUrl: './remove-user-profile.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IonLabel, IonContent, IonItem, CommonModule, ActionButtonComponent]
 })
 export class RemoveUserProfileComponent {
   private readonly store = inject(Store);

@@ -28,30 +28,29 @@ import { NavigationService } from 'src/app/shared/services/navigation/navigation
 import { selectIsLoading } from 'src/app/store/app';
 
 @Component({
-  selector: 'health-personal-info-card',
-  templateUrl: './personal-info-card.component.html',
-  styleUrl: './personal-info-card.component.scss',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonSkeletonText,
-    IonButtons,
-    IonToolbar,
-    IonIcon,
-    IonButton,
-    IonTitle,
-    IonCardHeader,
-    IonText,
-    IonImg,
-    IonAvatar,
-    IonItem,
-    IonList,
-    IonCardTitle,
-    IonLabel,
-    IonCard,
-    IonCardContent,
-    CommonModule,
-  ],
+    selector: 'health-personal-info-card',
+    templateUrl: './personal-info-card.component.html',
+    styleUrl: './personal-info-card.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        IonSkeletonText,
+        IonButtons,
+        IonToolbar,
+        IonIcon,
+        IonButton,
+        IonTitle,
+        IonCardHeader,
+        IonText,
+        IonImg,
+        IonAvatar,
+        IonItem,
+        IonList,
+        IonCardTitle,
+        IonLabel,
+        IonCard,
+        IonCardContent,
+        CommonModule,
+    ]
 })
 export class PersonalInfoCardComponent {
   private readonly navigationService = inject(NavigationService);
