@@ -15,8 +15,9 @@ import {
 } from 'src/app/store/registration';
 
 @Component({
-  selector: 'health-registration-base',
-  template: '',
+    selector: 'health-registration-base',
+    template: '',
+    standalone: false
 })
 export abstract class RegistrationBaseComponent {
   private readonly store = inject(Store);
