@@ -20,11 +20,11 @@ import { GlobalApiSuccessResponseInterface } from 'src/app/shared/models';
 import { logout } from 'src/app/store/app';
 
 @Component({
-    selector: 'health-remove-user-profile',
-    templateUrl: './remove-user-profile.component.html',
-    styleUrl: './remove-user-profile.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [IonLabel, IonContent, IonItem, CommonModule, ActionButtonComponent]
+  selector: 'health-remove-user-profile',
+  templateUrl: './remove-user-profile.component.html',
+  styleUrl: './remove-user-profile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [IonLabel, IonContent, IonItem, CommonModule, ActionButtonComponent],
 })
 export class RemoveUserProfileComponent {
   private readonly store = inject(Store);
@@ -91,18 +91,18 @@ export class RemoveUserProfileComponent {
                       return of(true);
                     } else {
                       this.toastService.presentToast(
-                        SHARED_CONSTANT.INCORRECT_PASSWORD
+                        SHARED_CONSTANT.INCORRECT_PASSWORD,
                       );
                       return of(false);
                     }
                   }),
                   catchError(() => {
                     this.toastService.presentToast(
-                      SHARED_CONSTANT.PASSWORD_VERIFICATION_ERROR
+                      SHARED_CONSTANT.PASSWORD_VERIFICATION_ERROR,
                     );
                     return of(false);
                   }),
-                  takeUntilDestroyed(this.destroyRef)
+                  takeUntilDestroyed(this.destroyRef),
                 )
                 .subscribe();
 
@@ -110,11 +110,11 @@ export class RemoveUserProfileComponent {
             },
           },
         ],
-      })
+      }),
     )
       .pipe(
         tap((alert) => alert.present()),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();
   }

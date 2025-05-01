@@ -39,22 +39,22 @@ import {
 import { selectUserInfoGroup } from 'src/app/store/user';
 
 @Component({
-    selector: 'health-identification-belarus-citizen-info-form',
-    templateUrl: './identification-belarus-citizen-info-form.component.html',
-    styleUrls: ['./identification-belarus-citizen-info-form.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        IonItemGroup,
-        IonItem,
-        IonLabel,
-        IonInput,
-        IonNote,
-        DatepickerComponent,
-        ActionButtonComponent,
-        ErrorNotificationComponent,
-    ]
+  selector: 'health-identification-belarus-citizen-info-form',
+  templateUrl: './identification-belarus-citizen-info-form.component.html',
+  styleUrls: ['./identification-belarus-citizen-info-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    IonItemGroup,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonNote,
+    DatepickerComponent,
+    ActionButtonComponent,
+    ErrorNotificationComponent,
+  ],
 })
 export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
   private readonly store = inject(Store);
@@ -80,7 +80,7 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
       passportIssueDate: new FormControl(null, [
         Validators.required,
         Validators.pattern(
-          '^([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря) [0-9]{4} г.$'
+          '^([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря) [0-9]{4} г.$',
         ),
       ]),
       passportIssuingAuthority: new FormControl(null, [Validators.required]),
@@ -117,7 +117,7 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
           this.identificationBelarusCitizenInfoFormGroup
         ) {
           this.identificationBelarusCitizenInfoFormGroup.patchValue(
-            data.userInfoGroupData
+            data.userInfoGroupData,
           );
         }
       });
@@ -126,7 +126,7 @@ export class IdentificationBelarusCitizenInfoFormComponent implements OnInit {
   protected checkInputValidator(
     formGroup: FormGroup,
     controlName: string,
-    validator: string
+    validator: string,
   ): boolean {
     return checkInputValidatorUtil(formGroup, controlName, validator);
   }

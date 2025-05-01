@@ -19,7 +19,7 @@ describe('IdentificationInfoFormForCitizensBelarusComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(
-      IdentificationInfoFormForCitizensBelarusComponent
+      IdentificationInfoFormForCitizensBelarusComponent,
     );
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -75,11 +75,11 @@ describe('IdentificationInfoFormForCitizensBelarusComponent', () => {
       fixture.detectChanges();
 
       const errorNotification = fixture.debugElement.query(
-        By.css('health-error-notification ion-note')
+        By.css('health-error-notification ion-note'),
       );
       expect(errorNotification).toBeTruthy();
       expect(errorNotification.nativeElement.textContent.trim()).toEqual(
-        component.FORM_VALIDATION_ERROR_MESSAGES.required
+        component.FORM_VALIDATION_ERROR_MESSAGES.required,
       );
     });
   });
